@@ -1,91 +1,121 @@
-let perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
-
-// Pergunta padrão se não houver perguntas
-if (perguntas.length === 0) {
-  perguntas = [
+// Banco de perguntas padrão
+const defaultQuestions = [
     {
-      pergunta: "Qual é a capital da França?",
-      a: "Londres",
-      b: "Berlim", 
-      c: "Paris",
-      d: "Lisboa",
-      correta: "c"
+        pergunta: "Qual é a capital do Brasil?",
+        a: "Rio de Janeiro",
+        b: "São Paulo", 
+        c: "Brasília",
+        d: "Salvador",
+        correta: "c"
+    },
+    {
+        pergunta: "Quantos estados tem o Brasil?",
+        a: "26 estados",
+        b: "27 estados",
+        c: "25 estados", 
+        d: "28 estados",
+        correta: "b"
     }
-  ];
-  localStorage.setItem("perguntas", JSON.stringify(perguntas));
+];
+
+// Carrega perguntas do localStorage ou usa as padrão
+let perguntas = JSON.parse(localStorage.getItem('perguntas')) || defaultQuestions;
+
+// Elementos da página
+const questionElement = document.getElementById('question');
+const optionsElement = document.getElementById('options');
+const correctSound = document.getElementById('correctSound');
+const wrongSound = document.getElementById('wrongSound');
+
+let currentQuestionIndex = 0;
+let canAnswer = true;
+
+// Função para iniciar o jogo
+function startGame() {
+    if (perguntas.length === 0) {
+        showNoQuestionsMessage();
+        return;
+    }
+    loadQuestion();
 }
 
-let indiceAtual = 0;
-const elementoPergunta = document.getElementById("pergunta");
-const elementoOpcoes = document.getElementById("opcoes");
-const somAcerto = document.getElementById("somAcerto");
-const somErro = document.getElementById("somErro");
-
-// Função para carregar a pergunta atual
-function carregarPergunta() {
-  // Verifica se há perguntas
-  if (perguntas.length === 0) {
-    elementoPergunta.innerHTML = "<h2>Nenhuma pergunta disponível</h2>";
-    elementoOpcoes.innerHTML = "<p>Use o botão abaixo para adicionar perguntas</p>";
-    return;
-  }
-
-  const perguntaAtual = perguntas[indiceAtual];
-  
-  // Aplica animação de fade
-  elementoPergunta.classList.remove("fade");
-  void elementoPergunta.offsetWidth; // Força o reflow
-  elementoPergunta.classList.add("fade");
-  
-  // Define o texto da pergunta
-  elementoPergunta.innerHTML = `<h2>${perguntaAtual.pergunta}</h2>`;
-  
-  // Limpa as opções anteriores
-  elementoOpcoes.innerHTML = "";
-  
-  // Cria os botões de opção
-  const opcoes = ['a', 'b', 'c', 'd'];
-  opcoes.forEach(letra => {
-    const botao = document.createElement("button");
-    botao.textContent = `${letra.toUpperCase()}: ${perguntaAtual[letra]}`;
-    botao.onclick = () => verificarResposta(letra, botao);
-    elementoOpcoes.appendChild(botao);
-  });
-}
-
-// Função para verificar a resposta
-function verificarResposta(resposta, botaoClicado) {
-  const perguntaAtual = perguntas[indiceAtual];
-  const respostaCorreta = perguntaAtual.correta.toLowerCase();
-  const todosBotoes = elementoOpcoes.getElementsByTagName("button");
-  
-  // Desabilita todos os botões
-  Array.from(todosBotoes).forEach(botao => {
-    botao.style.pointerEvents = "none";
-  });
-  
-  // Verifica se acertou
-  if (resposta.toLowerCase() === respostaCorreta) {
-    somAcerto.play();
-    botaoClicado.classList.add("correto");
-  } else {
-    somErro.play();
-    botaoClicado.classList.add("errado");
+// Função para carregar uma pergunta
+function loadQuestion() {
+    if (!canAnswer) return;
     
-    // Mostra a resposta correta
-    Array.from(todosBotoes).forEach(botao => {
-      if (botao.textContent.toLowerCase().startsWith(respostaCorreta + ":")) {
-        botao.classList.add("correto");
-      }
+    const question = perguntas[currentQuestionIndex];
+    
+    // Aplica animação
+    questionElement.classList.remove('fade-in');
+    void questionElement.offsetWidth; // Força reflow
+    questionElement.classList.add('fade-in');
+    
+    // Insere a pergunta
+    questionElement.innerHTML = `<h2>${question.pergunta}</h2>`;
+    
+    // Limpa opções anteriores
+    optionsElement.innerHTML = '';
+    
+    // Cria os botões de opção
+    const options = ['a', 'b', 'c', 'd'];
+    options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.textContent = `${option.toUpperCase()}: ${question[option]}`;
+        button.onclick = () => checkAnswer(option, button);
+        optionsElement.appendChild(button);
     });
-  }
-  
-  // Avança para próxima pergunta após delay
-  setTimeout(() => {
-    indiceAtual = (indiceAtual + 1) % perguntas.length;
-    carregarPergunta();
-  }, 2000);
 }
 
-// Inicializa o jogo quando a página carrega
-document.addEventListener('DOMContentLoaded', carregarPergunta);
+// Função para verificar resposta
+function checkAnswer(selectedOption, button) {
+    if (!canAnswer) return;
+    
+    canAnswer = false;
+    const correctOption = perguntas[currentQuestionIndex].correta.toLowerCase();
+    const allButtons = optionsElement.getElementsByClassName('option-btn');
+    
+    // Desabilita todos os botões
+    Array.from(allButtons).forEach(btn => {
+        btn.style.pointerEvents = 'none';
+    });
+    
+    if (selectedOption === correctOption) {
+        // Resposta correta
+        correctSound.play();
+        button.classList.add('correct');
+    } else {
+        // Resposta errada
+        wrongSound.play();
+        button.classList.add('wrong');
+        
+        // Mostra a resposta correta
+        Array.from(allButtons).forEach(btn => {
+            if (btn.textContent.toLowerCase().startsWith(correctOption + ':')) {
+                btn.classList.add('correct');
+            }
+        });
+    }
+    
+    // Próxima pergunta após 2 segundos
+    setTimeout(() => {
+        currentQuestionIndex = (currentQuestionIndex + 1) % perguntas.length;
+        canAnswer = true;
+        loadQuestion();
+    }, 2000);
+}
+
+// Mensagem quando não há perguntas
+function showNoQuestionsMessage() {
+    questionElement.innerHTML = '<h2>Nenhuma pergunta cadastrada</h2>';
+    optionsElement.innerHTML = '<p>Use o botão abaixo para adicionar perguntas</p>';
+}
+
+// Inicia o jogo quando a página carrega
+document.addEventListener('DOMContentLoaded', startGame);
+
+// Função para salvar perguntas (usada na admin)
+function saveQuestions(newQuestions) {
+    localStorage.setItem('perguntas', JSON.stringify(newQuestions));
+    perguntas = newQuestions;
+}
