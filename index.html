@@ -5,42 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show do Milhão - Semana da Qualidade</title>
     <link rel="stylesheet" href="estilo.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Logos -->
     <img src="vigor.png" alt="Vigor" class="logo vigor">
     <img src="lala.png" alt="Lala" class="logo lala">
 
-    <!-- Cabeçalho -->
-    <header class="header">
-        <h1>SHOW DO MILHÃO</h1>
-        <p class="subtitle">Semana da Qualidade</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>SHOW DO MILHÃO</h1>
+            <p class="subtitle">Semana da Qualidade</p>
+        </header>
 
-    <!-- Área do Jogo -->
-    <main class="game-container">
-        <div class="question-card">
-            <div id="question" class="question">
-                <!-- Pergunta será inserida aqui pelo JavaScript -->
+        <main class="game-area">
+            <div class="question-box">
+                <div id="question" class="question">
+                    <h2>Carregando perguntas...</h2>
+                </div>
+                <div id="options" class="options">
+                    <!-- Opções serão inseridas aqui -->
+                </div>
             </div>
-            <div id="options" class="options">
-                <!-- Opções serão inseridas aqui pelo JavaScript -->
-            </div>
-        </div>
 
-        <div class="actions">
-            <a href="admin.html" class="admin-btn">
-                ⚙️ Adicionar / Editar Perguntas
-            </a>
-        </div>
-    </main>
+            <div class="actions">
+                <a href="admin.html" class="admin-btn">
+                    ⚙️ Adicionar / Editar Perguntas
+                </a>
+            </div>
+        </main>
+    </div>
 
     <!-- Sons -->
-    <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3f10e8d6db.mp3?filename=success-fanfare-trumpets-6185.mp3"></audio>
-    <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_4b8829d6f1.mp3?filename=error-126627.mp3"></audio>
+    <audio id="correctSound" preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3f10e8d6db.mp3?filename=success-fanfare-trumpets-6185.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wrongSound" preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_4b8829d6f1.mp3?filename=error-126627.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="script.js"></script>
 </body>
 </html>
-   
