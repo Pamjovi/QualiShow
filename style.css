@@ -1,143 +1,367 @@
-/* ======= Tema Global ======= */
-body {
+/* ======= Reset e Configurações Globais ======= */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Poppins', sans-serif;
   color: #fff;
-  text-align: center;
-}
-
-body.escuro {
-  background: radial-gradient(circle at top left, #001b4d 0%, #000814 100%);
-  color: #ffcc00;
-}
-
-header, footer {
+  overflow-x: hidden;
+  min-height: 100vh;
   position: relative;
-  text-align: center;
-  padding: 20px 10px;
 }
 
-h1 {
-  color: #ffcc00;
-  font-size: 2em;
-  margin: 0;
+/* ======= Tema Escuro Sofisticado ======= */
+.tema-escuro {
+  background: linear-gradient(135deg, #0c0c2e 0%, #1a1a3e 50%, #0c0c2e 100%);
+  position: relative;
 }
 
-h2 {
-  color: #f5f5f5;
+/* ======= Efeito de Partículas ======= */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  background: transparent;
 }
 
-/* ======= Logos ======= */
+/* ======= Logos Reposicionadas ======= */
+.logo-container {
+  pointer-events: none;
+  z-index: 10;
+}
+
 .logo {
-  position: absolute;
-  width: 80px;
-  opacity: 0.9;
+  position: fixed;
+  width: 60px;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+}
+
+.logo:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .logo-vigor {
-  top: 10px;
-  left: 10px;
-  width: 70px;
+  top: 20px;
+  left: 20px;
+  width: 50px;
 }
 
 .logo-lala {
-  bottom: 10px;
-  right: 10px;
-  width: 80px;
+  bottom: 20px;
+  right: 20px;
+  width: 55px;
 }
 
-/* ======= Botões ======= */
-button, .botao-acao {
-  background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%);
-  border: none;
-  color: #002776;
-  font-weight: bold;
-  padding: 12px 25px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0px 0px 10px #ffcc00aa;
-  text-decoration: none;
-  display: inline-block;
+/* ======= Cabeçalho Elegante ======= */
+.cabecalho {
+  padding: 40px 20px 20px;
+  text-align: center;
 }
 
-button:hover, .botao-acao:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 0px 20px #ffd633;
+.titulo-container {
+  background: linear-gradient(135deg, rgba(255, 204, 0, 0.1) 0%, rgba(255, 204, 0, 0.05) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 0 auto;
+  max-width: 600px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* ======= Jogo ======= */
+.titulo-principal {
+  font-size: 2.5em;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.subtitulo {
+  font-size: 1.1em;
+  color: #b8b8b8;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* ======= Conteúdo Principal ======= */
+.conteudo-principal {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ======= Card da Pergunta ======= */
 .container-jogo {
-  margin-top: 50px;
+  margin-bottom: 40px;
 }
 
+.card-pergunta {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-pergunta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+
+/* ======= Estilo da Pergunta ======= */
 .pergunta {
-  font-size: 1.5em;
-  margin-bottom: 20px;
+  font-size: 1.4em;
+  margin-bottom: 30px;
   color: #ffffff;
+  font-weight: 400;
+  line-height: 1.6;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.pergunta h2 {
+  font-weight: 400;
+  font-size: 1.3em;
+}
+
+/* ======= Opções de Resposta ======= */
+.opcoes {
+  display: grid;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .opcoes button {
-  display: block;
-  margin: 10px auto;
-  width: 60%;
-}
-
-/* ======= Administração ======= */
-.container-admin {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: left;
-}
-
-textarea, input {
-  width: 100%;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ffcc00;
-  background-color: #001d3d;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
   color: #fff;
-  font-size: 1em;
-}
-
-.alternativas {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  background: #002776cc;
-  margin: 10px 0;
-  padding: 15px;
-  border-radius: 10px;
-  color: white;
-}
-
-.botao-excluir {
-  background: #ff4444;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 5px 10px;
-  margin-top: 8px;
+  font-weight: 400;
+  padding: 18px 25px;
+  border-radius: 15px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1em;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
-.botao-excluir:hover {
-  background: #ff6666;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
+.opcoes button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
   width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.opcoes button:hover::before {
+  left: 100%;
+}
+
+.opcoes button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.2) 100%);
+}
+
+/* ======= Botão de Ação ======= */
+.acoes {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.botao-acao {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border: none;
+  color: #1a1a3e;
+  font-weight: 600;
+  padding: 15px 30px;
+  border-radius: 15px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  font-size: 0.95em;
+}
+
+.botao-acao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+  color: #1a1a3e;
+}
+
+.icone {
+  font-size: 1.2em;
+}
+
+/* ======= Efeitos de Luzes no Fundo ======= */
+.luzes-fundo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.luz {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+  animation: float 6s ease-in-out infinite;
+}
+
+.luz-1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.luz-2 {
+  width: 400px;
+  height: 400px;
+  top: 60%;
+  right: 10%;
+  animation-delay: -2s;
+}
+
+.luz-3 {
+  width: 250px;
+  height: 250px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+/* ======= Animações ======= */
+.fade {
+  animation: fade 0.8s ease-in-out;
+}
+
+@keyframes fade {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px) scale(0.95);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ======= Estados das Respostas ======= */
+.correto {
+  background: linear-gradient(135deg, rgba(0, 255, 153, 0.3) 0%, rgba(0, 204, 102, 0.2) 100%) !important;
+  border: 1px solid rgba(0, 255, 153, 0.5) !important;
+  animation: brilhoVerde 1s ease-in-out;
+}
+
+.errado {
+  background: linear-gradient(135deg, rgba(255, 68, 68, 0.3) 0%, rgba(204, 0, 0, 0.2) 100%) !important;
+  border: 1px solid rgba(255, 68, 68, 0.5) !important;
+  animation: tremor 0.5s ease-in-out;
+}
+
+@keyframes brilhoVerde {
+  0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 153, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 255, 153, 0.6); }
+}
+
+@keyframes tremor {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ======= Responsividade ======= */
+@media (max-width: 768px) {
+  .titulo-principal {
+    font-size: 2em;
+  }
+  
+  .logo-vigor,
+  .logo-lala {
+    width: 40px;
+  }
+  
+  .logo-vigor {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .logo-lala {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .card-pergunta {
+    padding: 30px 20px;
+    margin: 0 10px;
+  }
+  
+  .pergunta {
+    font-size: 1.2em;
+  }
+  
+  .opcoes button {
+    padding: 15px 20px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo-principal {
+    font-size: 1.6em;
+  }
+  
+  .subtitulo {
+    font-size: 1em;
+  }
+  
+  .pergunta {
+    font-size: 1.1em;
+  }
+  
+  .opcoes {
+    gap: 10px;
+  }
 }
