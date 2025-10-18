@@ -6,61 +6,71 @@
   <title>Painel do Administrador - Show do Milhão</title>
   <link rel="stylesheet" href="estilo.css">
 </head>
-<body class="claro">
+<body class="escuro">
   <header>
-    <div class="logos">
-      <img src="vigor.png" alt="Logo Vigor" class="logo">
-      <img src="lala.png" alt="Logo Lala" class="logo">
-    </div>
+    <img src="vigor.png" alt="Logo Vigor" class="logo logo-vigor">
     <h1>Painel do Administrador</h1>
   </header>
 
-  <main>
-    <h2>Inserir nova pergunta</h2>
+  <main class="container-admin">
     <form id="formPergunta">
-      <label>Pergunta:</label>
-      <textarea id="pergunta" required></textarea>
+      <h2>➕ Adicionar Pergunta</h2>
+      <textarea id="pergunta" placeholder="Digite a pergunta..." required></textarea>
 
-      <label>Alternativas:</label>
-      <input type="text" id="a" placeholder="Alternativa A" required>
-      <input type="text" id="b" placeholder="Alternativa B" required>
-      <input type="text" id="c" placeholder="Alternativa C" required>
-      <input type="text" id="d" placeholder="Alternativa D" required>
+      <div class="alternativas">
+        <input type="text" id="a" placeholder="Alternativa A" required>
+        <input type="text" id="b" placeholder="Alternativa B" required>
+        <input type="text" id="c" placeholder="Alternativa C" required>
+        <input type="text" id="d" placeholder="Alternativa D" required>
+      </div>
 
-      <label>Resposta correta (A, B, C ou D):</label>
-      <input type="text" id="correta" maxlength="1" required>
-
-      <button type="submit">Salvar Pergunta</button>
+      <input type="text" id="correta" maxlength="1" placeholder="Resposta correta (A, B, C ou D)" required>
+      <button type="submit" class="botao-acao">Salvar Pergunta</button>
     </form>
 
-    <button id="assistenteIA">Gerar Pergunta com IA 🤖</button>
+    <button id="assistenteIA" class="botao-acao">🤖 Gerar Pergunta com IA</button>
 
-    <div id="resultado"></div>
+    <h2>📋 Perguntas Cadastradas</h2>
+    <ul id="listaPerguntas"></ul>
 
-    <hr>
-    <a href="index.html" class="link">🎮 Ir para o Jogo</a>
+    <div class="acoes">
+      <a href="index.html" class="botao-acao">🎮 Voltar ao Jogo</a>
+    </div>
   </main>
 
+  <footer>
+    <img src="lala.png" alt="Logo Lala" class="logo logo-lala">
+  </footer>
+
   <script>
-    // Simples simulação de IA (sem API externa)
     const exemplos = [
-      {
-        pergunta: "Qual é o maior mamífero do planeta?",
-        a: "Elefante Africano",
-        b: "Baleia-Azul",
-        c: "Girafa",
-        d: "Orca",
-        correta: "B"
-      },
-      {
-        pergunta: "Quem pintou a Mona Lisa?",
-        a: "Michelangelo",
-        b: "Leonardo da Vinci",
-        c: "Van Gogh",
-        d: "Picasso",
-        correta: "B"
-      }
+      { pergunta: "Qual é o maior mamífero do planeta?", a: "Elefante", b: "Baleia-Azul", c: "Girafa", d: "Orca", correta: "B" },
+      { pergunta: "Quem pintou a Mona Lisa?", a: "Michelangelo", b: "Da Vinci", c: "Van Gogh", d: "Picasso", correta: "B" }
     ];
+
+    const lista = document.getElementById("listaPerguntas");
+
+    function atualizarLista() {
+      lista.innerHTML = "";
+      const perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
+      perguntas.forEach((p, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <strong>${p.pergunta}</strong><br>
+          A) ${p.a} | B) ${p.b} | C) ${p.c} | D) ${p.d} <br>
+          ✅ Resposta: ${p.correta}
+          <button onclick="excluirPergunta(${i})" class="botao-excluir">🗑️ Excluir</button>
+        `;
+        lista.appendChild(li);
+      });
+    }
+
+    function excluirPergunta(index) {
+      const perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
+      perguntas.splice(index, 1);
+      localStorage.setItem("perguntas", JSON.stringify(perguntas));
+      atualizarLista();
+    }
 
     document.getElementById("assistenteIA").addEventListener("click", () => {
       const sorteado = exemplos[Math.floor(Math.random() * exemplos.length)];
@@ -70,30 +80,26 @@
       document.getElementById("c").value = sorteado.c;
       document.getElementById("d").value = sorteado.d;
       document.getElementById("correta").value = sorteado.correta;
-      document.getElementById("resultado").innerText = "Pergunta sugerida pela IA ✅";
     });
 
     document.getElementById("formPergunta").addEventListener("submit", (e) => {
       e.preventDefault();
-
-      const novaPergunta = {
-        pergunta: document.getElementById("pergunta").value,
-        a: document.getElementById("a").value,
-        b: document.getElementById("b").value,
-        c: document.getElementById("c").value,
-        d: document.getElementById("d").value,
-        correta: document.getElementById("correta").value.toUpperCase()
+      const nova = {
+        pergunta: pergunta.value,
+        a: a.value,
+        b: b.value,
+        c: c.value,
+        d: d.value,
+        correta: correta.value.toUpperCase()
       };
-
-      let perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
-      perguntas.push(novaPergunta);
+      const perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
+      perguntas.push(nova);
       localStorage.setItem("perguntas", JSON.stringify(perguntas));
-
-      document.getElementById("resultado").innerText = "Pergunta salva com sucesso! 🎉";
+      atualizarLista();
       e.target.reset();
     });
+
+    atualizarLista();
   </script>
 </body>
 </html>
-
-  
