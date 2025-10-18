@@ -19,14 +19,6 @@ const defaultQuestions = [
         c: "25 estados", 
         d: "28 estados",
         correta: "b"
-    },
-    {
-        pergunta: "Qual é o maior planeta do sistema solar?",
-        a: "Terra",
-        b: "Júpiter",
-        c: "Saturno",
-        d: "Marte",
-        correta: "b"
     }
 ];
 
@@ -50,7 +42,7 @@ function initializeGame() {
     console.log(`📚 ${perguntas.length} perguntas carregadas`);
     
     const questionElement = document.getElementById('question');
-    const optionsElement = document.getElementById('options-grid');
+    const optionsElement = document.getElementById('options');
     let currentQuestionIndex = 0;
     let canAnswer = true;
     
@@ -126,13 +118,3 @@ function initializeGame() {
         }, 2000);
     }
 }
-
-// Função para debug
-window.debugGame = function() {
-    console.log('🐛 Debug do jogo:');
-    console.log('- LocalStorage:', localStorage.getItem('perguntas'));
-    console.log('- Elementos DOM:', {
-        question: document.getElementById('question'),
-        options: document.getElementById('options-grid')
-    });
-};
