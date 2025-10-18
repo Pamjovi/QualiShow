@@ -3,27 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Show do Milhão - Jogo</title>
+  <title>Show do Milhão - Semana da Qualidade</title>
   <link rel="stylesheet" href="estilo.css">
 </head>
-<body>
+<body class="escuro">
   <header>
-    <div class="logos">
-      <img src="vigor.png" alt="Logo Vigor" class="logo">
-      <img src="lala.png" alt="Logo Lala" class="logo">
-    </div>
+    <img src="vigor.png" alt="Logo Vigor" class="logo logo-vigor">
     <h1>Show do Milhão - Semana da Qualidade</h1>
   </header>
 
   <main>
-    <div id="pergunta" class="pergunta"></div>
-    <div id="opcoes" class="opcoes"></div>
+    <div class="container-jogo">
+      <div id="pergunta" class="pergunta"></div>
+      <div id="opcoes" class="opcoes"></div>
+    </div>
+
+    <div class="acoes">
+      <a href="admin.html" class="botao-acao">⚙️ Adicionar / Editar Perguntas</a>
+    </div>
   </main>
 
   <footer>
-    <a href="admin.html" class="link">⚙️ Painel do Administrador</a>
+    <img src="lala.png" alt="Logo Lala" class="logo logo-lala">
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+
