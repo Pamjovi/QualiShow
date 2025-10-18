@@ -1,33 +1,143 @@
-body.claro {
-  background: linear-gradient(180deg, #ffffff 0%, #e0f0ff 100%);
-  color: #002776;
+/* ======= Tema Global ======= */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  text-align: center;
 }
 
-textarea, input {
-  display: block;
-  margin: 8px auto;
-  padding: 8px;
-  width: 80%;
-  border-radius: 8px;
-  border: 1px solid #003b99;
+body.escuro {
+  background: radial-gradient(circle at top left, #001b4d 0%, #000814 100%);
+  color: #ffcc00;
 }
 
-button, .link {
-  background-color: #ffcc00;
-  color: #002776;
+header, footer {
+  position: relative;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+h1 {
+  color: #ffcc00;
+  font-size: 2em;
+  margin: 0;
+}
+
+h2 {
+  color: #f5f5f5;
+}
+
+/* ======= Logos ======= */
+.logo {
+  position: absolute;
+  width: 80px;
+  opacity: 0.9;
+}
+
+.logo-vigor {
+  top: 10px;
+  left: 10px;
+  width: 70px;
+}
+
+.logo-lala {
+  bottom: 10px;
+  right: 10px;
+  width: 80px;
+}
+
+/* ======= Botões ======= */
+button, .botao-acao {
+  background: linear-gradient(180deg, #ffcc00 0%, #e6b800 100%);
   border: none;
-  padding: 10px 20px;
-  font-size: 1em;
-  border-radius: 10px;
+  color: #002776;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 12px;
   cursor: pointer;
-  margin-top: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 10px #ffcc00aa;
   text-decoration: none;
   display: inline-block;
 }
 
-button:hover, .link:hover {
-  background-color: #ffd633;
-  transform: scale(1.05);
+button:hover, .botao-acao:hover {
+  transform: scale(1.08);
+  box-shadow: 0px 0px 20px #ffd633;
 }
 
- 
+/* ======= Jogo ======= */
+.container-jogo {
+  margin-top: 50px;
+}
+
+.pergunta {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.opcoes button {
+  display: block;
+  margin: 10px auto;
+  width: 60%;
+}
+
+/* ======= Administração ======= */
+.container-admin {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+}
+
+textarea, input {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ffcc00;
+  background-color: #001d3d;
+  color: #fff;
+  font-size: 1em;
+}
+
+.alternativas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background: #002776cc;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+}
+
+.botao-excluir {
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.botao-excluir:hover {
+  background: #ff6666;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
