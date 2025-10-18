@@ -1,46 +1,44 @@
-const perguntas = [
-  {
-    pergunta: "Qual é a capital do Brasil?",
-    alternativas: ["São Paulo", "Brasília", "Rio de Janeiro", "Salvador"],
-    correta: 1
-  },
-  {
-    pergunta: "Quem pintou a Mona Lisa?",
-    alternativas: ["Van Gogh", "Michelangelo", "Leonardo da Vinci", "Picasso"],
-    correta: 2
-  }
-];
+let perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
+
+if (perguntas.length === 0) {
+  perguntas = [
+    {
+      pergunta: "Qual é a capital da França?",
+      a: "Londres",
+      b: "Berlim",
+      c: "Paris",
+      d: "Lisboa",
+      correta: "C"
+    }
+  ];
+}
 
 let indice = 0;
+const elementoPergunta = document.getElementById("pergunta");
+const elementoOpcoes = document.getElementById("opcoes");
 
 function mostrarPergunta() {
-  const perguntaAtual = perguntas[indice];
-  document.getElementById("pergunta").innerText = perguntaAtual.pergunta;
+  const q = perguntas[indice];
+  elementoPergunta.innerHTML = `<h2>${q.pergunta}</h2>`;
+  elementoOpcoes.innerHTML = "";
 
-  const opcoesDiv = document.getElementById("opcoes");
-  opcoesDiv.innerHTML = "";
-
-  perguntaAtual.alternativas.forEach((opcao, i) => {
+  ["a", "b", "c", "d"].forEach((letra) => {
     const botao = document.createElement("button");
-    botao.innerText = opcao;
-    botao.onclick = () => verificarResposta(i);
-    opcoesDiv.appendChild(botao);
+    botao.innerText = `${letra.toUpperCase()}: ${q[letra]}`;
+    botao.onclick = () => verificarResposta(letra);
+    elementoOpcoes.appendChild(botao);
   });
 }
 
-function verificarResposta(escolha) {
-  if (escolha === perguntas[indice].correta) {
-    alert("Resposta certa! 🎉");
+function verificarResposta(letra) {
+  const correta = perguntas[indice].correta.toUpperCase();
+  if (letra.toUpperCase() === correta) {
+    alert("🎉 Resposta correta!");
   } else {
-    alert("Errou! 😅");
+    alert("❌ Resposta errada!");
   }
-
-  indice++;
-  if (indice < perguntas.length) {
-    mostrarPergunta();
-  } else {
-    alert("Fim do jogo!");
-  }
+  indice = (indice + 1) % perguntas.length;
+  mostrarPergunta();
 }
 
-window.onload = mostrarPergunta;
+mostrarPergunta();
