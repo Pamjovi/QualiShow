@@ -1,19 +1,18 @@
-body {
-  background-color: #002776;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+body.claro {
+  background: linear-gradient(180deg, #ffffff 0%, #e0f0ff 100%);
+  color: #002776;
 }
 
-h1 {
-  font-size: 2em;
-  color: #ffcc00;
-  margin-top: 20px;
+textarea, input {
+  display: block;
+  margin: 8px auto;
+  padding: 8px;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #003b99;
 }
 
-button {
+button, .link {
   background-color: #ffcc00;
   color: #002776;
   border: none;
@@ -21,14 +20,14 @@ button {
   font-size: 1em;
   border-radius: 10px;
   cursor: pointer;
-  margin: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+  display: inline-block;
 }
 
-button:hover {
+button:hover, .link:hover {
   background-color: #ffd633;
+  transform: scale(1.05);
 }
 
-#logo {
-  margin: 20px;
-  width: 150px;
-}
+ 
