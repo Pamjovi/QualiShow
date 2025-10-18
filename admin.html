@@ -1,105 +1,224 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel do Administrador - Show do Milhão</title>
-  <link rel="stylesheet" href="estilo.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Show do Milhão</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        
+        .question-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #ffd700;
+            color: #1a1a3e;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .questions-list {
+            margin-top: 30px;
+        }
+        
+        .question-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-<body class="escuro">
-  <header>
-    <img src="vigor.png" alt="Logo Vigor" class="logo logo-vigor">
-    <h1>Painel do Administrador</h1>
-  </header>
+<body>
+    <!-- Logos -->
+    <img src="vigor.png" alt="Vigor" class="logo vigor">
+    <img src="lala.png" alt="Lala" class="logo lala">
 
-  <main class="container-admin">
-    <form id="formPergunta">
-      <h2>➕ Adicionar Pergunta</h2>
-      <textarea id="pergunta" placeholder="Digite a pergunta..." required></textarea>
-
-      <div class="alternativas">
-        <input type="text" id="a" placeholder="Alternativa A" required>
-        <input type="text" id="b" placeholder="Alternativa B" required>
-        <input type="text" id="c" placeholder="Alternativa C" required>
-        <input type="text" id="d" placeholder="Alternativa D" required>
-      </div>
-
-      <input type="text" id="correta" maxlength="1" placeholder="Resposta correta (A, B, C ou D)" required>
-      <button type="submit" class="botao-acao">Salvar Pergunta</button>
-    </form>
-
-    <button id="assistenteIA" class="botao-acao">🤖 Gerar Pergunta com IA</button>
-
-    <h2>📋 Perguntas Cadastradas</h2>
-    <ul id="listaPerguntas"></ul>
-
-    <div class="acoes">
-      <a href="index.html" class="botao-acao">🎮 Voltar ao Jogo</a>
+    <div class="admin-container">
+        <a href="index.html" class="back-btn">← Voltar ao Jogo</a>
+        
+        <h1 style="text-align: center; margin-bottom: 30px;">Gerenciar Perguntas</h1>
+        
+        <!-- Formulário para adicionar pergunta -->
+        <div class="question-form">
+            <h3>Adicionar Nova Pergunta</h3>
+            <form id="questionForm">
+                <div class="form-group">
+                    <label>Pergunta:</label>
+                    <input type="text" id="pergunta" required>
+                </div>
+                <div class="form-group">
+                    <label>Opção A:</label>
+                    <input type="text" id="opcaoA" required>
+                </div>
+                <div class="form-group">
+                    <label>Opção B:</label>
+                    <input type="text" id="opcaoB" required>
+                </div>
+                <div class="form-group">
+                    <label>Opção C:</label>
+                    <input type="text" id="opcaoC" required>
+                </div>
+                <div class="form-group">
+                    <label>Opção D:</label>
+                    <input type="text" id="opcaoD" required>
+                </div>
+                <div class="form-group">
+                    <label>Resposta Correta:</label>
+                    <select id="respostaCorreta" required>
+                        <option value="">Selecione...</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">Adicionar Pergunta</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">Limpar</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Lista de perguntas existentes -->
+        <div class="questions-list">
+            <h3>Perguntas Cadastradas</h3>
+            <div id="questionsList"></div>
+        </div>
     </div>
-  </main>
 
-  <footer>
-    <img src="lala.png" alt="Logo Lala" class="logo logo-lala">
-  </footer>
-
-  <script>
-    const exemplos = [
-      { pergunta: "Qual é o maior mamífero do planeta?", a: "Elefante", b: "Baleia-Azul", c: "Girafa", d: "Orca", correta: "B" },
-      { pergunta: "Quem pintou a Mona Lisa?", a: "Michelangelo", b: "Da Vinci", c: "Van Gogh", d: "Picasso", correta: "B" }
-    ];
-
-    const lista = document.getElementById("listaPerguntas");
-
-    function atualizarLista() {
-      lista.innerHTML = "";
-      const perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
-      perguntas.forEach((p, i) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <strong>${p.pergunta}</strong><br>
-          A) ${p.a} | B) ${p.b} | C) ${p.c} | D) ${p.d} <br>
-          ✅ Resposta: ${p.correta}
-          <button onclick="excluirPergunta(${i})" class="botao-excluir">🗑️ Excluir</button>
-        `;
-        lista.appendChild(li);
-      });
-    }
-
-    function excluirPergunta(index) {
-      const perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
-      perguntas.splice(index, 1);
-      localStorage.setItem("perguntas", JSON.stringify(perguntas));
-      atualizarLista();
-    }
-
-    document.getElementById("assistenteIA").addEventListener("click", () => {
-      const sorteado = exemplos[Math.floor(Math.random() * exemplos.length)];
-      document.getElementById("pergunta").value = sorteado.pergunta;
-      document.getElementById("a").value = sorteado.a;
-      document.getElementById("b").value = sorteado.b;
-      document.getElementById("c").value = sorteado.c;
-      document.getElementById("d").value = sorteado.d;
-      document.getElementById("correta").value = sorteado.correta;
-    });
-
-    document.getElementById("formPergunta").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nova = {
-        pergunta: pergunta.value,
-        a: a.value,
-        b: b.value,
-        c: c.value,
-        d: d.value,
-        correta: correta.value.toUpperCase()
-      };
-      const perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
-      perguntas.push(nova);
-      localStorage.setItem("perguntas", JSON.stringify(perguntas));
-      atualizarLista();
-      e.target.reset();
-    });
-
-    atualizarLista();
-  </script>
+    <script>
+        // Carrega perguntas do localStorage
+        let questions = JSON.parse(localStorage.getItem('perguntas')) || [];
+        
+        // Elementos do formulário
+        const questionForm = document.getElementById('questionForm');
+        const questionsList = document.getElementById('questionsList');
+        
+        // Carrega a lista de perguntas
+        function loadQuestionsList() {
+            if (questions.length === 0) {
+                questionsList.innerHTML = '<p>Nenhuma pergunta cadastrada.</p>';
+                return;
+            }
+            
+            questionsList.innerHTML = '';
+            questions.forEach((question, index) => {
+                const questionItem = document.createElement('div');
+                questionItem.className = 'question-item';
+                questionItem.innerHTML = `
+                    <strong>${index + 1}. ${question.pergunta}</strong><br>
+                    A) ${question.a} | B) ${question.b} | C) ${question.c} | D) ${question.d}<br>
+                    <strong>Resposta Correta: ${question.correta.toUpperCase()}</strong>
+                    <button onclick="deleteQuestion(${index})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 5px;">Excluir</button>
+                `;
+                questionsList.appendChild(questionItem);
+            });
+        }
+        
+        // Adiciona nova pergunta
+        questionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newQuestion = {
+                pergunta: document.getElementById('pergunta').value,
+                a: document.getElementById('opcaoA').value,
+                b: document.getElementById('opcaoB').value,
+                c: document.getElementById('opcaoC').value,
+                d: document.getElementById('opcaoD').value,
+                correta: document.getElementById('respostaCorreta').value
+            };
+            
+            questions.push(newQuestion);
+            localStorage.setItem('perguntas', JSON.stringify(questions));
+            loadQuestionsList();
+            clearForm();
+            alert('Pergunta adicionada com sucesso!');
+        });
+        
+        // Exclui pergunta
+        function deleteQuestion(index) {
+            if (confirm('Tem certeza que deseja excluir esta pergunta?')) {
+                questions.splice(index, 1);
+                localStorage.setItem('perguntas', JSON.stringify(questions));
+                loadQuestionsList();
+            }
+        }
+        
+        // Limpa formulário
+        function clearForm() {
+            questionForm.reset();
+        }
+        
+        // Carrega a lista ao iniciar
+        loadQuestionsList();
+    </script>
 </body>
 </html>
