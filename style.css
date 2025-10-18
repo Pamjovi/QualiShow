@@ -1,55 +1,442 @@
-/* Adicione isso ao final do seu estilo.css */
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Melhorar a aparência das opções */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Efeito de partículas animadas no fundo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.15) 0%, transparent 50%);
+    animation: backgroundShift 8s ease-in-out infinite alternate;
+    z-index: -1;
+}
+
+@keyframes backgroundShift {
+    0% { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1.1) rotate(1deg); }
+}
+
+/* Logos com efeito neon */
+.logo {
+    position: fixed;
+    width: 70px;
+    height: auto;
+    z-index: 100;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+    transition: all 0.4s ease;
+    animation: logoFloat 6s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9));
+    transform: scale(1.1);
+}
+
+.vigor {
+    top: 25px;
+    left: 25px;
+    width: 60px;
+}
+
+.lala {
+    bottom: 25px;
+    right: 25px;
+    width: 65px;
+}
+
+/* Container principal */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Cabeçalho com efeito futurista */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-top: 40px;
+}
+
+h1 {
+    font-size: 3.2em;
+    font-weight: 800;
+    background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    animation: gradientShift 3s ease infinite;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.subtitle {
+    font-size: 1.3em;
+    color: #b8b8b8;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+
+/* Área do jogo com efeito de vidro */
+.game-area {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: 50px 40px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito de borda luminosa */
+.game-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 25px;
+    padding: 2px;
+    background: linear-gradient(135deg, 
+        rgba(255, 215, 0, 0.4), 
+        rgba(255, 107, 107, 0.4), 
+        rgba(78, 205, 196, 0.4));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+    -webkit-mask-composite: xor;
+    animation: borderGlow 3s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Caixa da pergunta */
+.question-box {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.question {
+    margin-bottom: 35px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.question h2 {
+    font-size: 1.6em;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding: 0 20px;
+}
+
+/* Grid de opções futurista */
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Botões de opção com efeito high-tech */
 .option-btn {
-    background: rgba(255, 215, 0, 0.15);
-    border: 2px solid rgba(255, 215, 0, 0.4);
+    background: linear-gradient(135deg, 
+        rgba(255, 215, 0, 0.15) 0%, 
+        rgba(255, 107, 107, 0.1) 50%, 
+        rgba(78, 205, 196, 0.15) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
-    padding: 16px 20px;
-    border-radius: 12px;
+    padding: 20px 25px;
+    border-radius: 15px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     text-align: center;
     font-weight: 500;
-    margin: 8px 0;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.option-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent);
+    transition: left 0.6s;
+}
+
+.option-btn:hover::before {
+    left: 100%;
 }
 
 .option-btn:hover {
-    background: rgba(255, 215, 0, 0.25);
-    border-color: #ffd700;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    background: linear-gradient(135deg, 
+        rgba(255, 215, 0, 0.25) 0%, 
+        rgba(255, 107, 107, 0.2) 50%, 
+        rgba(78, 205, 196, 0.25) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.6);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 10px 25px rgba(255, 215, 0, 0.3),
+        0 0 30px rgba(255, 215, 0, 0.2);
 }
 
-/* Melhorar o card da pergunta */
-.game-area {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px 30px;
-    margin-bottom: 25px;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+/* Letra da opção com destaque */
+.option-btn::after {
+    content: attr(data-letter);
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
-/* Melhorar o botão de admin */
+/* Botão de administração futurista */
+.actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
 .admin-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
-    color: #1a1a3e;
+    gap: 12px;
+    background: linear-gradient(135deg, #ffd700, #ff6b6b);
+    color: #1a1a2e;
     text-decoration: none;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    padding: 16px 32px;
+    border-radius: 15px;
+    font-weight: 700;
+    transition: all 0.4s ease;
+    box-shadow: 
+        0 8px 25px rgba(255, 215, 0, 0.4),
+        0 0 20px rgba(255, 107, 107, 0.3);
+    position: relative;
+    overflow: hidden;
+    font-size: 1em;
+    letter-spacing: 0.5px;
+}
+
+.admin-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    transition: left 0.5s;
+}
+
+.admin-btn:hover::before {
+    left: 100%;
 }
 
 .admin-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 12px 35px rgba(255, 215, 0, 0.6),
+        0 0 30px rgba(255, 107, 107, 0.4);
 }
-  
+
+/* Estados das respostas com animações */
+.correct {
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 127, 0.3) 0%, 
+        rgba(0, 200, 83, 0.4) 100%) !important;
+    border: 1px solid rgba(0, 255, 127, 0.8) !important;
+    animation: correctPulse 0.6s ease-in-out;
+}
+
+@keyframes correctPulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 20px rgba(0, 255, 127, 0.4),
+            0 0 40px rgba(0, 255, 127, 0.2);
+    }
+    50% { 
+        box-shadow: 
+            0 0 30px rgba(0, 255, 127, 0.8),
+            0 0 60px rgba(0, 255, 127, 0.4);
+    }
+}
+
+.wrong {
+    background: linear-gradient(135deg, 
+        rgba(255, 68, 68, 0.3) 0%, 
+        rgba(220, 20, 60, 0.4) 100%) !important;
+    border: 1px solid rgba(255, 68, 68, 0.8) !important;
+    animation: wrongShake 0.5s ease-in-out;
+}
+
+@keyframes wrongShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* Efeitos de partículas flutuantes */
+.floating-particle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 215, 0, 0.6);
+    border-radius: 50%;
+    animation: float 8s infinite linear;
+    z-index: 0;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+    }
+    
+    h1 {
+        font-size: 2.2em;
+    }
+    
+    .logo {
+        width: 50px;
+    }
+    
+    .vigor {
+        top: 15px;
+        left: 15px;
+        width: 45px;
+    }
+    
+    .lala {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+    }
+    
+    .game-area {
+        padding: 30px 20px;
+        margin: 0 10px 20px 10px;
+    }
+    
+    .options {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .question h2 {
+        font-size: 1.3em;
+    }
+    
+    .option-btn {
+        padding: 16px 20px;
+        font-size: 1em;
+    }
+    
+    .admin-btn {
+        padding: 14px 25px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    .subtitle {
+        font-size: 1em;
+    }
+    
+    .game-area {
+        padding: 25px 15px;
+    }
+    
+    .question h2 {
+        font-size: 1.1em;
+    }
+}
