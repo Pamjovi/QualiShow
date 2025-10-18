@@ -5,29 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Show do Milhão - Semana da Qualidade</title>
   <link rel="stylesheet" href="estilo.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="escuro">
-  <header>
+<body class="tema-escuro">
+  <!-- Efeito de partículas -->
+  <div id="particles-js"></div>
+  
+  <!-- Logos posicionadas -->
+  <div class="logo-container">
     <img src="vigor.png" alt="Logo Vigor" class="logo logo-vigor">
-    <h1>Show do Milhão - Semana da Qualidade</h1>
+    <img src="lala.png" alt="Logo Lala" class="logo logo-lala">
+  </div>
+
+  <!-- Header com título -->
+  <header class="cabecalho">
+    <div class="titulo-container">
+      <h1 class="titulo-principal">SHOW DO MILHÃO</h1>
+      <p class="subtitulo">Semana da Qualidade</p>
+    </div>
   </header>
 
-  <main>
+  <!-- Área principal do jogo -->
+  <main class="conteudo-principal">
     <div class="container-jogo">
-      <div id="pergunta" class="pergunta"></div>
-      <div id="opcoes" class="opcoes"></div>
+      <div class="card-pergunta">
+        <div id="pergunta" class="pergunta fade"></div>
+        <div id="opcoes" class="opcoes"></div>
+      </div>
     </div>
 
+    <!-- Botão de administração -->
     <div class="acoes">
-      <a href="admin.html" class="botao-acao">⚙️ Adicionar / Editar Perguntas</a>
+      <a href="admin.html" class="botao-acao">
+        <span class="icone">⚙️</span>
+        Adicionar / Editar Perguntas
+      </a>
     </div>
   </main>
 
-  <footer>
-    <img src="lala.png" alt="Logo Lala" class="logo logo-lala">
-  </footer>
+  <!-- Efeito de luzes no fundo -->
+  <div class="luzes-fundo">
+    <div class="luz luz-1"></div>
+    <div class="luz luz-2"></div>
+    <div class="luz luz-3"></div>
+  </div>
 
+  <!-- Sons -->
+  <audio id="somAcerto" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3f10e8d6db.mp3?filename=success-fanfare-trumpets-6185.mp3"></audio>
+  <audio id="somErro" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_4b8829d6f1.mp3?filename=error-126627.mp3"></audio>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-
