@@ -4,32 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show do Milhão - Semana da Qualidade</title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="./estilo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Logos -->
-    <img src="vigor.png" alt="Vigor" class="logo vigor">
-    <img src="lala.png" alt="Lala" class="logo lala">
+    <img src="./vigor.png" alt="Vigor" class="logo vigor">
+    <img src="./lala.png" alt="Lala" class="logo lala">
+
+    <!-- Efeitos de fundo -->
+    <div class="bg-effects">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
     <div class="container">
-        <header>
-            <h1>SHOW DO MILHÃO</h1>
-            <p class="subtitle">Semana da Qualidade</p>
+        <header class="header">
+            <div class="title-container">
+                <h1 class="main-title">SHOW DO MILHÃO</h1>
+                <p class="subtitle">Semana da Qualidade</p>
+            </div>
         </header>
 
         <main class="game-area">
-            <div class="question-box">
+            <div class="question-card">
                 <div id="question" class="question">
                     <h2>Carregando perguntas...</h2>
                 </div>
-                <div id="options" class="options">
+                <div id="options" class="options-grid">
                     <!-- Opções serão inseridas aqui -->
                 </div>
             </div>
 
             <div class="actions">
-                <a href="admin.html" class="admin-btn">
-                    ⚙️ Adicionar / Editar Perguntas
+                <a href="./admin.html" class="admin-btn">
+                    <span class="btn-icon">⚙️</span>
+                    Adicionar / Editar Perguntas
                 </a>
             </div>
         </main>
@@ -43,6 +55,6 @@
         <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_4b8829d6f1.mp3?filename=error-126627.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
