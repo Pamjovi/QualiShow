@@ -1,91 +1,91 @@
-// Inicializar partículas
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof particlesJS !== 'undefined') {
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: "#ffd700" },
-        shape: { type: "circle" },
-        opacity: { value: 0.3, random: true },
-        size: { value: 3, random: true },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: "#ffd700",
-          opacity: 0.2,
-          width: 1
-        },
-        move: {
-          enable: true,
-          speed: 2,
-          direction: "none",
-          random: true,
-          out_mode: "out"
-        }
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" }
-        }
-      }
-    });
-  }
-});
-
 let perguntas = JSON.parse(localStorage.getItem("perguntas")) || [];
 
+// Pergunta padrão se não houver perguntas
 if (perguntas.length === 0) {
   perguntas = [
     {
       pergunta: "Qual é a capital da França?",
       a: "Londres",
-      b: "Berlim",
+      b: "Berlim", 
       c: "Paris",
       d: "Lisboa",
-      correta: "C"
+      correta: "c"
     }
   ];
+  localStorage.setItem("perguntas", JSON.stringify(perguntas));
 }
 
-let indice = 0;
+let indiceAtual = 0;
 const elementoPergunta = document.getElementById("pergunta");
 const elementoOpcoes = document.getElementById("opcoes");
 const somAcerto = document.getElementById("somAcerto");
 const somErro = document.getElementById("somErro");
 
-function mostrarPergunta() {
-  const q = perguntas[indice];
+// Função para carregar a pergunta atual
+function carregarPergunta() {
+  // Verifica se há perguntas
+  if (perguntas.length === 0) {
+    elementoPergunta.innerHTML = "<h2>Nenhuma pergunta disponível</h2>";
+    elementoOpcoes.innerHTML = "<p>Use o botão abaixo para adicionar perguntas</p>";
+    return;
+  }
+
+  const perguntaAtual = perguntas[indiceAtual];
+  
+  // Aplica animação de fade
   elementoPergunta.classList.remove("fade");
-  void elementoPergunta.offsetWidth; // reinicia animação
+  void elementoPergunta.offsetWidth; // Força o reflow
   elementoPergunta.classList.add("fade");
-
-  elementoPergunta.innerHTML = `<h2>${q.pergunta}</h2>`;
+  
+  // Define o texto da pergunta
+  elementoPergunta.innerHTML = `<h2>${perguntaAtual.pergunta}</h2>`;
+  
+  // Limpa as opções anteriores
   elementoOpcoes.innerHTML = "";
-
-  ["a", "b", "c", "d"].forEach((letra) => {
+  
+  // Cria os botões de opção
+  const opcoes = ['a', 'b', 'c', 'd'];
+  opcoes.forEach(letra => {
     const botao = document.createElement("button");
-    botao.innerText = `${letra.toUpperCase()}: ${q[letra]}`;
+    botao.textContent = `${letra.toUpperCase()}: ${perguntaAtual[letra]}`;
     botao.onclick = () => verificarResposta(letra, botao);
     elementoOpcoes.appendChild(botao);
   });
 }
 
-function verificarResposta(letra, botao) {
-  const correta = perguntas[indice].correta.toUpperCase();
+// Função para verificar a resposta
+function verificarResposta(resposta, botaoClicado) {
+  const perguntaAtual = perguntas[indiceAtual];
+  const respostaCorreta = perguntaAtual.correta.toLowerCase();
   const todosBotoes = elementoOpcoes.getElementsByTagName("button");
   
-  // Desabilita todos os botões após resposta
-  Array.from(todosBotoes).forEach(btn => {
-    btn.style.pointerEvents = "none";
+  // Desabilita todos os botões
+  Array.from(todosBotoes).forEach(botao => {
+    botao.style.pointerEvents = "none";
   });
-
-  if (letra.toUpperCase() === correta) {
+  
+  // Verifica se acertou
+  if (resposta.toLowerCase() === respostaCorreta) {
     somAcerto.play();
-    botao.classList.add("correto");
+    botaoClicado.classList.add("correto");
   } else {
     somErro.play();
-    botao.classList.add("errado");
+    botaoClicado.classList.add("errado");
     
-    // Most
+    // Mostra a resposta correta
+    Array.from(todosBotoes).forEach(botao => {
+      if (botao.textContent.toLowerCase().startsWith(respostaCorreta + ":")) {
+        botao.classList.add("correto");
+      }
+    });
+  }
+  
+  // Avança para próxima pergunta após delay
+  setTimeout(() => {
+    indiceAtual = (indiceAtual + 1) % perguntas.length;
+    carregarPergunta();
+  }, 2000);
+}
+
+// Inicializa o jogo quando a página carrega
+document.addEventListener('DOMContentLoaded', carregarPergunta);
