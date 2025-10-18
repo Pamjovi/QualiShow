@@ -5,94 +5,224 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Show do Milhão</title>
     <link rel="stylesheet" href="estilo.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* ESTILOS ESPECÍFICOS PARA A PÁGINA ADMIN */
         .admin-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 80px 20px 40px;
+            padding: 100px 20px 40px;
         }
         
         .back-btn {
-            display: inline-block;
-            background: #6c757d;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            transition: background 0.3s ease;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
         
         .back-btn:hover {
-            background: #5a6268;
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateX(-5px);
         }
         
-        .question-form {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 15px;
-            padding: 25px;
+        .admin-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: var(--primary-gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-title {
+            color: var(--primary-gold);
             margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            padding-bottom: 10px;
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
-        label {
+        .form-label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
+            color: var(--text-light);
         }
         
-        input, select {
+        .form-input, .form-select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
+            padding: 12px 15px;
             background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-family: 'Poppins', sans-serif;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
         
         .btn-group {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 25px;
         }
         
-        .btn {
-            padding: 10px 20px;
+        .form-btn {
+            padding: 12px 25px;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
+            border-radius: 10px;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 1em;
         }
         
         .btn-primary {
-            background: #ffd700;
-            color: #1a1a3e;
+            background: linear-gradient(135deg, var(--primary-gold), #ff8c00);
+            color: var(--primary-blue);
         }
         
         .btn-secondary {
-            background: #6c757d;
-            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .questions-section {
+            margin-top: 40px;
         }
         
         .questions-list {
-            margin-top: 30px;
+            display: grid;
+            gap: 15px;
         }
         
         .question-item {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .question-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+        
+        .question-text {
+            font-weight: 600;
             margin-bottom: 10px;
+            color: var(--text-light);
+            font-size: 1.1em;
+        }
+        
+        .options-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .option-item {
+            padding: 5px 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .correct-answer {
+            color: var(--success-green);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .delete-btn {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(255, 68, 68, 0.4);
+        }
+        
+        .empty-message {
+            text-align: center;
+            color: var(--text-gray);
+            padding: 40px;
+            font-style: italic;
+        }
+
+        /* Responsividade para admin */
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 80px 15px 30px;
+            }
+            
+            .admin-title {
+                font-size: 2em;
+            }
+            
+            .form-section {
+                padding: 20px;
+                margin: 0 10px 20px 10px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .options-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-item {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -101,71 +231,96 @@
     <img src="vigor.png" alt="Vigor" class="logo vigor">
     <img src="lala.png" alt="Lala" class="logo lala">
 
+    <!-- Efeitos de fundo -->
+    <div class="bg-effects">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
     <div class="admin-container">
-        <a href="index.html" class="back-btn">← Voltar ao Jogo</a>
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            Voltar ao Jogo
+        </a>
         
-        <h1 style="text-align: center; margin-bottom: 30px;">Gerenciar Perguntas</h1>
+        <h1 class="admin-title">Gerenciar Perguntas</h1>
         
         <!-- Formulário para adicionar pergunta -->
-        <div class="question-form">
-            <h3>Adicionar Nova Pergunta</h3>
+        <section class="form-section">
+            <h3 class="form-title">Adicionar Nova Pergunta</h3>
             <form id="questionForm">
                 <div class="form-group">
-                    <label>Pergunta:</label>
-                    <input type="text" id="pergunta" required>
+                    <label class="form-label">Pergunta:</label>
+                    <input type="text" id="pergunta" class="form-input" required placeholder="Digite a pergunta...">
                 </div>
+                
                 <div class="form-group">
-                    <label>Opção A:</label>
-                    <input type="text" id="opcaoA" required>
+                    <label class="form-label">Opção A:</label>
+                    <input type="text" id="opcaoA" class="form-input" required placeholder="Resposta A">
                 </div>
+                
                 <div class="form-group">
-                    <label>Opção B:</label>
-                    <input type="text" id="opcaoB" required>
+                    <label class="form-label">Opção B:</label>
+                    <input type="text" id="opcaoB" class="form-input" required placeholder="Resposta B">
                 </div>
+                
                 <div class="form-group">
-                    <label>Opção C:</label>
-                    <input type="text" id="opcaoC" required>
+                    <label class="form-label">Opção C:</label>
+                    <input type="text" id="opcaoC" class="form-input" required placeholder="Resposta C">
                 </div>
+                
                 <div class="form-group">
-                    <label>Opção D:</label>
-                    <input type="text" id="opcaoD" required>
+                    <label class="form-label">Opção D:</label>
+                    <input type="text" id="opcaoD" class="form-input" required placeholder="Resposta D">
                 </div>
+                
                 <div class="form-group">
-                    <label>Resposta Correta:</label>
-                    <select id="respostaCorreta" required>
-                        <option value="">Selecione...</option>
-                        <option value="a">A</option>
-                        <option value="b">B</option>
-                        <option value="c">C</option>
-                        <option value="d">D</option>
+                    <label class="form-label">Resposta Correta:</label>
+                    <select id="respostaCorreta" class="form-select" required>
+                        <option value="">Selecione a resposta correta...</option>
+                        <option value="a">Opção A</option>
+                        <option value="b">Opção B</option>
+                        <option value="c">Opção C</option>
+                        <option value="d">Opção D</option>
                     </select>
                 </div>
+                
                 <div class="btn-group">
-                    <button type="submit" class="btn btn-primary">Adicionar Pergunta</button>
-                    <button type="button" class="btn btn-secondary" onclick="clearForm()">Limpar</button>
+                    <button type="submit" class="form-btn btn-primary">
+                        ✅ Adicionar Pergunta
+                    </button>
+                    <button type="button" class="form-btn btn-secondary" onclick="clearForm()">
+                        🗑️ Limpar Formulário
+                    </button>
                 </div>
             </form>
-        </div>
+        </section>
         
         <!-- Lista de perguntas existentes -->
-        <div class="questions-list">
-            <h3>Perguntas Cadastradas</h3>
-            <div id="questionsList"></div>
-        </div>
+        <section class="questions-section">
+            <h3 class="form-title">Perguntas Cadastradas</h3>
+            <div id="questionsList" class="questions-list">
+                <!-- Lista de perguntas será inserida aqui -->
+            </div>
+        </section>
     </div>
 
     <script>
         // Carrega perguntas do localStorage
         let questions = JSON.parse(localStorage.getItem('perguntas')) || [];
-        
-        // Elementos do formulário
-        const questionForm = document.getElementById('questionForm');
         const questionsList = document.getElementById('questionsList');
         
         // Carrega a lista de perguntas
         function loadQuestionsList() {
             if (questions.length === 0) {
-                questionsList.innerHTML = '<p>Nenhuma pergunta cadastrada.</p>';
+                questionsList.innerHTML = `
+                    <div class="empty-message">
+                        <p>📝 Nenhuma pergunta cadastrada ainda.</p>
+                        <p>Use o formulário acima para adicionar a primeira pergunta!</p>
+                    </div>
+                `;
                 return;
             }
             
@@ -174,17 +329,24 @@
                 const questionItem = document.createElement('div');
                 questionItem.className = 'question-item';
                 questionItem.innerHTML = `
-                    <strong>${index + 1}. ${question.pergunta}</strong><br>
-                    A) ${question.a} | B) ${question.b} | C) ${question.c} | D) ${question.d}<br>
-                    <strong>Resposta Correta: ${question.correta.toUpperCase()}</strong>
-                    <button onclick="deleteQuestion(${index})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 5px;">Excluir</button>
+                    <div class="question-text">${index + 1}. ${question.pergunta}</div>
+                    <div class="options-list">
+                        <div class="option-item"><strong>A:</strong> ${question.a}</div>
+                        <div class="option-item"><strong>B:</strong> ${question.b}</div>
+                        <div class="option-item"><strong>C:</strong> ${question.c}</div>
+                        <div class="option-item"><strong>D:</strong> ${question.d}</div>
+                    </div>
+                    <div class="correct-answer">✅ Resposta Correta: ${question.correta.toUpperCase()}</div>
+                    <button class="delete-btn" onclick="deleteQuestion(${index})">
+                        🗑️ Excluir Pergunta
+                    </button>
                 `;
                 questionsList.appendChild(questionItem);
             });
         }
         
         // Adiciona nova pergunta
-        questionForm.addEventListener('submit', function(e) {
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const newQuestion = {
@@ -200,7 +362,9 @@
             localStorage.setItem('perguntas', JSON.stringify(questions));
             loadQuestionsList();
             clearForm();
-            alert('Pergunta adicionada com sucesso!');
+            
+            // Feedback visual
+            showNotification('✅ Pergunta adicionada com sucesso!');
         });
         
         // Exclui pergunta
@@ -209,16 +373,45 @@
                 questions.splice(index, 1);
                 localStorage.setItem('perguntas', JSON.stringify(questions));
                 loadQuestionsList();
+                showNotification('🗑️ Pergunta excluída com sucesso!');
             }
         }
         
         // Limpa formulário
         function clearForm() {
-            questionForm.reset();
+            document.getElementById('questionForm').reset();
         }
         
-        // Carrega a lista ao iniciar
-        loadQuestionsList();
+        // Mostra notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--primary-gold);
+                color: var(--primary-blue);
+                padding: 15px 20px;
+                border-radius: 10px;
+                font-weight: 600;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Inicializa a página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestionsList();
+            console.log('🛠️ Página admin carregada com sucesso!');
+        });
     </script>
 </body>
 </html>
+          
