@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Show do Milhão - Simulador</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#f59e0b;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
+    *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{margin:0;background:linear-gradient(180deg,var(--bg) 0%, #071022 100%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .container{width:100%;max-width:1100px}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .logo{background:var(--card);padding:14px 20px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    h1{margin:0;font-size:20px}
+    .layout{display:grid;grid-template-columns:1fr 380px;gap:18px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .game-area{padding:28px;text-align:center}
+    .question{font-size:20px;margin-bottom:18px}
+    .answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .answer{background:var(--glass);padding:12px;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .answer:hover{transform:translateY(-2px)}
+    .controls{display:flex;gap:8px;justify-content:center;margin-top:18px}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:8px;color:inherit;cursor:pointer}
+    .scoreboard{display:flex;flex-direction:column;gap:8px}
+    label{font-size:13px;color:var(--muted)}
+    textarea, input, select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .small{font-size:13px;color:var(--muted)}
+    .lifelines{display:flex;gap:8px}
+    .hidden{display:none}
+    footer{margin-top:12px;font-size:12px;color:var(--muted)}
+    .danger{color:#ff6b6b}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo"><h1>Show do Milhão — Simulador</h1></div>
+      <div class="small">Insira suas perguntas manualmente ou peça a um agente de IA para gerar por assunto.</div>
+    </header>
+
+    <div class="layout">
+      <div class="card game-area">
+        <div class="scoreboard">
+          <div><strong>Pergunta</strong> <span id="q-index">0</span> / <span id="q-total">0</span></div>
+          <div><strong>Prêmio atual:</strong> <span id="prize">R$ 0</span></div>
+        </div>
+
+        <div id="game" class="mt">
+          <div id="questionBox" class="question">Clique em "Iniciar Jogo" ou carregue perguntas.</div>
+          <div id="answers" class="answers"></div>
+
+          <div class="controls">
+            <button id="startBtn">Iniciar Jogo</button>
+            <button id="nextBtn" class="hidden">Próxima</button>
+            <button id="resetBtn">Resetar</button>
+          </div>
+
+          <div style="margin-top:12px;display:flex;justify-content:center;gap:8px">
+            <div class="lifelines">
+              <button id="lf50">50:50</button>
+              <button id="lfPhone">Pedir ajuda (Gerar dica)</button>
+              <button id="lfAudience">Pesquisa (simulada)</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="result" class="hidden" style="margin-top:14px"></div>
+      </div>
+
+      <div class="card" style="height:100%">
+        <h3>Editor de perguntas</h3>
+        <label>Pergunta (texto)</label>
+        <textarea id="qText" rows="3"></textarea>
+        <label>Alternativas — coloque cada alternativa separada por '||' (ex: A opção||B opção||C opção||D opção)</label>
+        <input id="qChoices" placeholder="Alternativa A||Alternativa B||Alternativa C||Alternativa D" />
+        <label>Índice da resposta correta (0..3)</label>
+        <input id="qAnswer" type="number" min="0" max="3" value="0" />
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button id="addQ">Adicionar pergunta</button>
+          <button id="importJson">Importar JSON</button>
+          <button id="exportJson">Exportar JSON</button>
+        </div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.04)" />
+        <h4>Gerar perguntas por IA</h4>
+        <label>Assunto / Tema</label>
+        <input id="aiTopic" placeholder="Ex: História do Brasil, Matemática básica..." />
+        <label>Número de perguntas</label>
+        <select id="aiCount"><option>3</option><option>5</option><option>10</option></select>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button id="generateAI">Gerar com IA (requisição)</button>
+          <button id="generateDummy">Gerar local (sem API)</button>
+        </div>
+
+        <p class="small">Integração com IA: o botão "Gerar com IA" faz uma requisição fetch para uma API externa. Veja o código abaixo para configurar sua chave e endpoint (OpenAI, outro agente etc.). Se preferir, use 'Gerar local' para criar questões de exemplo sem depender de APIs.</p>
+
+        <hr />
+        <h4>Perguntas carregadas</h4>
+        <div id="loadedList" style="max-height:220px;overflow:auto"></div>
+        <footer>Feito com ❤️ — personalize como quiser.</footer>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Estrutura interna de perguntas
+    let questions = [];
+    let current = -1;
+    let prizeTable = [0,100,200,300,500,1000,2000,4000,8000,16000,32000,64000,125000,250000,500000,1000000];
+    let usedLifelines = {lf50:false,phone:false,audience:false};
+
+    const qIndexEl = document.getElementById('q-index');
+    const qTotalEl = document.getElementById('q-total');
+    const prizeEl = document.getElementById('prize');
+    const questionBox = document.getElementById('questionBox');
+    const answersEl = document.getElementById('answers');
+    const startBtn = document.getElementById('startBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const lf50 = document.getElementById('lf50');
+    const lfPhone = document.getElementById('lfPhone');
+    const lfAudience = document.getElementById('lfAudience');
+    const loadedList = document.getElementById('loadedList');
+
+    function renderLoaded(){
+      qTotalEl.textContent = questions.length;
+      loadedList.innerHTML = '';
+      questions.forEach((q,i)=>{
+        const div = document.createElement('div');
+        div.style.padding='8px';div.style.borderBottom='1px solid rgba(255,255,255,0.02)';
+        div.innerHTML = `<strong>#${i+1}</strong> ${q.text}`;
+        loadedList.appendChild(div);
+      })
+    }
+
+    function startGame(){
+      if(questions.length===0){alert('Adicione perguntas primeiro (ou gere com IA).');return}
+      current = 0; usedLifelines = {lf50:false,phone:false,audience:false};
+      showQuestion();
+      startBtn.classList.add('hidden'); nextBtn.classList.remove('hidden');
+    }
+
+    function showQuestion(){
+      const q = questions[current];
+      qIndexEl.textContent = current+1;
+      questionBox.textContent = q.text;
+      answersEl.innerHTML = '';
+      q.choices.forEach((c,idx)=>{
+        const btn = document.createElement('div');
+        btn.className='answer';
+        btn.textContent = `${String.fromCharCode(65+idx)}. ${c}`;
+        btn.onclick = ()=>selectAnswer(idx);
+        answersEl.appendChild(btn);
+      })
+      prizeEl.textContent = `R$ ${prizeTable[current+1].toLocaleString('pt-BR')}`;
+    }
+
+    function selectAnswer(idx){
+      const q = questions[current];
+      const els = Array.from(answersEl.children);
+      // revelar correta/errada
+      els.forEach((el,i)=>{
+        el.style.pointerEvents='none';
+        if(i===q.answer) el.style.borderColor='lime';
+        if(i===idx && i!==q.answer) el.style.borderColor='red';
+      })
+      if(idx===q.answer){
+        // acerto
+        const won = prizeTable[current+1];
+        document.getElementById('result').classList.remove('hidden');
+        document.getElementById('result').textContent = `Correto! Você ganhou R$ ${won.toLocaleString('pt-BR')}`;
+        // avançar automaticamente após 1.2s
+        setTimeout(()=>{
+          document.getElementById('result').classList.add('hidden');
+          if(current < questions.length-1){ current++; showQuestion(); }
+          else endGame();
+        },1200);
+      } else {
+        // erro - fim
+        document.getElementById('result').classList.remove('hidden');
+        document.getElementById('result').innerHTML = `<span class="danger">Errado!</span> Resposta correta: ${String.fromCharCode(65+q.answer)}. Você saiu com R$ ${prizeTable[Math.max(0,current-1)].toLocaleString('pt-BR')}`;
+        startBtn.classList.remove('hidden'); nextBtn.classList.add('hidden');
+        current = -1;
+      }
+    }
+
+    function endGame(){
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('result').textContent = `Parabéns! Você completou todas as perguntas e ganhou R$ ${prizeTable[questions.length].toLocaleString('pt-BR')}`;
+      startBtn.classList.remove('hidden'); nextBtn.classList.add('hidden');
+      current = -1;
+    }
+
+    // Lifelines
+    lf50.onclick = ()=>{
+      if(current<0){alert('Inicie o jogo primeiro');return}
+      if(usedLifelines.lf50){alert('50:50 já usado');return}
+      usedLifelines.lf50 = true; lf50.disabled=true; lf50.textContent='50:50 (usado)';
+      const q = questions[current];
+      const wrong = [];
+      for(let i=0;i<q.choices.length;i++) if(i!==q.answer) wrong.push(i);
+      // remover duas erradas
+      shuffle(wrong);
+      const toRemove = wrong.slice(0,2);
+      Array.from(answersEl.children).forEach((el,idx)=>{
+        if(toRemove.includes(idx)) el.style.visibility='hidden';
+      })
+    }
+
+    lfPhone.onclick = async ()=>{
+      if(current<0){alert('Inicie o jogo primeiro');return}
+      if(usedLifelines.phone){alert('Ajuda já usada');return}
+      usedLifelines.phone=true; lfPhone.disabled=true; lfPhone.textContent='Ajuda (usada)';
+      // gerar dica simples: dizer a alternativa mais provável (simulação)
+      const q = questions[current];
+      const hint = `Minha sugestão: fique atento à alternativa ${String.fromCharCode(65+q.answer)}.`;
+      alert('Dica do agente: ' + hint);
+    }
+
+    lfAudience.onclick = ()=>{
+      if(current<0){alert('Inicie o jogo primeiro');return}
+      if(usedLifelines.audience){alert('Pesquisa já usada');return}
+      usedLifelines.audience=true; lfAudience.disabled=true; lfAudience.textContent='Pesquisa (usada)';
+      // simular porcentagens
+      const q = questions[current];
+      const perc = [10,10,10,10];
+      perc[q.answer] = 65;
+      // distribuir restante
+      let rest = 15; let i=0;
+      while(rest>0){ if(i!==q.answer){perc[i]++; rest--;} i=(i+1)%4 }
+      alert('Resultados da pesquisa (simulada): ' + perc.map((p,idx)=>`${String.fromCharCode(65+idx)}:${p}%`).join(' '));
+    }
+
+    // util
+    function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+
+    // Botões editor
+    document.getElementById('addQ').onclick = ()=>{
+      const t = document.getElementById('qText').value.trim();
+      const c = document.getElementById('qChoices').value.split('||').map(s=>s.trim()).filter(Boolean);
+      const a = parseInt(document.getElementById('qAnswer').value,10);
+      if(!t || c.length<2 || isNaN(a)) {alert('Preencha pergunta, alternativas e resposta correta.');return}
+      questions.push({text:t,choices:c,answer:a});
+      renderLoaded();
+      document.getElementById('qText').value=''; document.getElementById('qChoices').value=''; document.getElementById('qAnswer').value=0;
+    }
+
+    document.getElementById('exportJson').onclick = ()=>{
+      const data = JSON.stringify(questions, null, 2);
+      const blob = new Blob([data], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='perguntas_show_milhao.json'; a.click(); URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('importJson').onclick = ()=>{
+      const inp = document.createElement('input'); inp.type='file'; inp.accept='.json';
+      inp.onchange = e=>{
+        const file = e.target.files[0]; if(!file) return;
+        const reader = new FileReader();
+        reader.onload = ev=>{ try{ const data = JSON.parse(ev.target.result); if(Array.isArray(data)){questions = data; renderLoaded(); alert('Importado com sucesso')} else alert('JSON inválido'); }catch(err){alert('Falha ao ler JSON: '+err.message)} }
+        reader.readAsText(file);
+      }
+      inp.click();
+    }
+
+    // Geração local (dummy) sem API
+    document.getElementById('generateDummy').onclick = ()=>{
+      const topic = document.getElementById('aiTopic').value.trim() || 'Conhecimentos gerais';
+      const count = parseInt(document.getElementById('aiCount').value,10)||3;
+      const generated = [];
+      for(let i=0;i<count;i++){
+        generated.push({
+          text: `${topic} — Pergunta exemplo ${i+1}: qual é a resposta correta?`,
+          choices: ['Opção A','Opção B','Opção C','Opção D'],
+          answer: i%4
+        });
+      }
+      questions = questions.concat(generated);
+      renderLoaded();
+      alert(`Geradas ${count} perguntas (modo local).`);
+    }
+
+    // Geração com IA -> faça a sua própria configuração de endpoint / chave
+    document.getElementById('generateAI').onclick = async ()=>{
+      const topic = document.getElementById('aiTopic').value.trim();
+      const count = parseInt(document.getElementById('aiCount').value,10)||3;
+      if(!topic){alert('Informe um tema para gerar via IA.');return}
+
+      // *** Configuração: substitua estes valores pelo seu endpoint/ chave. ***
+      // Exemplo (OpenAI):
+      // const OPENAI_KEY = 'COLOQUE_SUA_CHAVE_AQUI';
+      // const res = await fetch('https://api.openai.com/v1/chat/completions', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+OPENAI_KEY}, body: JSON.stringify({ model: 'gpt-4o', messages:[{role:'user', content: `Gere ${count} perguntas de múltipla escolha sobre ${topic}. Para cada pergunta retorne um JSON com campos: text, choices(array com 4 strings), answer(indice 0..3). Retorne a resposta como um JSON array sem texto adicional.` }]}) });
+
+      // Abaixo temos uma chamada de exemplo genérica; você deve adaptar ao seu provedor de IA.
+
+      try{
+        // Exemplo de placeholder que falha de propósito — substitua pelo fetch real.
+        // throw new Error('Substitua a função fetchIA por sua integração com a API do agente de IA');
+
+        const generated = await fetchIA_generateQuestions(topic, count);
+        if(Array.isArray(generated)){
+          questions = questions.concat(generated);
+          renderLoaded();
+          alert(`Geradas ${generated.length} perguntas via IA.`);
+        } else {
+          alert('Resposta da IA em formato inesperado. Verifique seu endpoint.');
+        }
+      }catch(err){
+        alert('Falha ao gerar via IA: '+err.message+"\nUse o botão 'Gerar local' se não quiser integrar uma API agora.");
+      }
+    }
+
+    // Função de placeholder para integração com IA — edite essa função
+    async function fetchIA_generateQuestions(topic, count){
+      // Exemplo de implementação (não funcional por padrão): você deve substituir este bloco
+      // por uma chamada fetch pro seu endpoint. A função deve retornar um array como:
+      // [{text:'...', choices:['a','b','c','d'], answer:2}, ...]
+
+      // Para facilitar testes sem API, retornamos um conjunto gerado localmente
+      await new Promise(r=>setTimeout(r,600));
+      const arr = [];
+      for(let i=0;i<count;i++) arr.push({text:`${topic} — Pergunta gerada ${i+1}`, choices:['Alternativa A','Alternativa B','Alternativa C','Alternativa D'], answer: Math.floor(Math.random()*4)});
+      return arr;
+    }
+
+    startBtn.onclick = startGame;
+    nextBtn.onclick = ()=>{ if(current<0) return; if(current<questions.length-1){current++; showQuestion();} else endGame(); };
+    resetBtn.onclick = ()=>{ if(confirm('Resetar jogo e perguntas?')){questions=[];current=-1;renderLoaded();startBtn.classList.remove('hidden');nextBtn.classList.add('hidden');questionBox.textContent='Clique em "Iniciar Jogo" ou carregue perguntas.'; qIndexEl.textContent='0'; qTotalEl.textContent='0'; prizeEl.textContent='R$ 0'; document.getElementById('result').classList.add('hidden');}}
+
+    // inicial
+    renderLoaded();
+  </script>
+</body>
+</html>
