@@ -4,8 +4,441 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show do Milhão - Semana da Qualidade</title>
-    <link rel="stylesheet" href="estilo.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET E CONFIGURAÇÕES GLOBAIS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c2e 0%, #1a1a3e 50%, #2d2d5a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== EFEITOS DE FUNDO ===== */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+        }
+
+        .particle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .particle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .particle:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            top: 40%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* ===== LOGOS ===== */
+        .logo {
+            position: fixed;
+            width: 80px;
+            height: auto;
+            z-index: 1000;
+            filter: drop-shadow(0 0 10px #ffd700);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 20px #ffd700);
+        }
+
+        .vigor {
+            top: 25px;
+            left: 25px;
+            width: 70px;
+        }
+
+        .lala {
+            bottom: 25px;
+            right: 25px;
+            width: 75px;
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== CABEÇALHO ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 80px;
+        }
+
+        .title-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ff6b00, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: shine 3s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        @keyframes shine {
+            0%, 100% {
+                background-position: 0% 50%;
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            }
+            50% {
+                background-position: 100% 50%;
+                text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #b8b8b8;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ===== ÁREA DO JOGO ===== */
+        .game-area {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #ffd700, 
+                transparent);
+            animation: scanline 2s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ===== PERGUNTA ===== */
+        .question {
+            font-size: 1.6em;
+            margin-bottom: 40px;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        .question h2 {
+            font-weight: 400;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== GRID DE OPÇÕES ===== */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .option-btn {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.15) 0%, 
+                rgba(138, 43, 226, 0.1) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            color: #ffffff;
+            padding: 25px 20px 25px 60px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: left;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .option-btn::before {
+            content: attr(data-letter);
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ffd700;
+            font-size: 0.9em;
+        }
+
+        .option-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.25) 0%, 
+                rgba(138, 43, 226, 0.2) 100%);
+            border-color: #ffd700;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 10px 25px rgba(255, 215, 0, 0.3),
+                0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        /* ===== BOTÃO DE ADMINISTRAÇÃO ===== */
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .admin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #1a1a3e;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 8px 25px rgba(255, 215, 0, 0.4),
+                0 0 20px rgba(255, 140, 0, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 12px 35px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 140, 0, 0.4);
+            color: #1a1a3e;
+        }
+
+        .btn-icon {
+            font-size: 1.2em;
+        }
+
+        /* ===== ESTADOS DAS RESPOSTAS ===== */
+        .correct {
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 136, 0.3) 0%, 
+                rgba(0, 200, 83, 0.4) 100%) !important;
+            border-color: #00ff88 !important;
+            animation: correctPulse 0.6s ease-in-out;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px rgba(0, 255, 136, 0.4),
+                    0 0 40px rgba(0, 255, 136, 0.2);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 30px rgba(0, 255, 136, 0.8),
+                    0 0 60px rgba(0, 255, 136, 0.4);
+            }
+        }
+
+        .wrong {
+            background: linear-gradient(135deg, 
+                rgba(255, 68, 68, 0.3) 0%, 
+                rgba(220, 20, 60, 0.4) 100%) !important;
+            border-color: #ff4444 !important;
+            animation: wrongShake 0.5s ease-in-out;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .main-title {
+                font-size: 2.2em;
+            }
+            
+            .logo {
+                width: 50px;
+            }
+            
+            .vigor {
+                top: 15px;
+                left: 15px;
+                width: 45px;
+            }
+            
+            .lala {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+            }
+            
+            .question-card {
+                padding: 30px 20px;
+                margin: 0 10px 20px 10px;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .question {
+                font-size: 1.3em;
+            }
+            
+            .option-btn {
+                padding: 20px 15px 20px 50px;
+                font-size: 1em;
+            }
+            
+            .admin-btn {
+                padding: 15px 25px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            .question-card {
+                padding: 25px 15px;
+            }
+            
+            .question {
+                font-size: 1.1em;
+            }
+            
+            .option-btn {
+                padding: 18px 12px 18px 45px;
+                font-size: 0.9em;
+            }
+            
+            .option-btn::before {
+                width: 30px;
+                height: 30px;
+                left: 15px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Logos -->
@@ -55,6 +488,145 @@
         <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_4b8829d6f1.mp3?filename=error-126627.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js"></script>
+    <script>
+        // SHOW DO MILHÃO - SCRIPT PRINCIPAL
+
+        console.log('🚀 Show do Milhão - Script carregado!');
+
+        // Perguntas padrão
+        const defaultQuestions = [
+            {
+                pergunta: "Qual é a capital do Brasil?",
+                a: "Rio de Janeiro",
+                b: "São Paulo", 
+                c: "Brasília",
+                d: "Salvador",
+                correta: "c"
+            },
+            {
+                pergunta: "Quantos estados tem o Brasil?",
+                a: "26 estados",
+                b: "27 estados",
+                c: "25 estados", 
+                d: "28 estados",
+                correta: "b"
+            },
+            {
+                pergunta: "Qual é o maior planeta do sistema solar?",
+                a: "Terra",
+                b: "Júpiter",
+                c: "Saturno",
+                d: "Marte",
+                correta: "b"
+            }
+        ];
+
+        // Inicialização quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎮 Iniciando Show do Milhão...');
+            initializeGame();
+        });
+
+        function initializeGame() {
+            console.log('🔄 Carregando perguntas...');
+            
+            // Carrega perguntas do localStorage ou usa as padrão
+            let perguntas = JSON.parse(localStorage.getItem('perguntas'));
+            if (!perguntas || perguntas.length === 0) {
+                console.log('📝 Usando perguntas padrão...');
+                perguntas = defaultQuestions;
+                localStorage.setItem('perguntas', JSON.stringify(perguntas));
+            }
+            
+            console.log(`📚 ${perguntas.length} perguntas carregadas`);
+            
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            let currentQuestionIndex = 0;
+            let canAnswer = true;
+            
+            // Carrega a primeira pergunta
+            loadQuestion();
+            
+            function loadQuestion() {
+                if (!canAnswer) return;
+                
+                const question = perguntas[currentQuestionIndex];
+                console.log(`❓ Carregando pergunta ${currentQuestionIndex + 1}: ${question.pergunta}`);
+                
+                // Atualiza a pergunta
+                questionElement.innerHTML = `<h2>${question.pergunta}</h2>`;
+                
+                // Limpa opções anteriores
+                optionsElement.innerHTML = '';
+                
+                // Cria os botões de opção
+                const opcoes = ['a', 'b', 'c', 'd'];
+                opcoes.forEach(opcao => {
+                    const botao = document.createElement('button');
+                    botao.className = 'option-btn';
+                    botao.textContent = question[opcao];
+                    botao.setAttribute('data-letter', opcao.toUpperCase());
+                    botao.onclick = function() {
+                        checkAnswer(opcao, this);
+                    };
+                    optionsElement.appendChild(botao);
+                });
+                
+                console.log('✅ Pergunta carregada com sucesso');
+            }
+            
+            function checkAnswer(selectedOption, clickedButton) {
+                if (!canAnswer) return;
+                
+                console.log(`🎯 Resposta selecionada: ${selectedOption}`);
+                
+                canAnswer = false;
+                const correctOption = perguntas[currentQuestionIndex].correta;
+                const allButtons = optionsElement.getElementsByClassName('option-btn');
+                
+                // Desabilita todos os botões
+                for (let btn of allButtons) {
+                    btn.style.pointerEvents = 'none';
+                }
+                
+                if (selectedOption === correctOption) {
+                    // Resposta correta
+                    console.log('🎉 Resposta correta!');
+                    document.getElementById('correctSound').play().catch(e => console.log('🔇 Erro ao tocar som: ', e));
+                    clickedButton.classList.add('correct');
+                } else {
+                    // Resposta errada
+                    console.log('❌ Resposta errada!');
+                    document.getElementById('wrongSound').play().catch(e => console.log('🔇 Erro ao tocar som: ', e));
+                    clickedButton.classList.add('wrong');
+                    
+                    // Mostra a resposta correta
+                    for (let btn of allButtons) {
+                        if (btn.getAttribute('data-letter').toLowerCase() === correctOption) {
+                            btn.classList.add('correct');
+                        }
+                    }
+                }
+                
+                // Próxima pergunta após 2 segundos
+                setTimeout(() => {
+                    currentQuestionIndex = (currentQuestionIndex + 1) % perguntas.length;
+                    canAnswer = true;
+                    loadQuestion();
+                }, 2000);
+            }
+        }
+
+        // Função para debug
+        window.debugGame = function() {
+            console.log('🐛 Debug do jogo:');
+            console.log('- LocalStorage:', localStorage.getItem('perguntas'));
+            console.log('- Elementos DOM:', {
+                question: document.getElementById('question'),
+                options: document.getElementById('options')
+            });
+        };
+    </script>
 </body>
 </html>
