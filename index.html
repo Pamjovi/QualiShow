@@ -84,8 +84,7 @@
             }
         }
 
-       
-      /* ===== CONTAINER PRINCIPAL ===== */
+        /* ===== CONTAINER PRINCIPAL ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -98,7 +97,7 @@
         .header {
             text-align: center;
             margin-bottom: 50px;
-            padding-top: 80px;
+            padding-top: 40px;
         }
 
         .title-container {
@@ -143,6 +142,19 @@
             font-weight: 300;
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        /* ===== INFO DO JOGO ===== */
+        .game-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #ffd700;
+        }
+
+        .score {
+            font-weight: bold;
+            font-size: 1.3em;
         }
 
         /* ===== ÁREA DO JOGO ===== */
@@ -259,13 +271,39 @@
                 0 0 30px rgba(255, 215, 0, 0.2);
         }
 
-        /* ===== BOTÃO DE ADMINISTRAÇÃO ===== */
+        /* ===== TELA DE RESULTADO ===== */
+        .result-screen {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .result-title {
+            font-size: 3em;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .result-message {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .result-score {
+            font-size: 2em;
+            color: #00ff88;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* ===== BOTÕES ===== */
         .actions {
             text-align: center;
             margin-top: 30px;
         }
 
-        .admin-btn {
+        .admin-btn, .restart-btn {
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -282,9 +320,14 @@
                 0 0 20px rgba(255, 140, 0, 0.3);
             border: none;
             cursor: pointer;
+            margin: 0 10px;
         }
 
-        .admin-btn:hover {
+        .restart-btn {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+        }
+
+        .admin-btn:hover, .restart-btn:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 
                 0 12px 35px rgba(255, 215, 0, 0.6),
@@ -342,22 +385,6 @@
                 font-size: 2.2em;
             }
             
-            .logo {
-                width: 50px;
-            }
-            
-            .vigor {
-                top: 15px;
-                left: 15px;
-                width: 45px;
-            }
-            
-            .lala {
-                bottom: 15px;
-                right: 15px;
-                width: 50px;
-            }
-            
             .question-card {
                 padding: 30px 20px;
                 margin: 0 10px 20px 10px;
@@ -377,9 +404,10 @@
                 font-size: 1em;
             }
             
-            .admin-btn {
+            .admin-btn, .restart-btn {
                 padding: 15px 25px;
                 font-size: 1em;
+                margin: 5px;
             }
         }
 
@@ -431,13 +459,36 @@
             </div>
         </header>
 
+        <!-- Informações do jogo -->
+        <div class="game-info">
+            <div class="score">Pergunta: <span id="currentQuestion">1</span>/10 | Acertos: <span id="score">0</span></div>
+        </div>
+
         <main class="game-area">
-            <div class="question-card">
-                <div id="question" class="question">
-                    <h2>Carregando perguntas...</h2>
+            <!-- Tela do jogo -->
+            <div id="gameScreen">
+                <div class="question-card">
+                    <div id="question" class="question">
+                        <h2>Carregando perguntas...</h2>
+                    </div>
+                    <div id="options" class="options-grid">
+                        <!-- Opções serão inseridas aqui -->
+                    </div>
                 </div>
-                <div id="options" class="options-grid">
-                    <!-- Opções serão inseridas aqui -->
+            </div>
+
+            <!-- Tela de resultado (inicialmente escondida) -->
+            <div id="resultScreen" class="result-screen" style="display: none;">
+                <h2 class="result-title" id="resultTitle">Parabéns!</h2>
+                <div class="result-message" id="resultMessage">Você completou o desafio!</div>
+                <div class="result-score" id="resultScore">Pontuação: 0/10</div>
+                <div class="actions">
+                    <button class="restart-btn" onclick="restartGame()">
+                        🔄 Jogar Novamente
+                    </button>
+                    <a href="admin.html" class="admin-btn">
+                        ⚙️ Gerenciar Perguntas
+                    </a>
                 </div>
             </div>
 
@@ -456,6 +507,9 @@
     </audio>
     <audio id="wrongSound" preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_4b8829d6f1.mp3?filename=error-126627.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="winSound" preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2021/10/02/audio_39b402d9f9.mp3?filename=success-1-6297.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -488,114 +542,202 @@
                 c: "Saturno",
                 d: "Marte",
                 correta: "b"
+            },
+            {
+                pergunta: "Quem escreveu 'Dom Casmurro'?",
+                a: "Machado de Assis",
+                b: "José de Alencar",
+                c: "Lima Barreto",
+                d: "Graciliano Ramos",
+                correta: "a"
+            },
+            {
+                pergunta: "Qual é o elemento químico representado por 'O'?",
+                a: "Ouro",
+                b: "Oxigênio",
+                c: "Ósmio",
+                d: "Oganésson",
+                correta: "b"
             }
         ];
+
+        // Variáveis do jogo
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let canAnswer = true;
 
         // Inicialização quando o DOM estiver pronto
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🎮 Iniciando Show do Milhão...');
-            initializeGame();
+            startNewGame();
         });
 
-        function initializeGame() {
-            console.log('🔄 Carregando perguntas...');
+        function startNewGame() {
+            console.log('🔄 Iniciando novo jogo...');
             
             // Carrega perguntas do localStorage ou usa as padrão
-            let perguntas = JSON.parse(localStorage.getItem('perguntas'));
-            if (!perguntas || perguntas.length === 0) {
+            let allQuestions = JSON.parse(localStorage.getItem('perguntas'));
+            if (!allQuestions || allQuestions.length === 0) {
                 console.log('📝 Usando perguntas padrão...');
-                perguntas = defaultQuestions;
-                localStorage.setItem('perguntas', JSON.stringify(perguntas));
+                allQuestions = defaultQuestions;
+                localStorage.setItem('perguntas', JSON.stringify(allQuestions));
             }
             
-            console.log(`📚 ${perguntas.length} perguntas carregadas`);
+            // Seleciona 10 perguntas aleatórias
+            currentQuestions = getRandomQuestions(allQuestions, 10);
+            currentQuestionIndex = 0;
+            score = 0;
+            canAnswer = true;
+            
+            console.log(`📚 ${currentQuestions.length} perguntas selecionadas aleatoriamente`);
+            
+            // Atualiza a interface
+            updateScoreDisplay();
+            showGameScreen();
+            loadQuestion();
+        }
+
+        function getRandomQuestions(questions, count) {
+            // Se não há perguntas suficientes, usa todas
+            if (questions.length <= count) {
+                return [...questions];
+            }
+            
+            // Embaralha as perguntas e pega as primeiras 'count'
+            const shuffled = [...questions].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, count);
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('score').textContent = score;
+        }
+
+        function showGameScreen() {
+            document.getElementById('gameScreen').style.display = 'block';
+            document.getElementById('resultScreen').style.display = 'none';
+        }
+
+        function showResultScreen() {
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+            
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultScore = document.getElementById('resultScore');
+            
+            resultScore.textContent = `Pontuação: ${score}/10`;
+            
+            if (score === 10) {
+                resultTitle.textContent = "🎉 PARABÉNS! 🎉";
+                resultMessage.textContent = "Você é um verdadeiro milionário! Acertou todas as perguntas!";
+                document.getElementById('winSound').play().catch(e => console.log('🔇 Erro ao tocar som de vitória: ', e));
+            } else if (score >= 7) {
+                resultTitle.textContent = "👏 Ótimo!";
+                resultMessage.textContent = "Você foi muito bem! Quase chegou lá!";
+            } else if (score >= 5) {
+                resultTitle.textContent = "👍 Bom trabalho!";
+                resultMessage.textContent = "Você foi bem, mas pode melhorar!";
+            } else {
+                resultTitle.textContent = "💪 Continue tentando!";
+                resultMessage.textContent = "Não desanime! Tente novamente!";
+            }
+        }
+
+        function loadQuestion() {
+            if (!canAnswer) return;
+            
+            const question = currentQuestions[currentQuestionIndex];
+            console.log(`❓ Carregando pergunta ${currentQuestionIndex + 1}: ${question.pergunta}`);
             
             const questionElement = document.getElementById('question');
             const optionsElement = document.getElementById('options');
-            let currentQuestionIndex = 0;
-            let canAnswer = true;
             
-            // Carrega a primeira pergunta
-            loadQuestion();
+            // Atualiza a pergunta
+            questionElement.innerHTML = `<h2>${question.pergunta}</h2>`;
             
-            function loadQuestion() {
-                if (!canAnswer) return;
-                
-                const question = perguntas[currentQuestionIndex];
-                console.log(`❓ Carregando pergunta ${currentQuestionIndex + 1}: ${question.pergunta}`);
-                
-                // Atualiza a pergunta
-                questionElement.innerHTML = `<h2>${question.pergunta}</h2>`;
-                
-                // Limpa opções anteriores
-                optionsElement.innerHTML = '';
-                
-                // Cria os botões de opção
-                const opcoes = ['a', 'b', 'c', 'd'];
-                opcoes.forEach(opcao => {
-                    const botao = document.createElement('button');
-                    botao.className = 'option-btn';
-                    botao.textContent = question[opcao];
-                    botao.setAttribute('data-letter', opcao.toUpperCase());
-                    botao.onclick = function() {
-                        checkAnswer(opcao, this);
-                    };
-                    optionsElement.appendChild(botao);
-                });
-                
-                console.log('✅ Pergunta carregada com sucesso');
+            // Limpa opções anteriores
+            optionsElement.innerHTML = '';
+            
+            // Cria os botões de opção
+            const opcoes = ['a', 'b', 'c', 'd'];
+            opcoes.forEach(opcao => {
+                const botao = document.createElement('button');
+                botao.className = 'option-btn';
+                botao.textContent = question[opcao];
+                botao.setAttribute('data-letter', opcao.toUpperCase());
+                botao.onclick = function() {
+                    checkAnswer(opcao, this);
+                };
+                optionsElement.appendChild(botao);
+            });
+            
+            console.log('✅ Pergunta carregada com sucesso');
+        }
+        
+        function checkAnswer(selectedOption, clickedButton) {
+            if (!canAnswer) return;
+            
+            console.log(`🎯 Resposta selecionada: ${selectedOption}`);
+            
+            canAnswer = false;
+            const correctOption = currentQuestions[currentQuestionIndex].correta;
+            const optionsElement = document.getElementById('options');
+            const allButtons = optionsElement.getElementsByClassName('option-btn');
+            
+            // Desabilita todos os botões
+            for (let btn of allButtons) {
+                btn.style.pointerEvents = 'none';
             }
             
-            function checkAnswer(selectedOption, clickedButton) {
-                if (!canAnswer) return;
+            if (selectedOption === correctOption) {
+                // Resposta correta
+                console.log('🎉 Resposta correta!');
+                score++;
+                document.getElementById('correctSound').play().catch(e => console.log('🔇 Erro ao tocar som: ', e));
+                clickedButton.classList.add('correct');
+            } else {
+                // Resposta errada
+                console.log('❌ Resposta errada!');
+                document.getElementById('wrongSound').play().catch(e => console.log('🔇 Erro ao tocar som: ', e));
+                clickedButton.classList.add('wrong');
                 
-                console.log(`🎯 Resposta selecionada: ${selectedOption}`);
-                
-                canAnswer = false;
-                const correctOption = perguntas[currentQuestionIndex].correta;
-                const allButtons = optionsElement.getElementsByClassName('option-btn');
-                
-                // Desabilita todos os botões
+                // Mostra a resposta correta
                 for (let btn of allButtons) {
-                    btn.style.pointerEvents = 'none';
-                }
-                
-                if (selectedOption === correctOption) {
-                    // Resposta correta
-                    console.log('🎉 Resposta correta!');
-                    document.getElementById('correctSound').play().catch(e => console.log('🔇 Erro ao tocar som: ', e));
-                    clickedButton.classList.add('correct');
-                } else {
-                    // Resposta errada
-                    console.log('❌ Resposta errada!');
-                    document.getElementById('wrongSound').play().catch(e => console.log('🔇 Erro ao tocar som: ', e));
-                    clickedButton.classList.add('wrong');
-                    
-                    // Mostra a resposta correta
-                    for (let btn of allButtons) {
-                        if (btn.getAttribute('data-letter').toLowerCase() === correctOption) {
-                            btn.classList.add('correct');
-                        }
+                    if (btn.getAttribute('data-letter').toLowerCase() === correctOption) {
+                        btn.classList.add('correct');
                     }
                 }
+            }
+            
+            // Atualiza o placar
+            updateScoreDisplay();
+            
+            // Próxima pergunta ou final do jogo
+            setTimeout(() => {
+                currentQuestionIndex++;
                 
-                // Próxima pergunta após 2 segundos
-                setTimeout(() => {
-                    currentQuestionIndex = (currentQuestionIndex + 1) % perguntas.length;
+                if (currentQuestionIndex < currentQuestions.length) {
                     canAnswer = true;
                     loadQuestion();
-                }, 2000);
-            }
+                } else {
+                    // Fim do jogo
+                    showResultScreen();
+                }
+            }, 2000);
+        }
+
+        function restartGame() {
+            startNewGame();
         }
 
         // Função para debug
         window.debugGame = function() {
             console.log('🐛 Debug do jogo:');
             console.log('- LocalStorage:', localStorage.getItem('perguntas'));
-            console.log('- Elementos DOM:', {
-                question: document.getElementById('question'),
-                options: document.getElementById('options')
-            });
+            console.log('- Perguntas atuais:', currentQuestions);
+            console.log('- Score:', score);
         };
     </script>
 </body>
