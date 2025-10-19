@@ -282,6 +282,32 @@
             font-size: 1.1em;
         }
 
+        /* Notificação */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ffd700;
+            color: #1a1a3e;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
         /* Responsividade para admin */
         @media (max-width: 768px) {
             .admin-container {
@@ -326,5 +352,217 @@
             Voltar ao Jogo
         </a>
         
-        <h1 class="admin-title
-     
+        <h1 class="admin-title">Gerenciar Perguntas</h1>
+
+        <!-- Contador de perguntas -->
+        <div class="total-questions" id="totalQuestions">
+            Total de perguntas: 0
+        </div>
+        
+        <!-- Formulário para adicionar pergunta -->
+        <section class="form-section">
+            <h3 class="form-title">Adicionar Nova Pergunta</h3>
+            <form id="questionForm">
+                <div class="form-group">
+                    <label class="form-label">Pergunta:</label>
+                    <input type="text" id="pergunta" class="form-input" required placeholder="Digite a pergunta...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção A:</label>
+                    <input type="text" id="opcaoA" class="form-input" required placeholder="Resposta A">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção B:</label>
+                    <input type="text" id="opcaoB" class="form-input" required placeholder="Resposta B">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção C:</label>
+                    <input type="text" id="opcaoC" class="form-input" required placeholder="Resposta C">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção D:</label>
+                    <input type="text" id="opcaoD" class="form-input" required placeholder="Resposta D">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Resposta Correta:</label>
+                    <select id="respostaCorreta" class="form-select" required>
+                        <option value="">Selecione a resposta correta...</option>
+                        <option value="a">Opção A</option>
+                        <option value="b">Opção B</option>
+                        <option value="c">Opção C</option>
+                        <option value="d">Opção D</option>
+                    </select>
+                </div>
+                
+                <div class="btn-group">
+                    <button type="submit" class="form-btn btn-primary">
+                        ✅ Adicionar Pergunta
+                    </button>
+                    <button type="button" class="form-btn btn-secondary" onclick="clearForm()">
+                        🗑️ Limpar Formulário
+                    </button>
+                </div>
+            </form>
+        </section>
+        
+        <!-- Lista de perguntas existentes -->
+        <section class="questions-section">
+            <h3 class="form-title">Perguntas Cadastradas</h3>
+            <div id="questionsList" class="questions-list">
+                <!-- Lista de perguntas será inserida aqui -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ADMIN - SCRIPT PARA GERENCIAR PERGUNTAS
+
+        console.log('🛠️ Página admin carregada!');
+
+        // Perguntas padrão
+        const defaultQuestions = [
+            {
+                pergunta: "Qual é a capital do Brasil?",
+                a: "Rio de Janeiro",
+                b: "São Paulo", 
+                c: "Brasília",
+                d: "Salvador",
+                correta: "c"
+            },
+            {
+                pergunta: "Quantos estados tem o Brasil?",
+                a: "26 estados",
+                b: "27 estados",
+                c: "25 estados", 
+                d: "28 estados",
+                correta: "b"
+            },
+            {
+                pergunta: "Qual é o maior planeta do sistema solar?",
+                a: "Terra",
+                b: "Júpiter",
+                c: "Saturno",
+                d: "Marte",
+                correta: "b"
+            }
+        ];
+
+        // Carrega perguntas do localStorage
+        let questions = JSON.parse(localStorage.getItem('perguntas')) || defaultQuestions;
+        const questionsList = document.getElementById('questionsList');
+        const totalQuestions = document.getElementById('totalQuestions');
+
+        // Inicializa a página quando carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📋 Carregando lista de perguntas...');
+            loadQuestionsList();
+        });
+
+        // Carrega a lista de perguntas
+        function loadQuestionsList() {
+            console.log(`📚 Total de perguntas: ${questions.length}`);
+            
+            // Atualiza o contador
+            totalQuestions.textContent = `Total de perguntas: ${questions.length}`;
+            
+            if (questions.length === 0) {
+                questionsList.innerHTML = `
+                    <div class="empty-message">
+                        <p>📝 Nenhuma pergunta cadastrada ainda.</p>
+                        <p>Use o formulário acima para adicionar a primeira pergunta!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            questionsList.innerHTML = '';
+            questions.forEach((question, index) => {
+                const questionItem = document.createElement('div');
+                questionItem.className = 'question-item';
+                questionItem.innerHTML = `
+                    <div class="question-text">${index + 1}. ${question.pergunta}</div>
+                    <div class="options-list">
+                        <div class="option-item"><strong>A:</strong> ${question.a}</div>
+                        <div class="option-item"><strong>B:</strong> ${question.b}</div>
+                        <div class="option-item"><strong>C:</strong> ${question.c}</div>
+                        <div class="option-item"><strong>D:</strong> ${question.d}</div>
+                    </div>
+                    <div class="correct-answer">✅ Resposta Correta: ${question.correta.toUpperCase()}</div>
+                    <button class="delete-btn" onclick="deleteQuestion(${index})">
+                        🗑️ Excluir Pergunta
+                    </button>
+                `;
+                questionsList.appendChild(questionItem);
+            });
+            
+            console.log('✅ Lista de perguntas carregada com sucesso');
+        }
+        
+        // Adiciona nova pergunta
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newQuestion = {
+                pergunta: document.getElementById('pergunta').value,
+                a: document.getElementById('opcaoA').value,
+                b: document.getElementById('opcaoB').value,
+                c: document.getElementById('opcaoC').value,
+                d: document.getElementById('opcaoD').value,
+                correta: document.getElementById('respostaCorreta').value
+            };
+            
+            questions.push(newQuestion);
+            localStorage.setItem('perguntas', JSON.stringify(questions));
+            loadQuestionsList();
+            clearForm();
+            
+            // Feedback visual
+            showNotification('✅ Pergunta adicionada com sucesso!');
+            console.log('➕ Nova pergunta adicionada:', newQuestion.pergunta);
+        });
+        
+        // Exclui pergunta
+        function deleteQuestion(index) {
+            if (confirm('Tem certeza que deseja excluir esta pergunta?')) {
+                const deletedQuestion = questions[index];
+                questions.splice(index, 1);
+                localStorage.setItem('perguntas', JSON.stringify(questions));
+                loadQuestionsList();
+                showNotification('🗑️ Pergunta excluída com sucesso!');
+                console.log('➖ Pergunta excluída:', deletedQuestion.pergunta);
+            }
+        }
+        
+        // Limpa formulário
+        function clearForm() {
+            document.getElementById('questionForm').reset();
+            console.log('🧹 Formulário limpo');
+        }
+        
+        // Mostra notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Função para debug
+        window.debugAdmin = function() {
+            console.log('🐛 Debug do admin:');
+            console.log('- Total de perguntas:', questions.length);
+            console.log('- Perguntas:', questions);
+            console.log('- LocalStorage:', localStorage.getItem('perguntas'));
+        };
+    </script>
+</body>
+</html>
