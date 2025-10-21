@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show do Milhão - Semana da Qualidade</title>
+    <title>Admin - Show do Milhão</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET E CONFIGURAÇÕES GLOBAIS ===== */
+        /* ===== ESTILOS PARA A PÁGINA ADMIN ===== */
         * {
             margin: 0;
             padding: 0;
@@ -22,7 +22,7 @@
             position: relative;
         }
 
-        /* ===== EFEITOS DE FUNDO ===== */
+        /* Efeitos de fundo */
         .bg-effects {
             position: fixed;
             top: 0;
@@ -84,148 +84,167 @@
             }
         }
 
-        /* ===== CONTAINER PRINCIPAL ===== */
-        .container {
-            max-width: 1200px;
+        /* Container admin */
+        .admin-container {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
+            padding: 60px 20px 40px;
         }
 
-        /* ===== CABEÇALHO ===== */
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-            padding-top: 40px;
-        }
-
-        .title-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
             border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .admin-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
             border-radius: 20px;
             padding: 30px;
-            display: inline-block;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5em;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ffd700, #ff6b00, #ffd700);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            animation: shine 3s ease-in-out infinite;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        @keyframes shine {
-            0%, 100% {
-                background-position: 0% 50%;
-                text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            }
-            50% {
-                background-position: 100% 50%;
-                text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-            }
-        }
-
-        .subtitle {
-            font-size: 1.3em;
-            color: #b8b8b8;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ===== TELA DE INÍCIO ===== */
-        .start-screen {
-            text-align: center;
-            padding: 60px 40px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .start-title {
-            font-size: 2.5em;
+        .form-title {
             color: #ffd700;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            font-size: 1.5em;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            padding-bottom: 10px;
         }
 
-        .start-description {
-            font-size: 1.2em;
-            color: #b8b8b8;
-            margin-bottom: 30px;
-            line-height: 1.6;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .game-rules {
-            background: rgba(255, 215, 0, 0.1);
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            text-align: left;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1em;
+            transition: all 0.3s ease;
         }
 
-        .rules-title {
-            color: #ffd700;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            text-align: center;
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
-        .rules-list {
-            list-style: none;
-            padding: 0;
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
         }
 
-        .rules-list li {
-            margin-bottom: 10px;
-            padding-left: 25px;
+        .form-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #1a1a3e;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .questions-section {
+            margin-top: 40px;
+        }
+
+        .questions-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .question-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .rules-list li:before {
-            content: "🎯";
-            position: absolute;
-            left: 0;
+        .question-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.4);
         }
 
-        /* ===== INFO DO JOGO ===== */
-        .game-info {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            color: #ffd700;
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-size: 1.1em;
         }
 
-        .score {
-            font-weight: bold;
-            font-size: 1.3em;
-        }
-
-        .level-indicator {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin-left: 15px;
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
             font-size: 0.9em;
+        }
+
+        .question-level {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8em;
         }
 
         .level-facil {
@@ -243,302 +262,107 @@
             color: white;
         }
 
-        /* ===== ÁREA DO JOGO ===== */
-        .game-area {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .question-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 50px 40px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .question-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                #ffd700, 
-                transparent);
-            animation: scanline 2s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* ===== PERGUNTA ===== */
-        .question {
-            font-size: 1.6em;
-            margin-bottom: 40px;
-            text-align: center;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.5;
-        }
-
-        .question h2 {
-            font-weight: 400;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        /* ===== GRID DE OPÇÕES ===== */
-        .options-grid {
+        .options-list {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 700px;
-            margin: 0 auto;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
-        .option-btn {
-            background: linear-gradient(135deg, 
-                rgba(255, 215, 0, 0.15) 0%, 
-                rgba(138, 43, 226, 0.1) 100%);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            color: #ffffff;
-            padding: 25px 20px 25px 60px;
-            border-radius: 15px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            text-align: left;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .option-btn::before {
-            content: attr(data-letter);
-            position: absolute;
-            top: 50%;
-            left: 20px;
-            transform: translateY(-50%);
-            width: 35px;
-            height: 35px;
-            background: rgba(255, 215, 0, 0.2);
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #ffd700;
+        .option-item {
+            padding: 5px 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 5px;
             font-size: 0.9em;
         }
 
-        .option-btn:hover {
-            background: linear-gradient(135deg, 
-                rgba(255, 215, 0, 0.25) 0%, 
-                rgba(138, 43, 226, 0.2) 100%);
-            border-color: #ffd700;
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 
-                0 10px 25px rgba(255, 215, 0, 0.3),
-                0 0 30px rgba(255, 215, 0, 0.2);
+        .correct-answer {
+            color: #00ff88;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
-        /* ===== TELA DE RESULTADO ===== */
-        .result-screen {
+        .delete-btn {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(255, 68, 68, 0.4);
+        }
+
+        .empty-message {
             text-align: center;
-            padding: 50px;
+            color: #b8b8b8;
+            padding: 40px;
+            font-style: italic;
         }
 
-        .result-title {
-            font-size: 3em;
+        .total-questions {
+            text-align: center;
             color: #ffd700;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-
-        .result-message {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            color: #ffffff;
-        }
-
-        .result-score {
-            font-size: 2em;
-            color: #00ff88;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
-
-        /* ===== BOTÕES ===== */
-        .actions {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .start-btn, .admin-btn, .restart-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #1a1a3e;
-            text-decoration: none;
-            padding: 18px 35px;
-            border-radius: 15px;
-            font-weight: 700;
             font-size: 1.1em;
-            transition: all 0.4s ease;
-            box-shadow: 
-                0 8px 25px rgba(255, 215, 0, 0.4),
-                0 0 20px rgba(255, 140, 0, 0.3);
-            border: none;
-            cursor: pointer;
-            margin: 0 10px;
         }
 
-        .start-btn {
-            background: linear-gradient(135deg, #00ff88, #00cc66);
-            font-size: 1.3em;
-            padding: 20px 40px;
-        }
-
-        .restart-btn {
-            background: linear-gradient(135deg, #00ff88, #00cc66);
-        }
-
-        .start-btn:hover, .admin-btn:hover, .restart-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 
-                0 12px 35px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 140, 0, 0.4);
+        /* Notificação */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ffd700;
             color: #1a1a3e;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
         }
 
-        .btn-icon {
-            font-size: 1.2em;
-        }
-
-        /* ===== ESTADOS DAS RESPOSTAS ===== */
-        .correct {
-            background: linear-gradient(135deg, 
-                rgba(0, 255, 136, 0.3) 0%, 
-                rgba(0, 200, 83, 0.4) 100%) !important;
-            border-color: #00ff88 !important;
-            animation: correctPulse 0.6s ease-in-out;
-        }
-
-        @keyframes correctPulse {
-            0%, 100% { 
-                box-shadow: 
-                    0 0 20px rgba(0, 255, 136, 0.4),
-                    0 0 40px rgba(0, 255, 136, 0.2);
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
             }
-            50% { 
-                box-shadow: 
-                    0 0 30px rgba(0, 255, 136, 0.8),
-                    0 0 60px rgba(0, 255, 136, 0.4);
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
 
-        .wrong {
-            background: linear-gradient(135deg, 
-                rgba(255, 68, 68, 0.3) 0%, 
-                rgba(220, 20, 60, 0.4) 100%) !important;
-            border-color: #ff4444 !important;
-            animation: wrongShake 0.5s ease-in-out;
-        }
-
-        @keyframes wrongShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-
-        /* ===== RESPONSIVIDADE ===== */
+        /* Responsividade para admin */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            .admin-container {
+                padding: 50px 15px 30px;
             }
             
-            .main-title {
-                font-size: 2.2em;
+            .admin-title {
+                font-size: 2em;
             }
             
-            .start-screen {
-                padding: 40px 20px;
+            .form-section {
+                padding: 20px;
                 margin: 0 10px 20px 10px;
             }
             
-            .question-card {
-                padding: 30px 20px;
-                margin: 0 10px 20px 10px;
+            .btn-group {
+                flex-direction: column;
             }
             
-            .options-grid {
+            .options-list {
                 grid-template-columns: 1fr;
-                gap: 15px;
             }
             
-            .question {
-                font-size: 1.3em;
-            }
-            
-            .option-btn {
-                padding: 20px 15px 20px 50px;
-                font-size: 1em;
-            }
-            
-            .start-btn, .admin-btn, .restart-btn {
-                padding: 15px 25px;
-                font-size: 1em;
-                margin: 5px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 1.8em;
-            }
-            
-            .subtitle {
-                font-size: 1em;
-            }
-            
-            .start-screen {
-                padding: 30px 15px;
-            }
-            
-            .question-card {
-                padding: 25px 15px;
-            }
-            
-            .question {
-                font-size: 1.1em;
-            }
-            
-            .option-btn {
-                padding: 18px 12px 18px 45px;
-                font-size: 0.9em;
-            }
-            
-            .option-btn::before {
-                width: 30px;
-                height: 30px;
-                left: 15px;
-                font-size: 0.8em;
+            .question-item {
+                padding: 15px;
             }
         }
     </style>
@@ -552,230 +376,530 @@
         <div class="particle"></div>
     </div>
 
-    <div class="container">
-        <header class="header">
-            <div class="title-container">
-                <h1 class="main-title">SHOW DO MILHÃO</h1>
-                <p class="subtitle">Semana da Qualidade</p>
-            </div>
-        </header>
+    <div class="admin-container">
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            Voltar ao Jogo
+        </a>
+        
+        <h1 class="admin-title">Gerenciar Perguntas</h1>
 
-        <!-- Tela de Início (SEMPRE VISÍVEL NO INÍCIO) -->
-        <div id="startScreen" class="start-screen">
-            <h2 class="start-title">🎮 Bem-vindo ao Show do Milhão! 🎮</h2>
-            <p class="start-description">
-                Teste seus conhecimentos sobre qualidade e segurança de alimentos neste desafio emocionante!
-            </p>
-            
-            <div class="game-rules">
-                <h3 class="rules-title">📋 Como Jogar:</h3>
-                <ul class="rules-list">
-                    <li><strong>10 perguntas</strong> por jogo (3 Fáceis, 4 Médias, 3 Difíceis)</li>
-                    <li>Responda clicando na alternativa correta</li>
-                    <li>Cada acerto vale 1 ponto</li>
-                    <li>Acertando todas as 10 perguntas, você VENCE!</li>
-                    <li>Use o botão "Adicionar/Editar Perguntas" para personalizar</li>
-                </ul>
-            </div>
-
-            <div class="actions">
-                <button class="start-btn" onclick="startGame()">
-                    🚀 Iniciar Jogo
-                </button>
-                <a href="admin.html" class="admin-btn">
-                    ⚙️ Adicionar/Editar Perguntas
-                </a>
-            </div>
+        <!-- Contador de perguntas -->
+        <div class="total-questions" id="totalQuestions">
+            Total de perguntas: 0
         </div>
-
-        <!-- Informações do jogo (APENAS DURANTE O JOGO) -->
-        <div class="game-info" id="gameInfo" style="display: none;">
-            <div class="score">Pergunta: <span id="currentQuestion">1</span>/10 | Acertos: <span id="score">0</span></div>
-            <div class="level-indicator" id="levelIndicator">Fácil</div>
-        </div>
-
-        <main class="game-area">
-            <!-- Tela do jogo (APENAS DURANTE O JOGO) -->
-            <div id="gameScreen" style="display: none;">
-                <div class="question-card">
-                    <div id="question" class="question">
-                        <h2>Carregando perguntas...</h2>
-                    </div>
-                    <div id="options" class="options-grid">
-                        <!-- Opções serão inseridas aqui -->
-                    </div>
+        
+        <!-- Formulário para adicionar pergunta -->
+        <section class="form-section">
+            <h3 class="form-title">Adicionar Nova Pergunta</h3>
+            <form id="questionForm">
+                <div class="form-group">
+                    <label class="form-label">Pergunta:</label>
+                    <input type="text" id="pergunta" class="form-input" required placeholder="Digite a pergunta...">
                 </div>
-            </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção A:</label>
+                    <input type="text" id="a" class="form-input" required placeholder="Resposta A">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção B:</label>
+                    <input type="text" id="b" class="form-input" required placeholder="Resposta B">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção C:</label>
+                    <input type="text" id="c" class="form-input" required placeholder="Resposta C">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Opção D:</label>
+                    <input type="text" id="d" class="form-input" required placeholder="Resposta D">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Resposta Correta:</label>
+                    <select id="correta" class="form-select" required>
+                        <option value="">Selecione a resposta correta...</option>
+                        <option value="a">Opção A</option>
+                        <option value="b">Opção B</option>
+                        <option value="c">Opção C</option>
+                        <option value="d">Opção D</option>
+                    </select>
+                </div>
 
-            <!-- Tela de resultado (APENAS NO FINAL) -->
-            <div id="resultScreen" class="result-screen" style="display: none;">
-                <h2 class="result-title" id="resultTitle">Parabéns!</h2>
-                <div class="result-message" id="resultMessage">Você completou o desafio!</div>
-                <div class="result-score" id="resultScore">Pontuação: 0/10</div>
-                <div class="actions">
-                    <button class="restart-btn" onclick="restartGame()">
-                        🔄 Jogar Novamente
+                <div class="form-group">
+                    <label class="form-label">Nível de Dificuldade:</label>
+                    <select id="nivel" class="form-select" required>
+                        <option value="">Selecione o nível...</option>
+                        <option value="facil">Fácil</option>
+                        <option value="medio">Médio</option>
+                        <option value="dificil">Difícil</option>
+                    </select>
+                </div>
+                
+                <div class="btn-group">
+                    <button type="submit" class="form-btn btn-primary">
+                        ✅ Adicionar Pergunta
                     </button>
-                    <a href="admin.html" class="admin-btn">
-                        ⚙️ Gerenciar Perguntas
-                    </a>
+                    <button type="button" class="form-btn btn-secondary" onclick="clearForm()">
+                        🗑️ Limpar Formulário
+                    </button>
                 </div>
+            </form>
+        </section>
+        
+        <!-- Lista de perguntas existentes -->
+        <section class="questions-section">
+            <h3 class="form-title">Perguntas Cadastradas</h3>
+            <div id="questionsList" class="questions-list">
+                <!-- Lista de perguntas será inserida aqui -->
             </div>
-        </main>
+        </section>
+
+        <!-- Botões de ação -->
+        <div class="form-section">
+            <h3 class="form-title">Ações do Sistema</h3>
+            <div class="btn-group">
+                <button type="button" class="form-btn btn-primary" onclick="resetToDefault()">
+                    🔄 Restaurar Perguntas Padrão
+                </button>
+                <button type="button" class="form-btn btn-secondary" onclick="exportQuestions()">
+                    📤 Exportar Perguntas
+                </button>
+                <button type="button" class="form-btn btn-secondary" onclick="importQuestions()">
+                    📥 Importar Perguntas
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- Sons -->
-    <audio id="correctSound" preload="auto">
-        <source src="sounds/acerto.mp3" type="audio/mpeg">
-        <source src="sounds/acerto.wav" type="audio/wav">
-        <source src="sounds/acerto.ogg" type="audio/ogg">
-    </audio>
-    <audio id="wrongSound" preload="auto">
-        <source src="sounds/erro.mp3" type="audio/mpeg">
-        <source src="sounds/erro.wav" type="audio/wav">
-        <source src="sounds/erro.ogg" type="audio/ogg">
-    </audio>
-    <audio id="winSound" preload="auto">
-        <source src="sounds/vitoria.mp3" type="audio/mpeg">
-        <source src="sounds/vitoria.wav" type="audio/wav">
-        <source src="sounds/vitoria.ogg" type="audio/ogg">
-    </audio>
-
     <script>
-        // SHOW DO MILHÃO - SCRIPT PRINCIPAL COM TELA DE INÍCIO
+        // ADMIN - SCRIPT PARA GERENCIAR PERGUNTAS (CORRIGIDO)
 
-        console.log('🚀 Show do Milhão - Script carregado!');
+        console.log('🛠️ Página admin carregada!');
 
-        // PERGUNTAS PRÉ-CADASTRADAS COM NÍVEIS (40 PERGUNTAS)
+        // PERGUNTAS PRÉ-CADASTRADAS (as mesmas do index.html)
         const defaultQuestions = [
-            // ... (aqui viriam as 40 perguntas completas)
-            // Para economizar espaço, estou omitindo as perguntas
-            // Elas estão completas no código anterior
+            // PERGUNTAS FÁCEIS (15)
+            {
+                pergunta: "Qual é a cor padrão para uniformes em áreas de produção de alimentos?",
+                a: "Preto",
+                b: "Azul",
+                c: "Branco",
+                d: "Verde",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é o principal objetivo do controle de pragas em indústrias de alimentos?",
+                a: "Reduzir custos",
+                b: "Evitar contaminação física, química e biológica",
+                c: "Melhorar aparência da fábrica",
+                d: "Cumprir normas ambientais",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a consequência de não seguir as BPF?",
+                a: "Redução de custos",
+                b: "Risco à saúde e perda de credibilidade",
+                c: "Melhor aparência dos alimentos",
+                d: "Aumento da produção",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que é proibido comer ou beber na área de produção?",
+                a: "Para evitar distrações",
+                b: "Para evitar contaminação",
+                c: "Para manter limpeza do uniforme",
+                d: "Porque é norma da empresa",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a função da touca na indústria de alimentos?",
+                a: "Proteger do calor",
+                b: "Evitar queda de cabelo nos alimentos",
+                c: "Melhorar aparência do uniforme",
+                d: "Substituir máscara",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "É permitido usar esmalte ou unhas postiças na área de produção?",
+                a: "Sim, desde que sejam claras",
+                b: "Sim, com luvas",
+                c: "Não",
+                d: "Apenas em inspeções",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que não se deve usar perfume forte na área de produção?",
+                a: "Para evitar alergias nos colegas",
+                b: "Para evitar contaminação química",
+                c: "Para economizar",
+                d: "Porque é norma da empresa",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a importância do uniforme limpo?",
+                a: "Melhorar aparência",
+                b: "Evitar contaminação",
+                c: "Cumprir normas estéticas",
+                d: "Reduzir custos",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que as paredes e pisos devem ser lisos e laváveis?",
+                a: "Para facilitar limpeza",
+                b: "Para reduzir custos",
+                c: "Para melhorar aparência",
+                d: "Para evitar acidentes",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a importância da iluminação adequada?",
+                a: "Melhorar aparência",
+                b: "Reduzir custos",
+                c: "Facilitar inspeção e limpeza",
+                d: "Cumprir normas estéticas",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "O que deve ser feito antes de iniciar o trabalho na área de produção?",
+                a: "Tomar café",
+                b: "Fazer higienização das mãos",
+                c: "Revisar e-mails",
+                d: "Conversar com colegas",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é o objetivo principal das Boas Práticas de Fabricação?",
+                a: "Aumentar a produção",
+                b: "Garantir segurança dos alimentos",
+                c: "Reduzir custos",
+                d: "Melhorar sabor",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "O que significa a sigla BPF?",
+                a: "Boas Práticas de Fabricação",
+                b: "Bons Procedimentos Fabris",
+                c: "Boas Práticas Fundamentais",
+                d: "Bases Para Fabricação",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a temperatura ideal para conservação de alimentos refrigerados?",
+                a: "Abaixo de 5°C",
+                b: "Entre 10°C e 15°C",
+                c: "Entre 20°C e 25°C",
+                d: "Acima de 30°C",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que é importante manter os alimentos cobertos?",
+                a: "Para economizar espaço",
+                b: "Para evitar contaminação",
+                c: "Para manter temperatura",
+                d: "Para melhor apresentação",
+                correta: "b",
+                nivel: "facil"
+            },
+
+            // PERGUNTAS MÉDIAS (15)
+            {
+                pergunta: "Instruções de trabalho ou procedimentos servem para:",
+                a: "Evidenciar que existe um documento para aquele processo",
+                b: "Instruir as pessoas a fazer determinada atividade e cabe as pessoas seguir",
+                c: "Não servem para nada",
+                d: "Mostrar para o auditor o papel",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é o principal objetivo da pasteurização do leite?",
+                a: "Melhorar sabor",
+                b: "Eliminar bactérias patogênicas",
+                c: "Reduzir gordura",
+                d: "Aumentar viscosidade",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a frequência mínima recomendada para higienização das mãos em uma indústria de laticínios?",
+                a: "Apenas antes do turno",
+                b: "Antes e depois de manipular alimentos",
+                c: "Uma vez por hora",
+                d: "Apenas após usar sanitário",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a função do POP (Procedimento Operacional Padrão)?",
+                a: "Definir metas financeiras",
+                b: "Padronizar atividades críticas",
+                c: "Controle de estoque",
+                d: "Treinar equipe de vendas",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a principal consequência da ausência de barreira física entre áreas sujas e limpas?",
+                a: "Aumento de produtividade",
+                b: "Contaminação cruzada",
+                c: "Redução de custos",
+                d: "Melhoria sensorial",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que significa contaminação cruzada?",
+                a: "Mistura de alimentos crus e cozidos",
+                b: "Uso de utensílios novos",
+                c: "Higienização inadequada das mãos",
+                d: "Mistura de temperos",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a função das telas nas janelas?",
+                a: "Melhorar ventilação",
+                b: "Diminuir ruído",
+                c: "Reduzir luz solar",
+                d: "Evitar entrada de pragas",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Por que é proibido armazenar produtos químicos próximos aos alimentos?",
+                a: "Para evitar desperdício",
+                b: "Para facilitar acesso",
+                c: "Para reduzir custos",
+                d: "Para evitar contaminação",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a função do controle de qualidade?",
+                a: "Melhorar aparência",
+                b: "Garantir segurança e conformidade",
+                c: "Reduzir custos",
+                d: "Cumprir normas estéticas",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a ação correta após derramamento de produto químico?",
+                a: "Limpar imediatamente seguindo POP",
+                b: "Continuar produção",
+                c: "Ignorar se for pouco",
+                d: "Jogar água e seguir",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que é APPCC?",
+                a: "Análise de Perigos e Pontos Críticos de Controle",
+                b: "Análise de Processos e Produção de Controle",
+                c: "Avaliação de Produtos e Procedimentos de Controle",
+                d: "Análise de Padrões e Procedimentos de Controle",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a diferença entre limpeza e sanitização?",
+                a: "Limpeza remove sujidade, sanitização reduz microrganismos",
+                b: "São a mesma coisa",
+                c: "Limpeza é para pisos, sanitização para equipamentos",
+                d: "Limpeza usa água, sanitização usa produtos químicos",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é o objetivo da rastreabilidade de alimentos?",
+                a: "Aumentar preço do produto",
+                b: "Permitir recall eficiente quando necessário",
+                c: "Reduzir custos de produção",
+                d: "Melhorar embalagem",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que significa FIFO no controle de estoque?",
+                a: "First In, First Out (Primeiro a entrar, primeiro a sair)",
+                b: "Fast In, Fast Out (Rápido a entrar, rápido a sair)",
+                c: "Fresh In, Fresh Out (Fresco a entrar, fresco a sair)",
+                d: "First In, First Order (Primeiro a entrar, primeiro pedido)",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a importância da calibração de equipamentos?",
+                a: "Garantir medições precisas e confiáveis",
+                b: "Reduzir consumo de energia",
+                c: "Melhorar aparência dos equipamentos",
+                d: "Aumentar velocidade de produção",
+                correta: "a",
+                nivel: "medio"
+            },
+
+            // PERGUNTAS DIFÍCEIS (10)
+            {
+                pergunta: "Quais são os PCC's da unidade?",
+                a: "Filtro, pasteurizador, detector de metais",
+                b: "Bactofuga, detector de metais, desnatadeira",
+                c: "Detector de metais, pasteurizador e Antibiótico",
+                d: "Antibiótico, bactofuga e desnatadeira",
+                correta: "c",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O filtro PPRO avalia qual risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "A análise de antibiótico é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "c",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O detector de metal é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O Pasteurizador é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a principal função do CIP (Cleaning in Place)?",
+                a: "Limpeza manual de tanques",
+                b: "Limpeza automatizada sem desmontagem",
+                c: "Controle microbiológico",
+                d: "Higienização de uniformes",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O que é um limite crítico no APPCC?",
+                a: "Um valor que separa a aceitabilidade da inaceitabilidade",
+                b: "O horário de trabalho dos funcionários",
+                c: "O custo máximo de produção",
+                d: "A temperatura ambiente da fábrica",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a diferença entre perigo e risco na segurança de alimentos?",
+                a: "Perigo é fonte potencial de dano, risco é probabilidade de ocorrência",
+                b: "São sinônimos",
+                c: "Perigo é químico, risco é biológico",
+                d: "Perigo é físico, risco é microbiológico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O que significa a sigla PPHO?",
+                a: "Procedimento Padrão de Higiene Operacional",
+                b: "Plano de Produção e Higiene Organizacional",
+                c: "Programa de Prevenção de Higiene Ocupacional",
+                d: "Procedimento de Proteção e Higiene Operacional",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a temperatura e tempo mínimos para pasteurização HTST do leite?",
+                a: "72°C por 15 segundos",
+                b: "85°C por 5 minutos",
+                c: "63°C por 30 minutos",
+                d: "95°C por 1 minuto",
+                correta: "a",
+                nivel: "dificil"
+            }
         ];
 
-        // Variáveis do jogo
-        let currentQuestions = [];
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let canAnswer = true;
-        let gameStarted = false;
+        // Carrega perguntas do localStorage
+        let questions = loadQuestionsFromStorage();
+        const questionsList = document.getElementById('questionsList');
+        const totalQuestions = document.getElementById('totalQuestions');
 
-        // Inicialização quando o DOM estiver pronto
+        // Inicializa a página quando carrega
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 Página carregada - Mostrando tela de início');
-            // NÃO inicia o jogo automaticamente
-            showStartScreen();
+            console.log('📋 Carregando lista de perguntas...');
+            loadQuestionsList();
         });
 
-        // Mostra a tela de início
-        function showStartScreen() {
-            document.getElementById('startScreen').style.display = 'block';
-            document.getElementById('gameInfo').style.display = 'none';
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('resultScreen').style.display = 'none';
-            gameStarted = false;
-        }
-
-        // Inicia o jogo quando o usuário clicar em "Iniciar Jogo"
-        function startGame() {
-            console.log('🎮 Iniciando novo jogo...');
-            gameStarted = true;
+        // Função para carregar perguntas do localStorage
+        function loadQuestionsFromStorage() {
+            let storedQuestions = JSON.parse(localStorage.getItem('perguntas'));
             
-            // Carrega perguntas do localStorage ou usa as padrão
-            let allQuestions = JSON.parse(localStorage.getItem('perguntas'));
-            if (!allQuestions || allQuestions.length === 0) {
-                console.log('📝 Usando perguntas padrão...');
-                allQuestions = defaultQuestions;
-                localStorage.setItem('perguntas', JSON.stringify(allQuestions));
-            }
-            
-            // Seleciona perguntas por nível: 3 fáceis, 4 médias, 3 difíceis
-            currentQuestions = selectQuestionsByLevel(allQuestions);
-            currentQuestionIndex = 0;
-            score = 0;
-            canAnswer = true;
-            
-            console.log(`📚 ${currentQuestions.length} perguntas selecionadas por nível`);
-            
-            // Mostra a tela do jogo
-            showGameScreen();
-            
-            // Atualiza a interface
-            updateScoreDisplay();
-            updateLevelIndicator();
-            loadQuestion();
-        }
-
-        function selectQuestionsByLevel(allQuestions) {
-            const easyQuestions = allQuestions.filter(q => q.nivel === 'facil');
-            const mediumQuestions = allQuestions.filter(q => q.nivel === 'medio');
-            const hardQuestions = allQuestions.filter(q => q.nivel === 'dificil');
-            
-            // Embaralha e seleciona as perguntas de cada nível
-            const selectedEasy = shuffleArray(easyQuestions).slice(0, 3);
-            const selectedMedium = shuffleArray(mediumQuestions).slice(0, 4);
-            const selectedHard = shuffleArray(hardQuestions).slice(0, 3);
-            
-            console.log(`🎯 Selecionadas: ${selectedEasy.length} fáceis, ${selectedMedium.length} médias, ${selectedHard.length} difíceis`);
-            
-            return [...selectedEasy, ...selectedMedium, ...selectedHard];
-        }
-
-        function shuffleArray(array) {
-            return [...array].sort(() => Math.random() - 0.5);
-        }
-
-        // Mostra a tela do jogo
-        function showGameScreen() {
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('gameInfo').style.display = 'block';
-            document.getElementById('gameScreen').style.display = 'block';
-            document.getElementById('resultScreen').style.display = 'none';
-        }
-
-        // Mostra a tela de resultado
-        function showResultScreen() {
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('gameInfo').style.display = 'none';
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('resultScreen').style.display = 'block';
-            
-            const resultTitle = document.getElementById('resultTitle');
-            const resultMessage = document.getElementById('resultMessage');
-            const resultScore = document.getElementById('resultScore');
-            
-            resultScore.textContent = `Pontuação: ${score}/10`;
-            
-            if (score === 10) {
-                resultTitle.textContent = "🎉 PARABÉNS! 🎉";
-                resultMessage.textContent = "Você é um verdadeiro milionário! Acertou todas as perguntas!";
-                playSound('winSound');
-            } else if (score >= 7) {
-                resultTitle.textContent = "👏 Ótimo!";
-                resultMessage.textContent = "Você foi muito bem! Quase chegou lá!";
-            } else if (score >= 5) {
-                resultTitle.textContent = "👍 Bom trabalho!";
-                resultMessage.textContent = "Você foi bem, mas pode melhorar!";
+            if (!storedQuestions || storedQuestions.length === 0) {
+                console.log('📝 Nenhuma pergunta encontrada - usando perguntas padrão');
+                storedQuestions = defaultQuestions;
+                localStorage.setItem('perguntas', JSON.stringify(storedQuestions));
             } else {
-                resultTitle.textContent = "💪 Continue tentando!";
-                resultMessage.textContent = "Não desanime! Tente novamente!";
+                console.log(`📚 ${storedQuestions.length} perguntas carregadas do localStorage`);
             }
-        }
-
-        function updateScoreDisplay() {
-            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-            document.getElementById('score').textContent = score;
-        }
-
-        function updateLevelIndicator() {
-            const levelIndicator = document.getElementById('levelIndicator');
-            const currentQuestion = currentQuestions[currentQuestionIndex];
             
-            if (currentQuestion) {
+            return storedQuestions;
+        }
+
+        // Carrega a lista de perguntas
+        function loadQuestionsList() {
+            console.log(`📚 Total de perguntas: ${questions.length}`);
+            
+            // Atualiza o contador
+            totalQuestions.textContent = `Total de perguntas: ${questions.length}`;
+            
+            if (questions.length === 0) {
+                questionsList.innerHTML = `
+                    <div class="empty-message">
+                        <p>📝 Nenhuma pergunta cadastrada ainda.</p>
+                        <p>Use o formulário acima para adicionar a primeira pergunta!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            questionsList.innerHTML = '';
+            questions.forEach((question, index) => {
+                const questionItem = document.createElement('div');
+                questionItem.className = 'question-item';
+                
                 let levelText = '';
                 let levelClass = '';
-                
-                switch(currentQuestion.nivel) {
+                switch(question.nivel) {
                     case 'facil':
                         levelText = 'Fácil';
                         levelClass = 'level-facil';
@@ -790,119 +914,151 @@
                         break;
                 }
                 
-                levelIndicator.textContent = levelText;
-                levelIndicator.className = 'level-indicator ' + levelClass;
-            }
-        }
-
-        function loadQuestion() {
-            if (!canAnswer || !gameStarted) return;
-            
-            const question = currentQuestions[currentQuestionIndex];
-            console.log(`❓ Carregando pergunta ${currentQuestionIndex + 1} (${question.nivel}): ${question.pergunta}`);
-            
-            const questionElement = document.getElementById('question');
-            const optionsElement = document.getElementById('options');
-            
-            // Atualiza a pergunta
-            questionElement.innerHTML = `<h2>${question.pergunta}</h2>`;
-            
-            // Limpa opções anteriores
-            optionsElement.innerHTML = '';
-            
-            // Cria os botões de opção
-            const opcoes = ['a', 'b', 'c', 'd'];
-            opcoes.forEach(opcao => {
-                const botao = document.createElement('button');
-                botao.className = 'option-btn';
-                botao.textContent = question[opcao];
-                botao.setAttribute('data-letter', opcao.toUpperCase());
-                botao.onclick = function() {
-                    checkAnswer(opcao, this);
-                };
-                optionsElement.appendChild(botao);
+                questionItem.innerHTML = `
+                    <div class="question-meta">
+                        <div class="question-number">${index + 1}.</div>
+                        <div class="question-level ${levelClass}">${levelText}</div>
+                    </div>
+                    <div class="question-text">${question.pergunta}</div>
+                    <div class="options-list">
+                        <div class="option-item"><strong>A:</strong> ${question.a}</div>
+                        <div class="option-item"><strong>B:</strong> ${question.b}</div>
+                        <div class="option-item"><strong>C:</strong> ${question.c}</div>
+                        <div class="option-item"><strong>D:</strong> ${question.d}</div>
+                    </div>
+                    <div class="correct-answer">✅ Resposta Correta: ${question.correta.toUpperCase()}</div>
+                    <button class="delete-btn" onclick="deleteQuestion(${index})">
+                        🗑️ Excluir Pergunta
+                    </button>
+                `;
+                questionsList.appendChild(questionItem);
             });
             
-            // Atualiza indicador de nível
-            updateLevelIndicator();
-            
-            console.log('✅ Pergunta carregada com sucesso');
+            console.log('✅ Lista de perguntas carregada com sucesso');
         }
-
-        // Função para tocar sons
-        function playSound(soundId) {
-            const sound = document.getElementById(soundId);
-            if (sound) {
-                sound.currentTime = 0; // Reinicia o som
-                sound.play().catch(e => {
-                    console.log(`🔇 Erro ao tocar som ${soundId}:`, e);
-                });
+        
+        // Adiciona nova pergunta
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newQuestion = {
+                pergunta: document.getElementById('pergunta').value,
+                a: document.getElementById('a').value,
+                b: document.getElementById('b').value,
+                c: document.getElementById('c').value,
+                d: document.getElementById('d').value,
+                correta: document.getElementById('correta').value,
+                nivel: document.getElementById('nivel').value
+            };
+            
+            questions.push(newQuestion);
+            localStorage.setItem('perguntas', JSON.stringify(questions));
+            loadQuestionsList();
+            clearForm();
+            
+            // Feedback visual
+            showNotification('✅ Pergunta adicionada com sucesso!');
+            console.log('➕ Nova pergunta adicionada:', newQuestion.pergunta);
+        });
+        
+        // Exclui pergunta
+        function deleteQuestion(index) {
+            if (confirm('Tem certeza que deseja excluir esta pergunta?')) {
+                const deletedQuestion = questions[index];
+                questions.splice(index, 1);
+                localStorage.setItem('perguntas', JSON.stringify(questions));
+                loadQuestionsList();
+                showNotification('🗑️ Pergunta excluída com sucesso!');
+                console.log('➖ Pergunta excluída:', deletedQuestion.pergunta);
             }
         }
         
-        function checkAnswer(selectedOption, clickedButton) {
-            if (!canAnswer || !gameStarted) return;
+        // Limpa formulário
+        function clearForm() {
+            document.getElementById('questionForm').reset();
+            console.log('🧹 Formulário limpo');
+        }
+        
+        // Mostra notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
             
-            console.log(`🎯 Resposta selecionada: ${selectedOption}`);
-            
-            canAnswer = false;
-            const correctOption = currentQuestions[currentQuestionIndex].correta;
-            const optionsElement = document.getElementById('options');
-            const allButtons = optionsElement.getElementsByClassName('option-btn');
-            
-            // Desabilita todos os botões
-            for (let btn of allButtons) {
-                btn.style.pointerEvents = 'none';
-            }
-            
-            if (selectedOption === correctOption) {
-                // Resposta correta
-                console.log('🎉 Resposta correta!');
-                score++;
-                playSound('correctSound');
-                clickedButton.classList.add('correct');
-            } else {
-                // Resposta errada
-                console.log('❌ Resposta errada!');
-                playSound('wrongSound');
-                clickedButton.classList.add('wrong');
-                
-                // Mostra a resposta correta
-                for (let btn of allButtons) {
-                    if (btn.getAttribute('data-letter').toLowerCase() === correctOption) {
-                        btn.classList.add('correct');
-                    }
-                }
-            }
-            
-            // Atualiza o placar
-            updateScoreDisplay();
-            
-            // Próxima pergunta ou final do jogo
             setTimeout(() => {
-                currentQuestionIndex++;
-                
-                if (currentQuestionIndex < currentQuestions.length) {
-                    canAnswer = true;
-                    loadQuestion();
-                } else {
-                    // Fim do jogo
-                    showResultScreen();
-                }
-            }, 2000);
+                notification.remove();
+            }, 3000);
         }
 
-        function restartGame() {
-            showStartScreen();
+        // Restaura perguntas padrão
+        function resetToDefault() {
+            if (confirm('Isso irá substituir todas as perguntas atuais pelas perguntas padrão. Continuar?')) {
+                questions = [...defaultQuestions];
+                localStorage.setItem('perguntas', JSON.stringify(questions));
+                loadQuestionsList();
+                showNotification('🔄 Perguntas restauradas para o padrão!');
+                console.log('🔄 Perguntas resetadas para padrão');
+            }
+        }
+
+        // Exporta perguntas
+        function exportQuestions() {
+            const dataStr = JSON.stringify(questions, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'perguntas_show_do_milhao.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('📤 Perguntas exportadas com sucesso!');
+            console.log('📤 Perguntas exportadas');
+        }
+
+        // Importa perguntas
+        function importQuestions() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        const importedQuestions = JSON.parse(event.target.result);
+                        
+                        if (Array.isArray(importedQuestions)) {
+                            questions = importedQuestions;
+                            localStorage.setItem('perguntas', JSON.stringify(questions));
+                            loadQuestionsList();
+                            showNotification('📥 Perguntas importadas com sucesso!');
+                            console.log('📥 Perguntas importadas:', importedQuestions.length);
+                        } else {
+                            throw new Error('Formato inválido');
+                        }
+                    } catch (error) {
+                        alert('Erro ao importar perguntas. Verifique se o arquivo é válido.');
+                        console.error('❌ Erro na importação:', error);
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
         }
 
         // Função para debug
-        window.debugGame = function() {
-            console.log('🐛 Debug do jogo:');
+        window.debugAdmin = function() {
+            console.log('🐛 Debug do admin:');
+            console.log('- Total de perguntas:', questions.length);
+            console.log('- Perguntas:', questions);
             console.log('- LocalStorage:', localStorage.getItem('perguntas'));
-            console.log('- Perguntas atuais:', currentQuestions);
-            console.log('- Score:', score);
-            console.log('- Game Started:', gameStarted);
         };
     </script>
 </body>
