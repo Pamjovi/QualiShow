@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Show do Milhão</title>
+    <title>Show do Milhão - Semana da Qualidade</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* ===== ESTILOS PARA A PÁGINA ADMIN ===== */
+        /* ===== RESET E CONFIGURAÇÕES GLOBAIS ===== */
         * {
             margin: 0;
             padding: 0;
@@ -22,7 +22,7 @@
             position: relative;
         }
 
-        /* Efeitos de fundo */
+        /* ===== EFEITOS DE FUNDO ===== */
         .bg-effects {
             position: fixed;
             top: 0;
@@ -84,167 +84,148 @@
             }
         }
 
-        /* Container admin */
-        .admin-container {
-            max-width: 900px;
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px 40px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
         }
 
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 215, 0, 0.2);
-            transform: translateX(-5px);
-        }
-
-        .admin-title {
+        /* ===== CABEÇALHO ===== */
+        .header {
             text-align: center;
-            margin-bottom: 40px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5em;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin-bottom: 50px;
+            padding-top: 40px;
         }
 
-        .form-section {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
+        .title-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 20px;
             padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .form-title {
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ff6b00, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: shine 3s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        @keyframes shine {
+            0%, 100% {
+                background-position: 0% 50%;
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            }
+            50% {
+                background-position: 100% 50%;
+                text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #b8b8b8;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ===== TELA DE INÍCIO ===== */
+        .start-screen {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .start-title {
+            font-size: 2.5em;
             color: #ffd700;
             margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
-            padding-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .start-description {
+            font-size: 1.2em;
+            color: #b8b8b8;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #ffffff;
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
+        .game-rules {
+            background: rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 1em;
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
         }
 
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: #ffd700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        .rules-title {
+            color: #ffd700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
+        .rules-list {
+            list-style: none;
+            padding: 0;
         }
 
-        .form-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #1a1a3e;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .questions-section {
-            margin-top: 40px;
-        }
-
-        .questions-list {
-            display: grid;
-            gap: 15px;
-        }
-
-        .question-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
+        .rules-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
             position: relative;
         }
 
-        .question-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 215, 0, 0.4);
+        .rules-list li:before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
         }
 
-        .question-text {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #ffffff;
-            font-size: 1.1em;
+        /* ===== INFO DO JOGO ===== */
+        .game-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #ffd700;
         }
 
-        .question-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+        .score {
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .level-indicator {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 15px;
             font-size: 0.9em;
-        }
-
-        .question-level {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.8em;
         }
 
         .level-facil {
@@ -262,107 +243,302 @@
             color: white;
         }
 
-        .options-list {
+        /* ===== ÁREA DO JOGO ===== */
+        .game-area {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #ffd700, 
+                transparent);
+            animation: scanline 2s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ===== PERGUNTA ===== */
+        .question {
+            font-size: 1.6em;
+            margin-bottom: 40px;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        .question h2 {
+            font-weight: 400;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== GRID DE OPÇÕES ===== */
+        .options-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        .option-item {
-            padding: 5px 10px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-
-        .correct-answer {
-            color: #00ff88;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .delete-btn {
-            background: linear-gradient(135deg, #ff4444, #cc0000);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
+        .option-btn {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.15) 0%, 
+                rgba(138, 43, 226, 0.1) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            color: #ffffff;
+            padding: 25px 20px 25px 60px;
+            border-radius: 15px;
+            font-size: 1.1em;
             cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: left;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .option-btn::before {
+            content: attr(data-letter);
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ffd700;
             font-size: 0.9em;
-            transition: all 0.3s ease;
         }
 
-        .delete-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(255, 68, 68, 0.4);
+        .option-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.25) 0%, 
+                rgba(138, 43, 226, 0.2) 100%);
+            border-color: #ffd700;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 10px 25px rgba(255, 215, 0, 0.3),
+                0 0 30px rgba(255, 215, 0, 0.2);
         }
 
-        .empty-message {
+        /* ===== TELA DE RESULTADO ===== */
+        .result-screen {
             text-align: center;
-            color: #b8b8b8;
-            padding: 40px;
-            font-style: italic;
+            padding: 50px;
         }
 
-        .total-questions {
-            text-align: center;
+        .result-title {
+            font-size: 3em;
             color: #ffd700;
             margin-bottom: 20px;
-            font-size: 1.1em;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
-        /* Notificação */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #ffd700;
+        .result-message {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .result-score {
+            font-size: 2em;
+            color: #00ff88;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* ===== BOTÕES ===== */
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .start-btn, .admin-btn, .restart-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
             color: #1a1a3e;
-            padding: 15px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 10000;
-            animation: slideIn 0.3s ease;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 8px 25px rgba(255, 215, 0, 0.4),
+                0 0 20px rgba(255, 140, 0, 0.3);
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
+        .start-btn {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            font-size: 1.3em;
+            padding: 20px 40px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+        }
+
+        .start-btn:hover, .admin-btn:hover, .restart-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 12px 35px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 140, 0, 0.4);
+            color: #1a1a3e;
+        }
+
+        .btn-icon {
+            font-size: 1.2em;
+        }
+
+        /* ===== ESTADOS DAS RESPOSTAS ===== */
+        .correct {
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 136, 0.3) 0%, 
+                rgba(0, 200, 83, 0.4) 100%) !important;
+            border-color: #00ff88 !important;
+            animation: correctPulse 0.6s ease-in-out;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px rgba(0, 255, 136, 0.4),
+                    0 0 40px rgba(0, 255, 136, 0.2);
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            50% { 
+                box-shadow: 
+                    0 0 30px rgba(0, 255, 136, 0.8),
+                    0 0 60px rgba(0, 255, 136, 0.4);
             }
         }
 
-        /* Responsividade para admin */
+        .wrong {
+            background: linear-gradient(135deg, 
+                rgba(255, 68, 68, 0.3) 0%, 
+                rgba(220, 20, 60, 0.4) 100%) !important;
+            border-color: #ff4444 !important;
+            animation: wrongShake 0.5s ease-in-out;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
-            .admin-container {
-                padding: 50px 15px 30px;
+            .container {
+                padding: 15px;
             }
             
-            .admin-title {
-                font-size: 2em;
+            .main-title {
+                font-size: 2.2em;
             }
             
-            .form-section {
-                padding: 20px;
+            .start-screen {
+                padding: 40px 20px;
                 margin: 0 10px 20px 10px;
             }
             
-            .btn-group {
-                flex-direction: column;
+            .question-card {
+                padding: 30px 20px;
+                margin: 0 10px 20px 10px;
             }
             
-            .options-list {
+            .options-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
-            .question-item {
-                padding: 15px;
+            .question {
+                font-size: 1.3em;
+            }
+            
+            .option-btn {
+                padding: 20px 15px 20px 50px;
+                font-size: 1em;
+            }
+            
+            .start-btn, .admin-btn, .restart-btn {
+                padding: 15px 25px;
+                font-size: 1em;
+                margin: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            .start-screen {
+                padding: 30px 15px;
+            }
+            
+            .question-card {
+                padding: 25px 15px;
+            }
+            
+            .question {
+                font-size: 1.1em;
+            }
+            
+            .option-btn {
+                padding: 18px 12px 18px 45px;
+                font-size: 0.9em;
+            }
+            
+            .option-btn::before {
+                width: 30px;
+                height: 30px;
+                left: 15px;
+                font-size: 0.8em;
             }
         }
     </style>
@@ -376,145 +552,230 @@
         <div class="particle"></div>
     </div>
 
-    <div class="admin-container">
-        <a href="index.html" class="back-btn">
-            <span>←</span>
-            Voltar ao Jogo
-        </a>
-        
-        <h1 class="admin-title">Gerenciar Perguntas</h1>
-
-        <!-- Contador de perguntas -->
-        <div class="total-questions" id="totalQuestions">
-            Total de perguntas: 0
-        </div>
-        
-        <!-- Formulário para adicionar pergunta -->
-        <section class="form-section">
-            <h3 class="form-title">Adicionar Nova Pergunta</h3>
-            <form id="questionForm">
-                <div class="form-group">
-                    <label class="form-label">Pergunta:</label>
-                    <input type="text" id="pergunta" class="form-input" required placeholder="Digite a pergunta...">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Opção A:</label>
-                    <input type="text" id="opcaoA" class="form-input" required placeholder="Resposta A">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Opção B:</label>
-                    <input type="text" id="opcaoB" class="form-input" required placeholder="Resposta B">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Opção C:</label>
-                    <input type="text" id="opcaoC" class="form-input" required placeholder="Resposta C">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Opção D:</label>
-                    <input type="text" id="opcaoD" class="form-input" required placeholder="Resposta D">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Resposta Correta:</label>
-                    <select id="respostaCorreta" class="form-select" required>
-                        <option value="">Selecione a resposta correta...</option>
-                        <option value="a">Opção A</option>
-                        <option value="b">Opção B</option>
-                        <option value="c">Opção C</option>
-                        <option value="d">Opção D</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Nível de Dificuldade:</label>
-                    <select id="nivel" class="form-select" required>
-                        <option value="">Selecione o nível...</option>
-                        <option value="facil">Fácil</option>
-                        <option value="medio">Médio</option>
-                        <option value="dificil">Difícil</option>
-                    </select>
-                </div>
-                
-                <div class="btn-group">
-                    <button type="submit" class="form-btn btn-primary">
-                        ✅ Adicionar Pergunta
-                    </button>
-                    <button type="button" class="form-btn btn-secondary" onclick="clearForm()">
-                        🗑️ Limpar Formulário
-                    </button>
-                </div>
-            </form>
-        </section>
-        
-        <!-- Lista de perguntas existentes -->
-        <section class="questions-section">
-            <h3 class="form-title">Perguntas Cadastradas</h3>
-            <div id="questionsList" class="questions-list">
-                <!-- Lista de perguntas será inserida aqui -->
+    <div class="container">
+        <header class="header">
+            <div class="title-container">
+                <h1 class="main-title">SHOW DO MILHÃO</h1>
+                <p class="subtitle">Semana da Qualidade</p>
             </div>
-        </section>
+        </header>
+
+        <!-- Tela de Início (SEMPRE VISÍVEL NO INÍCIO) -->
+        <div id="startScreen" class="start-screen">
+            <h2 class="start-title">🎮 Bem-vindo ao Show do Milhão! 🎮</h2>
+            <p class="start-description">
+                Teste seus conhecimentos sobre qualidade e segurança de alimentos neste desafio emocionante!
+            </p>
+            
+            <div class="game-rules">
+                <h3 class="rules-title">📋 Como Jogar:</h3>
+                <ul class="rules-list">
+                    <li><strong>10 perguntas</strong> por jogo (3 Fáceis, 4 Médias, 3 Difíceis)</li>
+                    <li>Responda clicando na alternativa correta</li>
+                    <li>Cada acerto vale 1 ponto</li>
+                    <li>Acertando todas as 10 perguntas, você VENCE!</li>
+                    <li>Use o botão "Adicionar/Editar Perguntas" para personalizar</li>
+                </ul>
+            </div>
+
+            <div class="actions">
+                <button class="start-btn" onclick="startGame()">
+                    🚀 Iniciar Jogo
+                </button>
+                <a href="admin.html" class="admin-btn">
+                    ⚙️ Adicionar/Editar Perguntas
+                </a>
+            </div>
+        </div>
+
+        <!-- Informações do jogo (APENAS DURANTE O JOGO) -->
+        <div class="game-info" id="gameInfo" style="display: none;">
+            <div class="score">Pergunta: <span id="currentQuestion">1</span>/10 | Acertos: <span id="score">0</span></div>
+            <div class="level-indicator" id="levelIndicator">Fácil</div>
+        </div>
+
+        <main class="game-area">
+            <!-- Tela do jogo (APENAS DURANTE O JOGO) -->
+            <div id="gameScreen" style="display: none;">
+                <div class="question-card">
+                    <div id="question" class="question">
+                        <h2>Carregando perguntas...</h2>
+                    </div>
+                    <div id="options" class="options-grid">
+                        <!-- Opções serão inseridas aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tela de resultado (APENAS NO FINAL) -->
+            <div id="resultScreen" class="result-screen" style="display: none;">
+                <h2 class="result-title" id="resultTitle">Parabéns!</h2>
+                <div class="result-message" id="resultMessage">Você completou o desafio!</div>
+                <div class="result-score" id="resultScore">Pontuação: 0/10</div>
+                <div class="actions">
+                    <button class="restart-btn" onclick="restartGame()">
+                        🔄 Jogar Novamente
+                    </button>
+                    <a href="admin.html" class="admin-btn">
+                        ⚙️ Gerenciar Perguntas
+                    </a>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <script>
-        // ADMIN - SCRIPT PARA GERENCIAR PERGUNTAS
+    <!-- Sons -->
+    <audio id="correctSound" preload="auto">
+        <source src="sounds/acerto.mp3" type="audio/mpeg">
+        <source src="sounds/acerto.wav" type="audio/wav">
+        <source src="sounds/acerto.ogg" type="audio/ogg">
+    </audio>
+    <audio id="wrongSound" preload="auto">
+        <source src="sounds/erro.mp3" type="audio/mpeg">
+        <source src="sounds/erro.wav" type="audio/wav">
+        <source src="sounds/erro.ogg" type="audio/ogg">
+    </audio>
+    <audio id="winSound" preload="auto">
+        <source src="sounds/vitoria.mp3" type="audio/mpeg">
+        <source src="sounds/vitoria.wav" type="audio/wav">
+        <source src="sounds/vitoria.ogg" type="audio/ogg">
+    </audio>
 
-        console.log('🛠️ Página admin carregada!');
+    <script>
+        // SHOW DO MILHÃO - SCRIPT PRINCIPAL COM TELA DE INÍCIO
+
+        console.log('🚀 Show do Milhão - Script carregado!');
 
         // PERGUNTAS PRÉ-CADASTRADAS COM NÍVEIS (40 PERGUNTAS)
         const defaultQuestions = [
-            // ... (aqui viriam as 40 perguntas que mostrei no código anterior)
-            // Para economizar espaço, estou omitindo as 40 perguntas aqui
-            // Mas elas estão completas no código do index.html
+            // ... (aqui viriam as 40 perguntas completas)
+            // Para economizar espaço, estou omitindo as perguntas
+            // Elas estão completas no código anterior
         ];
 
-        // Carrega perguntas do localStorage
-        let questions = JSON.parse(localStorage.getItem('perguntas'));
-        
-        // Se não existirem perguntas no localStorage, usa as padrão
-        if (!questions || questions.length === 0) {
-            questions = defaultQuestions;
-            localStorage.setItem('perguntas', JSON.stringify(questions));
-            console.log('📝 Perguntas padrão cadastradas automaticamente!');
-        }
-        
-        const questionsList = document.getElementById('questionsList');
-        const totalQuestions = document.getElementById('totalQuestions');
+        // Variáveis do jogo
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let canAnswer = true;
+        let gameStarted = false;
 
-        // Inicializa a página quando carrega
+        // Inicialização quando o DOM estiver pronto
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('📋 Carregando lista de perguntas...');
-            loadQuestionsList();
+            console.log('🎮 Página carregada - Mostrando tela de início');
+            // NÃO inicia o jogo automaticamente
+            showStartScreen();
         });
 
-        // Carrega a lista de perguntas
-        function loadQuestionsList() {
-            console.log(`📚 Total de perguntas: ${questions.length}`);
+        // Mostra a tela de início
+        function showStartScreen() {
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('gameInfo').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'none';
+            gameStarted = false;
+        }
+
+        // Inicia o jogo quando o usuário clicar em "Iniciar Jogo"
+        function startGame() {
+            console.log('🎮 Iniciando novo jogo...');
+            gameStarted = true;
             
-            // Atualiza o contador
-            totalQuestions.textContent = `Total de perguntas: ${questions.length}`;
-            
-            if (questions.length === 0) {
-                questionsList.innerHTML = `
-                    <div class="empty-message">
-                        <p>📝 Nenhuma pergunta cadastrada ainda.</p>
-                        <p>Use o formulário acima para adicionar a primeira pergunta!</p>
-                    </div>
-                `;
-                return;
+            // Carrega perguntas do localStorage ou usa as padrão
+            let allQuestions = JSON.parse(localStorage.getItem('perguntas'));
+            if (!allQuestions || allQuestions.length === 0) {
+                console.log('📝 Usando perguntas padrão...');
+                allQuestions = defaultQuestions;
+                localStorage.setItem('perguntas', JSON.stringify(allQuestions));
             }
             
-            questionsList.innerHTML = '';
-            questions.forEach((question, index) => {
-                const questionItem = document.createElement('div');
-                questionItem.className = 'question-item';
-                
+            // Seleciona perguntas por nível: 3 fáceis, 4 médias, 3 difíceis
+            currentQuestions = selectQuestionsByLevel(allQuestions);
+            currentQuestionIndex = 0;
+            score = 0;
+            canAnswer = true;
+            
+            console.log(`📚 ${currentQuestions.length} perguntas selecionadas por nível`);
+            
+            // Mostra a tela do jogo
+            showGameScreen();
+            
+            // Atualiza a interface
+            updateScoreDisplay();
+            updateLevelIndicator();
+            loadQuestion();
+        }
+
+        function selectQuestionsByLevel(allQuestions) {
+            const easyQuestions = allQuestions.filter(q => q.nivel === 'facil');
+            const mediumQuestions = allQuestions.filter(q => q.nivel === 'medio');
+            const hardQuestions = allQuestions.filter(q => q.nivel === 'dificil');
+            
+            // Embaralha e seleciona as perguntas de cada nível
+            const selectedEasy = shuffleArray(easyQuestions).slice(0, 3);
+            const selectedMedium = shuffleArray(mediumQuestions).slice(0, 4);
+            const selectedHard = shuffleArray(hardQuestions).slice(0, 3);
+            
+            console.log(`🎯 Selecionadas: ${selectedEasy.length} fáceis, ${selectedMedium.length} médias, ${selectedHard.length} difíceis`);
+            
+            return [...selectedEasy, ...selectedMedium, ...selectedHard];
+        }
+
+        function shuffleArray(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        // Mostra a tela do jogo
+        function showGameScreen() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameInfo').style.display = 'block';
+            document.getElementById('gameScreen').style.display = 'block';
+            document.getElementById('resultScreen').style.display = 'none';
+        }
+
+        // Mostra a tela de resultado
+        function showResultScreen() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameInfo').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+            
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultScore = document.getElementById('resultScore');
+            
+            resultScore.textContent = `Pontuação: ${score}/10`;
+            
+            if (score === 10) {
+                resultTitle.textContent = "🎉 PARABÉNS! 🎉";
+                resultMessage.textContent = "Você é um verdadeiro milionário! Acertou todas as perguntas!";
+                playSound('winSound');
+            } else if (score >= 7) {
+                resultTitle.textContent = "👏 Ótimo!";
+                resultMessage.textContent = "Você foi muito bem! Quase chegou lá!";
+            } else if (score >= 5) {
+                resultTitle.textContent = "👍 Bom trabalho!";
+                resultMessage.textContent = "Você foi bem, mas pode melhorar!";
+            } else {
+                resultTitle.textContent = "💪 Continue tentando!";
+                resultMessage.textContent = "Não desanime! Tente novamente!";
+            }
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('score').textContent = score;
+        }
+
+        function updateLevelIndicator() {
+            const levelIndicator = document.getElementById('levelIndicator');
+            const currentQuestion = currentQuestions[currentQuestionIndex];
+            
+            if (currentQuestion) {
                 let levelText = '';
                 let levelClass = '';
-                switch(question.nivel) {
+                
+                switch(currentQuestion.nivel) {
                     case 'facil':
                         levelText = 'Fácil';
                         levelClass = 'level-facil';
@@ -529,89 +790,119 @@
                         break;
                 }
                 
-                questionItem.innerHTML = `
-                    <div class="question-meta">
-                        <div class="question-number">${index + 1}.</div>
-                        <div class="question-level ${levelClass}">${levelText}</div>
-                    </div>
-                    <div class="question-text">${question.pergunta}</div>
-                    <div class="options-list">
-                        <div class="option-item"><strong>A:</strong> ${question.a}</div>
-                        <div class="option-item"><strong>B:</strong> ${question.b}</div>
-                        <div class="option-item"><strong>C:</strong> ${question.c}</div>
-                        <div class="option-item"><strong>D:</strong> ${question.d}</div>
-                    </div>
-                    <div class="correct-answer">✅ Resposta Correta: ${question.correta.toUpperCase()}</div>
-                    <button class="delete-btn" onclick="deleteQuestion(${index})">
-                        🗑️ Excluir Pergunta
-                    </button>
-                `;
-                questionsList.appendChild(questionItem);
+                levelIndicator.textContent = levelText;
+                levelIndicator.className = 'level-indicator ' + levelClass;
+            }
+        }
+
+        function loadQuestion() {
+            if (!canAnswer || !gameStarted) return;
+            
+            const question = currentQuestions[currentQuestionIndex];
+            console.log(`❓ Carregando pergunta ${currentQuestionIndex + 1} (${question.nivel}): ${question.pergunta}`);
+            
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            
+            // Atualiza a pergunta
+            questionElement.innerHTML = `<h2>${question.pergunta}</h2>`;
+            
+            // Limpa opções anteriores
+            optionsElement.innerHTML = '';
+            
+            // Cria os botões de opção
+            const opcoes = ['a', 'b', 'c', 'd'];
+            opcoes.forEach(opcao => {
+                const botao = document.createElement('button');
+                botao.className = 'option-btn';
+                botao.textContent = question[opcao];
+                botao.setAttribute('data-letter', opcao.toUpperCase());
+                botao.onclick = function() {
+                    checkAnswer(opcao, this);
+                };
+                optionsElement.appendChild(botao);
             });
             
-            console.log('✅ Lista de perguntas carregada com sucesso');
+            // Atualiza indicador de nível
+            updateLevelIndicator();
+            
+            console.log('✅ Pergunta carregada com sucesso');
         }
-        
-        // Adiciona nova pergunta
-        document.getElementById('questionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const newQuestion = {
-                pergunta: document.getElementById('pergunta').value,
-                a: document.getElementById('opcaoA').value,
-                b: document.getElementById('opcaoB').value,
-                c: document.getElementById('opcaoC').value,
-                d: document.getElementById('opcaoD').value,
-                correta: document.getElementById('respostaCorreta').value,
-                nivel: document.getElementById('nivel').value
-            };
-            
-            questions.push(newQuestion);
-            localStorage.setItem('perguntas', JSON.stringify(questions));
-            loadQuestionsList();
-            clearForm();
-            
-            // Feedback visual
-            showNotification('✅ Pergunta adicionada com sucesso!');
-            console.log('➕ Nova pergunta adicionada:', newQuestion.pergunta);
-        });
-        
-        // Exclui pergunta
-        function deleteQuestion(index) {
-            if (confirm('Tem certeza que deseja excluir esta pergunta?')) {
-                const deletedQuestion = questions[index];
-                questions.splice(index, 1);
-                localStorage.setItem('perguntas', JSON.stringify(questions));
-                loadQuestionsList();
-                showNotification('🗑️ Pergunta excluída com sucesso!');
-                console.log('➖ Pergunta excluída:', deletedQuestion.pergunta);
+
+        // Função para tocar sons
+        function playSound(soundId) {
+            const sound = document.getElementById(soundId);
+            if (sound) {
+                sound.currentTime = 0; // Reinicia o som
+                sound.play().catch(e => {
+                    console.log(`🔇 Erro ao tocar som ${soundId}:`, e);
+                });
             }
         }
         
-        // Limpa formulário
-        function clearForm() {
-            document.getElementById('questionForm').reset();
-            console.log('🧹 Formulário limpo');
-        }
-        
-        // Mostra notificação
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
+        function checkAnswer(selectedOption, clickedButton) {
+            if (!canAnswer || !gameStarted) return;
             
+            console.log(`🎯 Resposta selecionada: ${selectedOption}`);
+            
+            canAnswer = false;
+            const correctOption = currentQuestions[currentQuestionIndex].correta;
+            const optionsElement = document.getElementById('options');
+            const allButtons = optionsElement.getElementsByClassName('option-btn');
+            
+            // Desabilita todos os botões
+            for (let btn of allButtons) {
+                btn.style.pointerEvents = 'none';
+            }
+            
+            if (selectedOption === correctOption) {
+                // Resposta correta
+                console.log('🎉 Resposta correta!');
+                score++;
+                playSound('correctSound');
+                clickedButton.classList.add('correct');
+            } else {
+                // Resposta errada
+                console.log('❌ Resposta errada!');
+                playSound('wrongSound');
+                clickedButton.classList.add('wrong');
+                
+                // Mostra a resposta correta
+                for (let btn of allButtons) {
+                    if (btn.getAttribute('data-letter').toLowerCase() === correctOption) {
+                        btn.classList.add('correct');
+                    }
+                }
+            }
+            
+            // Atualiza o placar
+            updateScoreDisplay();
+            
+            // Próxima pergunta ou final do jogo
             setTimeout(() => {
-                notification.remove();
-            }, 3000);
+                currentQuestionIndex++;
+                
+                if (currentQuestionIndex < currentQuestions.length) {
+                    canAnswer = true;
+                    loadQuestion();
+                } else {
+                    // Fim do jogo
+                    showResultScreen();
+                }
+            }, 2000);
+        }
+
+        function restartGame() {
+            showStartScreen();
         }
 
         // Função para debug
-        window.debugAdmin = function() {
-            console.log('🐛 Debug do admin:');
-            console.log('- Total de perguntas:', questions.length);
-            console.log('- Perguntas:', questions);
+        window.debugGame = function() {
+            console.log('🐛 Debug do jogo:');
             console.log('- LocalStorage:', localStorage.getItem('perguntas'));
+            console.log('- Perguntas atuais:', currentQuestions);
+            console.log('- Score:', score);
+            console.log('- Game Started:', gameStarted);
         };
     </script>
 </body>
