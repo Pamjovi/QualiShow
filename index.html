@@ -144,6 +144,68 @@
             text-transform: uppercase;
         }
 
+        /* ===== TELA DE INÍCIO ===== */
+        .start-screen {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .start-title {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .start-description {
+            font-size: 1.2em;
+            color: #b8b8b8;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .game-rules {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .rules-title {
+            color: #ffd700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .rules-list li:before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+        }
+
         /* ===== INFO DO JOGO ===== */
         .game-info {
             text-align: center;
@@ -327,7 +389,7 @@
             margin-top: 30px;
         }
 
-        .admin-btn, .restart-btn {
+        .start-btn, .admin-btn, .restart-btn {
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -347,11 +409,17 @@
             margin: 0 10px;
         }
 
+        .start-btn {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            font-size: 1.3em;
+            padding: 20px 40px;
+        }
+
         .restart-btn {
             background: linear-gradient(135deg, #00ff88, #00cc66);
         }
 
-        .admin-btn:hover, .restart-btn:hover {
+        .start-btn:hover, .admin-btn:hover, .restart-btn:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 
                 0 12px 35px rgba(255, 215, 0, 0.6),
@@ -409,6 +477,11 @@
                 font-size: 2.2em;
             }
             
+            .start-screen {
+                padding: 40px 20px;
+                margin: 0 10px 20px 10px;
+            }
+            
             .question-card {
                 padding: 30px 20px;
                 margin: 0 10px 20px 10px;
@@ -428,7 +501,7 @@
                 font-size: 1em;
             }
             
-            .admin-btn, .restart-btn {
+            .start-btn, .admin-btn, .restart-btn {
                 padding: 15px 25px;
                 font-size: 1em;
                 margin: 5px;
@@ -442,6 +515,10 @@
             
             .subtitle {
                 font-size: 1em;
+            }
+            
+            .start-screen {
+                padding: 30px 15px;
             }
             
             .question-card {
@@ -483,15 +560,43 @@
             </div>
         </header>
 
-        <!-- Informações do jogo -->
-        <div class="game-info">
+        <!-- Tela de Início (SEMPRE VISÍVEL NO INÍCIO) -->
+        <div id="startScreen" class="start-screen">
+            <h2 class="start-title">🎮 Bem-vindo ao Show do Milhão! 🎮</h2>
+            <p class="start-description">
+                Teste seus conhecimentos sobre qualidade e segurança de alimentos neste desafio emocionante!
+            </p>
+            
+            <div class="game-rules">
+                <h3 class="rules-title">📋 Como Jogar:</h3>
+                <ul class="rules-list">
+                    <li><strong>10 perguntas</strong> por jogo (3 Fáceis, 4 Médias, 3 Difíceis)</li>
+                    <li>Responda clicando na alternativa correta</li>
+                    <li>Cada acerto vale 1 ponto</li>
+                    <li>Acertando todas as 10 perguntas, você VENCE!</li>
+                    <li>Use o botão "Adicionar/Editar Perguntas" para personalizar</li>
+                </ul>
+            </div>
+
+            <div class="actions">
+                <button class="start-btn" onclick="startGame()">
+                    🚀 Iniciar Jogo
+                </button>
+                <a href="admin.html" class="admin-btn">
+                    ⚙️ Adicionar/Editar Perguntas
+                </a>
+            </div>
+        </div>
+
+        <!-- Informações do jogo (APENAS DURANTE O JOGO) -->
+        <div class="game-info" id="gameInfo" style="display: none;">
             <div class="score">Pergunta: <span id="currentQuestion">1</span>/10 | Acertos: <span id="score">0</span></div>
             <div class="level-indicator" id="levelIndicator">Fácil</div>
         </div>
 
         <main class="game-area">
-            <!-- Tela do jogo -->
-            <div id="gameScreen">
+            <!-- Tela do jogo (APENAS DURANTE O JOGO) -->
+            <div id="gameScreen" style="display: none;">
                 <div class="question-card">
                     <div id="question" class="question">
                         <h2>Carregando perguntas...</h2>
@@ -502,7 +607,7 @@
                 </div>
             </div>
 
-            <!-- Tela de resultado (inicialmente escondida) -->
+            <!-- Tela de resultado (APENAS NO FINAL) -->
             <div id="resultScreen" class="result-screen" style="display: none;">
                 <h2 class="result-title" id="resultTitle">Parabéns!</h2>
                 <div class="result-message" id="resultMessage">Você completou o desafio!</div>
@@ -516,43 +621,395 @@
                     </a>
                 </div>
             </div>
-
-            <div class="actions">
-                <a href="admin.html" class="admin-btn">
-                    <span class="btn-icon">⚙️</span>
-                    Adicionar / Editar Perguntas
-                </a>
-            </div>
         </main>
     </div>
 
-    <!-- Sons -->
+    <!-- Sons - URLs DIRETAS do GitHub -->
     <audio id="correctSound" preload="auto">
-        <source src="sounds/acerto.mp3" type="audio/mpeg">
-        <source src="sounds/acerto.wav" type="audio/wav">
-        <source src="sounds/acerto.ogg" type="audio/ogg">
+        <source src="acerto.mp3" type="audio/mpeg">
+        <source src="acerto.wav" type="audio/wav">
     </audio>
     <audio id="wrongSound" preload="auto">
-        <source src="sounds/erro.mp3" type="audio/mpeg">
-        <source src="sounds/erro.wav" type="audio/wav">
-        <source src="sounds/erro.ogg" type="audio/ogg">
+        <source src="erro.mp3" type="audio/mpeg">
+        <source src="erro.wav" type="audio/wav">
     </audio>
     <audio id="winSound" preload="auto">
-        <source src="sounds/vitoria.mp3" type="audio/mpeg">
-        <source src="sounds/vitoria.wav" type="audio/wav">
-        <source src="sounds/vitoria.ogg" type="audio/ogg">
+        <source src="vitoria.mp3" type="audio/mpeg">
+        <source src="vitoria.wav" type="audio/wav">
     </audio>
 
     <script>
-        // SHOW DO MILHÃO - SCRIPT PRINCIPAL COM NÍVEIS
+        // SHOW DO MILHÃO - SCRIPT PRINCIPAL COM TELA DE INÍCIO
 
         console.log('🚀 Show do Milhão - Script carregado!');
 
-        // PERGUNTAS PRÉ-CADASTRADAS COM NÍVEIS (40 PERGUNTAS)
+        // PERGUNTAS PRÉ-CADASTRADAS COM NÍVEIS (40 PERGUNTAS COMPLETAS)
         const defaultQuestions = [
-            // ... (aqui viriam as 40 perguntas completas)
-            // Para economizar espaço, estou omitindo as perguntas
-            // Elas estão completas no código anterior
+            // PERGUNTAS FÁCEIS (15)
+            {
+                pergunta: "Qual é a cor padrão para uniformes em áreas de produção de alimentos?",
+                a: "Preto",
+                b: "Azul",
+                c: "Branco",
+                d: "Verde",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é o principal objetivo do controle de pragas em indústrias de alimentos?",
+                a: "Reduzir custos",
+                b: "Evitar contaminação física, química e biológica",
+                c: "Melhorar aparência da fábrica",
+                d: "Cumprir normas ambientais",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a consequência de não seguir as BPF?",
+                a: "Redução de custos",
+                b: "Risco à saúde e perda de credibilidade",
+                c: "Melhor aparência dos alimentos",
+                d: "Aumento da produção",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que é proibido comer ou beber na área de produção?",
+                a: "Para evitar distrações",
+                b: "Para evitar contaminação",
+                c: "Para manter limpeza do uniforme",
+                d: "Porque é norma da empresa",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a função da touca na indústria de alimentos?",
+                a: "Proteger do calor",
+                b: "Evitar queda de cabelo nos alimentos",
+                c: "Melhorar aparência do uniforme",
+                d: "Substituir máscara",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "É permitido usar esmalte ou unhas postiças na área de produção?",
+                a: "Sim, desde que sejam claras",
+                b: "Sim, com luvas",
+                c: "Não",
+                d: "Apenas em inspeções",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que não se deve usar perfume forte na área de produção?",
+                a: "Para evitar alergias nos colegas",
+                b: "Para evitar contaminação química",
+                c: "Para economizar",
+                d: "Porque é norma da empresa",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a importância do uniforme limpo?",
+                a: "Melhorar aparência",
+                b: "Evitar contaminação",
+                c: "Cumprir normas estéticas",
+                d: "Reduzir custos",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que as paredes e pisos devem ser lisos e laváveis?",
+                a: "Para facilitar limpeza",
+                b: "Para reduzir custos",
+                c: "Para melhorar aparência",
+                d: "Para evitar acidentes",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a importância da iluminação adequada?",
+                a: "Melhorar aparência",
+                b: "Reduzir custos",
+                c: "Facilitar inspeção e limpeza",
+                d: "Cumprir normas estéticas",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "O que deve ser feito antes de iniciar o trabalho na área de produção?",
+                a: "Tomar café",
+                b: "Fazer higienização das mãos",
+                c: "Revisar e-mails",
+                d: "Conversar com colegas",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é o objetivo principal das Boas Práticas de Fabricação?",
+                a: "Aumentar a produção",
+                b: "Garantir segurança dos alimentos",
+                c: "Reduzir custos",
+                d: "Melhorar sabor",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "O que significa a sigla BPF?",
+                a: "Boas Práticas de Fabricação",
+                b: "Bons Procedimentos Fabris",
+                c: "Boas Práticas Fundamentais",
+                d: "Bases Para Fabricação",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a temperatura ideal para conservação de alimentos refrigerados?",
+                a: "Abaixo de 5°C",
+                b: "Entre 10°C e 15°C",
+                c: "Entre 20°C e 25°C",
+                d: "Acima de 30°C",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que é importante manter os alimentos cobertos?",
+                a: "Para economizar espaço",
+                b: "Para evitar contaminação",
+                c: "Para manter temperatura",
+                d: "Para melhor apresentação",
+                correta: "b",
+                nivel: "facil"
+            },
+
+            // PERGUNTAS MÉDIAS (15)
+            {
+                pergunta: "Instruções de trabalho ou procedimentos servem para:",
+                a: "Evidenciar que existe um documento para aquele processo",
+                b: "Instruir as pessoas a fazer determinada atividade e cabe as pessoas seguir",
+                c: "Não servem para nada",
+                d: "Mostrar para o auditor o papel",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é o principal objetivo da pasteurização do leite?",
+                a: "Melhorar sabor",
+                b: "Eliminar bactérias patogênicas",
+                c: "Reduzir gordura",
+                d: "Aumentar viscosidade",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a frequência mínima recomendada para higienização das mãos em uma indústria de laticínios?",
+                a: "Apenas antes do turno",
+                b: "Antes e depois de manipular alimentos",
+                c: "Uma vez por hora",
+                d: "Apenas após usar sanitário",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a função do POP (Procedimento Operacional Padrão)?",
+                a: "Definir metas financeiras",
+                b: "Padronizar atividades críticas",
+                c: "Controlar estoque",
+                d: "Treinar equipe de vendas",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a principal consequência da ausência de barreira física entre áreas sujas e limpas?",
+                a: "Aumento de produtividade",
+                b: "Contaminação cruzada",
+                c: "Redução de custos",
+                d: "Melhoria sensorial",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que significa contaminação cruzada?",
+                a: "Mistura de alimentos crus e cozidos",
+                b: "Uso de utensílios novos",
+                c: "Higienização inadequada das mãos",
+                d: "Mistura de temperos",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a função das telas nas janelas?",
+                a: "Melhorar ventilação",
+                b: "Diminuir ruído",
+                c: "Reduzir luz solar",
+                d: "Evitar entrada de pragas",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Por que é proibido armazenar produtos químicos próximos aos alimentos?",
+                a: "Para evitar desperdício",
+                b: "Para facilitar acesso",
+                c: "Para reduzir custos",
+                d: "Para evitar contaminação",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a função do controle de qualidade?",
+                a: "Melhorar aparência",
+                b: "Garantir segurança e conformidade",
+                c: "Reduzir custos",
+                d: "Cumprir normas estéticas",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a ação correta após derramamento de produto químico?",
+                a: "Limpar imediatamente seguindo POP",
+                b: "Continuar produção",
+                c: "Ignorar se for pouco",
+                d: "Jogar água e seguir",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que é APPCC?",
+                a: "Análise de Perigos e Pontos Críticos de Controle",
+                b: "Análise de Processos e Produção de Controle",
+                c: "Avaliação de Produtos e Procedimentos de Controle",
+                d: "Análise de Padrões e Procedimentos de Controle",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a diferença entre limpeza e sanitização?",
+                a: "Limpeza remove sujidade, sanitização reduz microrganismos",
+                b: "São a mesma coisa",
+                c: "Limpeza é para pisos, sanitização para equipamentos",
+                d: "Limpeza usa água, sanitização usa produtos químicos",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é o objetivo da rastreabilidade de alimentos?",
+                a: "Aumentar preço do produto",
+                b: "Permitir recall eficiente quando necessário",
+                c: "Reduzir custos de produção",
+                d: "Melhorar embalagem",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que significa FIFO no controle de estoque?",
+                a: "First In, First Out (Primeiro a entrar, primeiro a sair)",
+                b: "Fast In, Fast Out (Rápido a entrar, rápido a sair)",
+                c: "Fresh In, Fresh Out (Fresco a entrar, fresco a sair)",
+                d: "First In, First Order (Primeiro a entrar, primeiro pedido)",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a importância da calibração de equipamentos?",
+                a: "Garantir medições precisas e confiáveis",
+                b: "Reduzir consumo de energia",
+                c: "Melhorar aparência dos equipamentos",
+                d: "Aumentar velocidade de produção",
+                correta: "a",
+                nivel: "medio"
+            },
+
+            // PERGUNTAS DIFÍCEIS (10)
+            {
+                pergunta: "Quais são os PCC's da unidade?",
+                a: "Filtro, pasteurizador, detector de metais",
+                b: "Bactofuga, detector de metais, desnatadeira",
+                c: "Detector de metais, pasteurizador e Antibiótico",
+                d: "Antibiótico, bactofuga e desnatadeira",
+                correta: "c",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O filtro PPRO avalia qual risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "A análise de antibiótico é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "c",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O detector de metal é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O Pasteurizador é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a principal função do CIP (Cleaning in Place)?",
+                a: "Limpeza manual de tanques",
+                b: "Limpeza automatizada sem desmontagem",
+                c: "Controle microbiológico",
+                d: "Higienização de uniformes",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O que é um limite crítico no APPCC?",
+                a: "Um valor que separa a aceitabilidade da inaceitabilidade",
+                b: "O horário de trabalho dos funcionários",
+                c: "O custo máximo de produção",
+                d: "A temperatura ambiente da fábrica",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a diferença entre perigo e risco na segurança de alimentos?",
+                a: "Perigo é fonte potencial de dano, risco é probabilidade de ocorrência",
+                b: "São sinônimos",
+                c: "Perigo é químico, risco é biológico",
+                d: "Perigo é físico, risco é microbiológico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O que significa a sigla PPHO?",
+                a: "Procedimento Padrão de Higiene Operacional",
+                b: "Plano de Produção e Higiene Organizacional",
+                c: "Programa de Prevenção de Higiene Ocupacional",
+                d: "Procedimento de Proteção e Higiene Operacional",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a temperatura e tempo mínimos para pasteurização HTST do leite?",
+                a: "72°C por 15 segundos",
+                b: "85°C por 5 minutos",
+                c: "63°C por 30 minutos",
+                d: "95°C por 1 minuto",
+                correta: "a",
+                nivel: "dificil"
+            }
         ];
 
         // Variáveis do jogo
@@ -560,15 +1017,43 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let canAnswer = true;
+        let gameStarted = false;
 
         // Inicialização quando o DOM estiver pronto
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 Iniciando Show do Milhão...');
-            startNewGame();
+            console.log('🎮 Página carregada - Mostrando tela de início');
+            // NÃO inicia o jogo automaticamente
+            showStartScreen();
+            
+            // Pré-carrega os sons para evitar delay
+            preloadSounds();
         });
 
-        function startNewGame() {
-            console.log('🔄 Iniciando novo jogo...');
+        // Pré-carrega os sons
+        function preloadSounds() {
+            const sounds = ['correctSound', 'wrongSound', 'winSound'];
+            sounds.forEach(soundId => {
+                const sound = document.getElementById(soundId);
+                if (sound) {
+                    sound.load();
+                    console.log(`🔊 Pré-carregando som: ${soundId}`);
+                }
+            });
+        }
+
+        // Mostra a tela de início
+        function showStartScreen() {
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('gameInfo').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'none';
+            gameStarted = false;
+        }
+
+        // Inicia o jogo quando o usuário clicar em "Iniciar Jogo"
+        function startGame() {
+            console.log('🎮 Iniciando novo jogo...');
+            gameStarted = true;
             
             // Carrega perguntas do localStorage ou usa as padrão
             let allQuestions = JSON.parse(localStorage.getItem('perguntas'));
@@ -586,10 +1071,12 @@
             
             console.log(`📚 ${currentQuestions.length} perguntas selecionadas por nível`);
             
+            // Mostra a tela do jogo
+            showGameScreen();
+            
             // Atualiza a interface
             updateScoreDisplay();
             updateLevelIndicator();
-            showGameScreen();
             loadQuestion();
         }
 
@@ -610,6 +1097,43 @@
 
         function shuffleArray(array) {
             return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        // Mostra a tela do jogo
+        function showGameScreen() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameInfo').style.display = 'block';
+            document.getElementById('gameScreen').style.display = 'block';
+            document.getElementById('resultScreen').style.display = 'none';
+        }
+
+        // Mostra a tela de resultado
+        function showResultScreen() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameInfo').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+            
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultScore = document.getElementById('resultScore');
+            
+            resultScore.textContent = `Pontuação: ${score}/10`;
+            
+            if (score === 10) {
+                resultTitle.textContent = "🎉 PARABÉNS! 🎉";
+                resultMessage.textContent = "Você é um verdadeiro milionário! Acertou todas as perguntas!";
+                playSound('winSound');
+            } else if (score >= 7) {
+                resultTitle.textContent = "👏 Ótimo!";
+                resultMessage.textContent = "Você foi muito bem! Quase chegou lá!";
+            } else if (score >= 5) {
+                resultTitle.textContent = "👍 Bom trabalho!";
+                resultMessage.textContent = "Você foi bem, mas pode melhorar!";
+            } else {
+                resultTitle.textContent = "💪 Continue tentando!";
+                resultMessage.textContent = "Não desanime! Tente novamente!";
+            }
         }
 
         function updateScoreDisplay() {
@@ -645,40 +1169,8 @@
             }
         }
 
-        function showGameScreen() {
-            document.getElementById('gameScreen').style.display = 'block';
-            document.getElementById('resultScreen').style.display = 'none';
-        }
-
-        function showResultScreen() {
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('resultScreen').style.display = 'block';
-            
-            const resultTitle = document.getElementById('resultTitle');
-            const resultMessage = document.getElementById('resultMessage');
-            const resultScore = document.getElementById('resultScore');
-            
-            resultScore.textContent = `Pontuação: ${score}/10`;
-            
-            if (score === 10) {
-                resultTitle.textContent = "🎉 PARABÉNS! 🎉";
-                resultMessage.textContent = "Você é um verdadeiro milionário! Acertou todas as perguntas!";
-                // Toca som de vitória
-                playSound('winSound');
-            } else if (score >= 7) {
-                resultTitle.textContent = "👏 Ótimo!";
-                resultMessage.textContent = "Você foi muito bem! Quase chegou lá!";
-            } else if (score >= 5) {
-                resultTitle.textContent = "👍 Bom trabalho!";
-                resultMessage.textContent = "Você foi bem, mas pode melhorar!";
-            } else {
-                resultTitle.textContent = "💪 Continue tentando!";
-                resultMessage.textContent = "Não desanime! Tente novamente!";
-            }
-        }
-
         function loadQuestion() {
-            if (!canAnswer) return;
+            if (!canAnswer || !gameStarted) return;
             
             const question = currentQuestions[currentQuestionIndex];
             console.log(`❓ Carregando pergunta ${currentQuestionIndex + 1} (${question.nivel}): ${question.pergunta}`);
@@ -718,12 +1210,22 @@
                 sound.currentTime = 0; // Reinicia o som
                 sound.play().catch(e => {
                     console.log(`🔇 Erro ao tocar som ${soundId}:`, e);
+                    // Fallback: tenta carregar o som novamente
+                    console.log('🔄 Tentando recarregar o som...');
+                    sound.load();
+                    setTimeout(() => {
+                        sound.play().catch(e2 => {
+                            console.log(`🔇 Falha ao tocar som ${soundId} após recarregar:`, e2);
+                        });
+                    }, 100);
                 });
+            } else {
+                console.log(`🔇 Elemento de áudio não encontrado: ${soundId}`);
             }
         }
         
         function checkAnswer(selectedOption, clickedButton) {
-            if (!canAnswer) return;
+            if (!canAnswer || !gameStarted) return;
             
             console.log(`🎯 Resposta selecionada: ${selectedOption}`);
             
@@ -775,7 +1277,7 @@
         }
 
         function restartGame() {
-            startNewGame();
+            showStartScreen();
         }
 
         // Função para debug
@@ -784,6 +1286,7 @@
             console.log('- LocalStorage:', localStorage.getItem('perguntas'));
             console.log('- Perguntas atuais:', currentQuestions);
             console.log('- Score:', score);
+            console.log('- Game Started:', gameStarted);
         };
     </script>
 </body>
