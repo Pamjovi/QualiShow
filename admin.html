@@ -91,48 +91,8 @@
             padding: 60px 20px 40px;
         }
 
-        /* Tela de Login */
-        .login-screen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 80vh;
-        }
-
-        .login-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .login-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2em;
-            color: #ffd700;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .login-subtitle {
-            color: #b8b8b8;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-
-        .login-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            display: block;
-        }
-
         .admin-content {
-            display: none;
+            display: block; /* Já mostra direto sem login */
         }
 
         .back-btn {
@@ -397,28 +357,6 @@
             }
         }
 
-        /* Logout Button */
-        .logout-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 68, 68, 0.2);
-            color: #ff4444;
-            border: 1px solid #ff4444;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .logout-btn:hover {
-            background: #ff4444;
-            color: white;
-            transform: translateY(-2px);
-        }
-
         /* Responsividade para admin */
         @media (max-width: 768px) {
             .admin-container {
@@ -445,18 +383,6 @@
             .question-item {
                 padding: 15px;
             }
-
-            .login-card {
-                padding: 30px 20px;
-                margin: 0 15px;
-            }
-
-            .logout-btn {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin-bottom: 20px;
-            }
         }
     </style>
 </head>
@@ -469,46 +395,8 @@
         <div class="particle"></div>
     </div>
 
-    <!-- Botão de Logout (visível apenas quando logado) -->
-    <button class="logout-btn" onclick="logout()" style="display: none;">
-        🚪 Sair
-    </button>
-
     <div class="admin-container">
-        <!-- Tela de Login -->
-        <div id="loginScreen" class="login-screen">
-            <div class="login-card">
-                <div class="login-icon">🔐</div>
-                <h1 class="login-title">Acesso Restrito</h1>
-                <p class="login-subtitle">Painel Administrativo - Show do Milhão</p>
-                
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label class="form-label">Usuário:</label>
-                        <input type="text" id="username" class="form-input" required placeholder="Digite seu usuário">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Senha:</label>
-                        <input type="password" id="password" class="form-input" required placeholder="Digite sua senha">
-                    </div>
-                    
-                    <div class="btn-group">
-                        <button type="submit" class="form-btn btn-primary" style="width: 100%;">
-                            🚀 Entrar no Painel
-                        </button>
-                    </div>
-                </form>
-
-                <div style="margin-top: 20px; padding: 15px; background: rgba(255,215,0,0.1); border-radius: 8px; font-size: 0.9em;">
-                    <strong>Credenciais padrão:</strong><br>
-                    👤 Usuário: <code>admin</code><br>
-                    🔑 Senha: <code>milhao2024</code>
-                </div>
-            </div>
-        </div>
-
-        <!-- Conteúdo Admin (visível apenas após login) -->
+        <!-- Conteúdo Admin (acesso direto sem login) -->
         <div id="adminContent" class="admin-content">
             <a href="index.html" class="back-btn">
                 <span>←</span>
@@ -604,29 +492,17 @@
                     <button type="button" class="form-btn btn-secondary" onclick="importQuestions()">
                         📥 Importar Perguntas
                     </button>
-                    <button type="button" class="form-btn btn-danger" onclick="changePassword()">
-                        🔐 Alterar Senha
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ADMIN - SCRIPT COM SISTEMA DE LOGIN
+        // ADMIN - SCRIPT SEM SENHA
 
         console.log('🛠️ Página admin carregada!');
 
-        // CONFIGURAÇÕES DE LOGIN (podem ser alteradas)
-        const ADMIN_CONFIG = {
-            username: 'admin',
-            password: 'milhao2024',
-            sessionTimeout: 60 * 60 * 1000 // 1 hora em milissegundos
-        };
-
-        // PERGUNTAS PRÉ-CADASTRADAS (as mesmas do index.html)
-        const defaultQuestions = [
-            // PERGUNTAS PRÉ-CADASTRADAS COM NÍVEIS (40 PERGUNTAS COMPLETAS)
+        // PERGUNTAS PRÉ-CADASTRADAS
         const defaultQuestions = [
             // PERGUNTAS FÁCEIS (15)
             {
@@ -997,136 +873,13 @@
 
         // Variáveis globais
         let questions = [];
-        let isLoggedIn = false;
-        let sessionTimer;
 
         // Inicialização quando a página carrega
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔐 Verificando autenticação...');
-            checkAuthentication();
-        });
-
-        // Verifica se o usuário já está logado
-        function checkAuthentication() {
-            const loginTime = localStorage.getItem('adminLoginTime');
-            const isAuthenticated = localStorage.getItem('adminAuthenticated');
-            
-            if (isAuthenticated === 'true' && loginTime) {
-                const timeSinceLogin = Date.now() - parseInt(loginTime);
-                
-                if (timeSinceLogin < ADMIN_CONFIG.sessionTimeout) {
-                    // Usuário ainda está na sessão válida
-                    isLoggedIn = true;
-                    showAdminContent();
-                    startSessionTimer();
-                    console.log('✅ Sessão recuperada - usuário autenticado');
-                } else {
-                    // Sessão expirada
-                    logout();
-                    showNotification('⏰ Sessão expirada. Faça login novamente.', 'error');
-                }
-            } else {
-                // Não está logado
-                showLoginScreen();
-            }
-        }
-
-        // Mostra a tela de login
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('adminContent').style.display = 'none';
-            document.querySelector('.logout-btn').style.display = 'none';
-            isLoggedIn = false;
-        }
-
-        // Mostra o conteúdo admin
-        function showAdminContent() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('adminContent').style.display = 'block';
-            document.querySelector('.logout-btn').style.display = 'block';
-            
-            // Carrega as perguntas
-            questions = loadQuestionsFromStorage();
+            console.log('🛠️ Admin carregado - acesso direto');
+            loadQuestionsFromStorage();
             loadQuestionsList();
-        }
-
-        // Processa o formulário de login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (username === ADMIN_CONFIG.username && password === ADMIN_CONFIG.password) {
-                // Login bem-sucedido
-                isLoggedIn = true;
-                localStorage.setItem('adminAuthenticated', 'true');
-                localStorage.setItem('adminLoginTime', Date.now().toString());
-                
-                showAdminContent();
-                startSessionTimer();
-                showNotification('✅ Login realizado com sucesso!');
-                console.log('🔓 Usuário autenticado com sucesso');
-            } else {
-                // Login falhou
-                showNotification('❌ Usuário ou senha incorretos!', 'error');
-                console.log('🚫 Tentativa de login falhou');
-                
-                // Efeito visual de erro
-                document.getElementById('username').style.borderColor = '#ff4444';
-                document.getElementById('password').style.borderColor = '#ff4444';
-                
-                setTimeout(() => {
-                    document.getElementById('username').style.borderColor = '';
-                    document.getElementById('password').style.borderColor = '';
-                }, 2000);
-            }
         });
-
-        // Inicia o timer da sessão
-        function startSessionTimer() {
-            if (sessionTimer) {
-                clearInterval(sessionTimer);
-            }
-            
-            sessionTimer = setInterval(() => {
-                const loginTime = localStorage.getItem('adminLoginTime');
-                if (loginTime) {
-                    const timeSinceLogin = Date.now() - parseInt(loginTime);
-                    if (timeSinceLogin >= ADMIN_CONFIG.sessionTimeout) {
-                        logout();
-                        showNotification('⏰ Sessão expirada por inatividade.', 'error');
-                    }
-                }
-            }, 60000); // Verifica a cada minuto
-        }
-
-        // Logout do sistema
-        function logout() {
-            isLoggedIn = false;
-            localStorage.removeItem('adminAuthenticated');
-            localStorage.removeItem('adminLoginTime');
-            
-            if (sessionTimer) {
-                clearInterval(sessionTimer);
-            }
-            
-            showLoginScreen();
-            showNotification('👋 Logout realizado com sucesso!');
-            console.log('🚪 Usuário fez logout');
-        }
-
-        // Função para alterar senha
-        function changePassword() {
-            const newPassword = prompt('Digite a nova senha para o admin:');
-            if (newPassword && newPassword.length >= 4) {
-                ADMIN_CONFIG.password = newPassword;
-                showNotification('✅ Senha alterada com sucesso!');
-                console.log('🔑 Senha alterada');
-            } else if (newPassword) {
-                showNotification('❌ A senha deve ter pelo menos 4 caracteres!', 'error');
-            }
-        }
 
         // Função para carregar perguntas do localStorage
         function loadQuestionsFromStorage() {
@@ -1140,13 +893,11 @@
                 console.log(`📚 ${storedQuestions.length} perguntas carregadas do localStorage`);
             }
             
-            return storedQuestions;
+            questions = storedQuestions;
         }
 
         // Carrega a lista de perguntas
         function loadQuestionsList() {
-            if (!isLoggedIn) return;
-            
             const questionsList = document.getElementById('questionsList');
             const totalQuestions = document.getElementById('totalQuestions');
             
@@ -1213,10 +964,6 @@
         // Adiciona nova pergunta
         document.getElementById('questionForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            if (!isLoggedIn) {
-                showNotification('❌ Faça login para adicionar perguntas!', 'error');
-                return;
-            }
             
             const newQuestion = {
                 pergunta: document.getElementById('pergunta').value,
@@ -1239,11 +986,6 @@
         
         // Exclui pergunta
         function deleteQuestion(index) {
-            if (!isLoggedIn) {
-                showNotification('❌ Faça login para excluir perguntas!', 'error');
-                return;
-            }
-            
             if (confirm('Tem certeza que deseja excluir esta pergunta?')) {
                 const deletedQuestion = questions[index];
                 questions.splice(index, 1);
@@ -1274,11 +1016,6 @@
 
         // Restaura perguntas padrão
         function resetToDefault() {
-            if (!isLoggedIn) {
-                showNotification('❌ Faça login para restaurar perguntas!', 'error');
-                return;
-            }
-            
             if (confirm('Isso irá substituir todas as perguntas atuais pelas perguntas padrão. Continuar?')) {
                 questions = [...defaultQuestions];
                 localStorage.setItem('perguntas', JSON.stringify(questions));
@@ -1290,11 +1027,6 @@
 
         // Exporta perguntas
         function exportQuestions() {
-            if (!isLoggedIn) {
-                showNotification('❌ Faça login para exportar perguntas!', 'error');
-                return;
-            }
-            
             const dataStr = JSON.stringify(questions, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
@@ -1311,11 +1043,6 @@
 
         // Importa perguntas
         function importQuestions() {
-            if (!isLoggedIn) {
-                showNotification('❌ Faça login para importar perguntas!', 'error');
-                return;
-            }
-            
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = '.json';
@@ -1348,14 +1075,6 @@
             
             input.click();
         }
-
-        // Função para debug
-        window.debugAdmin = function() {
-            console.log('🐛 Debug do admin:');
-            console.log('- Logado:', isLoggedIn);
-            console.log('- Total de perguntas:', questions.length);
-            console.log('- Config:', ADMIN_CONFIG);
-        };
     </script>
 </body>
 </html>
