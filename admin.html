@@ -502,9 +502,7 @@
 
         console.log('🛠️ Página admin carregada!');
 
-        // PERGUNTAS PRÉ-CADASTRADAS
-        const defaultQuestions = [
-             // PERGUNTAS PRÉ-CADASTRADAS - 60 PERGUNTAS
+        // PERGUNTAS PRÉ-CADASTRADAS - 55 PERGUNTAS
         const defaultQuestions = [
             // ========== NÍVEL FÁCIL (20) ==========
             {
@@ -905,97 +903,98 @@
                 correta: "b",
                 nivel: "medio"
             },
-            // PERGUNTAS DIFÍCEIS (10)
-{
-    pergunta: "Quais são os PCC's da unidade?",
-    a: "Filtro, pasteurizador, detector de metais",
-    b: "Bactofuga, detector de metais, desnatadeira",
-    c: "Detector de metais, pasteurizador e Antibiótico",
-    d: "Antibiótico, bactofuga e desnatadeira",
-    correta: "c",
-    nivel: "dificil"
-},
-{
-    pergunta: "O filtro PPRO avalia qual risco?",
-    a: "Físico",
-    b: "Biológico",
-    c: "Químico",
-    d: "Alergênico",
-    correta: "a",
-    nivel: "dificil"
-},
-{
-    pergunta: "A análise de antibiótico é um PCC de risco?",
-    a: "Físico",
-    b: "Biológico",
-    c: "Químico",
-    d: "Alergênico",
-    correta: "c",
-    nivel: "dificil"
-},
-{
-    pergunta: "O detector de metal é um PCC de risco?",
-    a: "Físico",
-    b: "Biológico",
-    c: "Químico",
-    d: "Alergênico",
-    correta: "a",
-    nivel: "dificil"
-},
-{
-    pergunta: "O Pasteurizador é um PCC de risco?",
-    a: "Físico",
-    b: "Biológico",
-    c: "Químico",
-    d: "Alergênico",
-    correta: "b",
-    nivel: "dificil"
-},
-{
-    pergunta: "Qual é a principal função do CIP (Cleaning in Place)?",
-    a: "Limpeza manual de tanques",
-    b: "Limpeza automatizada sem desmontagem",
-    c: "Controle microbiológico",
-    d: "Higienização de uniformes",
-    correta: "b",
-    nivel: "dificil"
-},
-{
-    pergunta: "O que é um limite crítico no APPCC?",
-    a: "Um valor que separa a aceitabilidade da inaceitabilidade",
-    b: "O horário de trabalho dos funcionários",
-    c: "O custo máximo de produção",
-    d: "A temperatura ambiente da fábrica",
-    correta: "a",
-    nivel: "dificil"
-},
-{
-    pergunta: "Qual é a diferença entre perigo e risco na segurança de alimentos?",
-    a: "Perigo é fonte potencial de dano, risco é probabilidade de ocorrência",
-    b: "São sinônimos",
-    c: "Perigo é químico, risco é biológico",
-    d: "Perigo é físico, risco é microbiológico",
-    correta: "a",
-    nivel: "dificil"
-},
-{
-    pergunta: "O que significa a sigla PPHO?",
-    a: "Procedimento Padrão de Higiene Operacional",
-    b: "Plano de Produção e Higiene Organizacional",
-    c: "Programa de Prevenção de Higiene Ocupacional",
-    d: "Procedimento de Proteção e Higiene Operacional",
-    correta: "a",
-    nivel: "dificil"
-},
-{
-    pergunta: "Qual é a temperatura e tempo mínimos para pasteurização HTST do leite?",
-    a: "72°C por 15 segundos",
-    b: "85°C por 5 minutos",
-    c: "63°C por 30 minutos",
-    d: "95°C por 1 minuto",
-    correta: "a",
-    nivel: "dificil"
-}
+
+            // ========== NÍVEL DIFÍCIL (10) ==========
+            {
+                pergunta: "Quais são os PCC's da unidade?",
+                a: "Filtro, pasteurizador, detector de metais",
+                b: "Bactofuga, detector de metais, desnatadeira",
+                c: "Detector de metais, pasteurizador e Antibiótico",
+                d: "Antibiótico, bactofuga e desnatadeira",
+                correta: "c",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O filtro PPRO avalia qual risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "A análise de antibiótico é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "c",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O detector de metal é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O Pasteurizador é um PCC de risco?",
+                a: "Físico",
+                b: "Biológico",
+                c: "Químico",
+                d: "Alergênico",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a principal função do CIP (Cleaning in Place)?",
+                a: "Limpeza manual de tanques",
+                b: "Limpeza automatizada sem desmontagem",
+                c: "Controle microbiológico",
+                d: "Higienização de uniformes",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O que é um limite crítico no APPCC?",
+                a: "Um valor que separa a aceitabilidade da inaceitabilidade",
+                b: "O horário de trabalho dos funcionários",
+                c: "O custo máximo de produção",
+                d: "A temperatura ambiente da fábrica",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a diferença entre perigo e risco na segurança de alimentos?",
+                a: "Perigo é fonte potencial de dano, risco é probabilidade de ocorrência",
+                b: "São sinônimos",
+                c: "Perigo é químico, risco é biológico",
+                d: "Perigo é físico, risco é microbiológico",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O que significa a sigla PPHO?",
+                a: "Procedimento Padrão de Higiene Operacional",
+                b: "Plano de Produção e Higiene Organizacional",
+                c: "Programa de Prevenção de Higiene Ocupacional",
+                d: "Procedimento de Proteção e Higiene Operacional",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a temperatura e tempo mínimos para pasteurização HTST do leite?",
+                a: "72°C por 15 segundos",
+                b: "85°C por 5 minutos",
+                c: "63°C por 30 minutos",
+                d: "95°C por 1 minuto",
+                correta: "a",
+                nivel: "dificil"
+            }
         ];
 
         // Variáveis globais
