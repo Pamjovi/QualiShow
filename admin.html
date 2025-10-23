@@ -626,7 +626,8 @@
 
         // PERGUNTAS PRÉ-CADASTRADAS (as mesmas do index.html)
         const defaultQuestions = [
-            // ... (aqui ficam as 40 perguntas que já mostrei anteriormente)
+            // PERGUNTAS PRÉ-CADASTRADAS COM NÍVEIS (40 PERGUNTAS COMPLETAS)
+        const defaultQuestions = [
             // PERGUNTAS FÁCEIS (15)
             {
                 pergunta: "Qual é a cor padrão para uniformes em áreas de produção de alimentos?",
@@ -646,7 +647,352 @@
                 correta: "b",
                 nivel: "facil"
             },
-            // ... (continue com as outras 38 perguntas)
+            {
+                pergunta: "Qual é a consequência de não seguir as BPF?",
+                a: "Redução de custos",
+                b: "Risco à saúde e perda de credibilidade",
+                c: "Melhor aparência dos alimentos",
+                d: "Aumento da produção",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que é proibido comer ou beber na área de produção?",
+                a: "Para evitar distrações",
+                b: "Para evitar contaminação",
+                c: "Para manter limpeza do uniforme",
+                d: "Porque é norma da empresa",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a função da touca na indústria de alimentos?",
+                a: "Proteger do calor",
+                b: "Evitar queda de cabelo nos alimentos",
+                c: "Melhorar aparência do uniforme",
+                d: "Substituir máscara",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "É permitido usar esmalte ou unhas postiças na área de produção?",
+                a: "Sim, desde que sejam claras",
+                b: "Sim, com luvas",
+                c: "Não",
+                d: "Apenas em inspeções",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que não se deve usar perfume forte na área de produção?",
+                a: "Para evitar alergias nos colegas",
+                b: "Para evitar contaminação química",
+                c: "Para economizar",
+                d: "Porque é norma da empresa",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a importância do uniforme limpo?",
+                a: "Melhorar aparência",
+                b: "Evitar contaminação",
+                c: "Cumprir normas estéticas",
+                d: "Reduzir custos",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que as paredes e pisos devem ser lisos e laváveis?",
+                a: "Para facilitar limpeza",
+                b: "Para reduzir custos",
+                c: "Para melhorar aparência",
+                d: "Para evitar acidentes",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a importância da iluminação adequada?",
+                a: "Melhorar aparência",
+                b: "Reduzir custos",
+                c: "Facilitar inspeção e limpeza",
+                d: "Cumprir normas estéticas",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "O que deve ser feito antes de iniciar o trabalho na área de produção?",
+                a: "Tomar café",
+                b: "Fazer higienização das mãos",
+                c: "Revisar e-mails",
+                d: "Conversar com colegas",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é o objetivo principal das Boas Práticas de Fabricação?",
+                a: "Aumentar a produção",
+                b: "Garantir segurança dos alimentos",
+                c: "Reduzir custos",
+                d: "Melhorar sabor",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "O que significa a sigla BPF?",
+                a: "Boas Práticas de Fabricação",
+                b: "Bons Procedimentos Fabris",
+                c: "Boas Práticas Fundamentais",
+                d: "Bases Para Fabricação",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é a temperatura ideal para conservação de alimentos refrigerados?",
+                a: "Abaixo de 5°C",
+                b: "Entre 10°C e 15°C",
+                c: "Entre 20°C e 25°C",
+                d: "Acima de 30°C",
+                correta: "a",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Por que é importante manter os alimentos cobertos?",
+                a: "Para economizar espaço",
+                b: "Para evitar contaminação",
+                c: "Para manter temperatura",
+                d: "Para melhor apresentação",
+                correta: "b",
+                nivel: "facil"
+            },
+
+            // PERGUNTAS MÉDIAS (15)
+            {
+                pergunta: "Qual é o tempo mínimo de maturação do queijo Parmesão?",
+                a: "6 meses",
+                b: "12 meses",
+                c: "18 meses",
+                d: "24 meses",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Por que o queijo Parmesão precisa ser virado regularmente durante a maturação?",
+                a: "Para desenvolver sabor uniforme",
+                b: "Para evitar deformidades",
+                c: "Para secar por igual todos os lados",
+                d: "Todas as alternativas anteriores",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual a temperatura ideal da sala de maturação do Parmesão?",
+                a: "0-5°C",
+                b: "15-20°C",
+                c: "25-30°C",
+                d: "35-40°C",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que acontece se o queijo não for salgado corretamente?",
+                a: "Pode mofar mais facilmente",
+                b: "Não desenvolve o sabor característico",
+                c: "Pode inchar ou deformar",
+                d: "Todas as alternativas",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a principal função do sal no queijo Parmesão?",
+                a: "Apenas dar sabor",
+                b: "Conservar e controlar umidade",
+                c: "Deixar a cor mais amarela",
+                d: "Aumentar o peso",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Por que é importante controlar a umidade na sala de maturação?",
+                a: "Para o queijo não secar demais ou mofar",
+                b: "Para econom energia",
+                c: "Para os funcionários não sentirem calor",
+                d: "Para as embalagens não estragarem",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que indica a presença de bolhas ou rachaduras no queijo?",
+                a: "Que está no ponto certo",
+                b: "Problemas na fabricação ou contaminação",
+                c: "Que precisa de mais sal",
+                d: "Que está muito seco",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual cuidado é essencial na limpeza das formas do queijo?",
+                a: "Usar apenas água quente",
+                b: "Secar ao sol",
+                c: "Limpeza completa sem resíduos de leite",
+                d: "Lavar apenas uma vez por semana",
+                correta: "c",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Por que o leite para Parmesão deve ser de alta qualidade?",
+                a: "Para o queijo ter melhor rendimento",
+                b: "Para evitar defeitos e garantir segurança",
+                c: "Para correr mais rápido o processo",
+                d: "Para usar menos coalho",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que fazer se notar mofo em um queijo durante a maturação?",
+                a: "Ignorar, é normal",
+                b: "Retirar imediatamente e informar o supervisor",
+                c: "Lavar com água e continuar",
+                d: "Vender mais barato",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual a importância de usar o uniforme completo na produção?",
+                a: "Seguir regras da empresa",
+                b: "Proteger o queijo de contaminação",
+                c: "Ficar mais bonito",
+                d: "Apenas para visitas",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Como saber se o queijo está no ponto de virar?",
+                a: "Pela textura da casca",
+                b: "Pelo peso",
+                c: "Pelo cheiro característico",
+                d: "Pela cor amarela",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Por que não se pode usar jóias na produção?",
+                a: "Podem cair no queijo",
+                b: "Acumulam sujeira e bactérias",
+                c: "Atrás clientes",
+                d: "As alternativas a e b",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que significa 'curar' o queijo?",
+                a: "Cozinhar novamente",
+                b: "Processo de maturação e desenvolvimento",
+                c: "Consertar defeitos",
+                d: "Cortar em pedaços",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual o principal indicador de qualidade do Parmesão pronto?",
+                a: "Textura quebradiça e sabor intenso",
+                b: "Casca molenga",
+                c: "Cor branca",
+                d: "Cheio de buracos",
+                correta: "a",
+                nivel: "medio"
+            },
+
+            // PERGUNTAS DIFÍCEIS (10)
+            {
+                pergunta: "Instruções de trabalho ou procedimentos servem para:",
+                a: "Evidenciar que existe um documento para aquele processo",
+                b: "Instruir as pessoas a fazer determinada atividade e cabe as pessoas seguir",
+                c: "Não servem para nada",
+                d: "Mostrar para o auditor o papel",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é o principal objetivo da pasteurização do leite?",
+                a: "Melhorar sabor",
+                b: "Eliminar bactérias patogênicas",
+                c: "Reduzir gordura",
+                d: "Aumentar viscosidade",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a frequência mínima recomendada para higienização das mãos em uma indústria de laticínios?",
+                a: "Apenas antes do turno",
+                b: "Antes e depois de manipular alimentos",
+                c: "Uma vez por hora",
+                d: "Apenas após usar sanitário",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a função do POP (Procedimento Operacional Padrão)?",
+                a: "Definir metas financeiras",
+                b: "Padronizar atividades críticas",
+                c: "Controlar estoque",
+                d: "Treinar equipe de vendas",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a principal consequência da ausência de barreira física entre áreas sujas e limpas?",
+                a: "Aumento de produtividade",
+                b: "Contaminação cruzada",
+                c: "Redução de custos",
+                d: "Melhoria sensorial",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "O que significa contaminação cruzada?",
+                a: "Mistura de alimentos crus e cozidos",
+                b: "Uso de utensílios novos",
+                c: "Higienização inadequada das mãos",
+                d: "Mistura de temperos",
+                correta: "a",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a função das telas nas janelas?",
+                a: "Melhorar ventilação",
+                b: "Diminuir ruído",
+                c: "Reduzir luz solar",
+                d: "Evitar entrada de pragas",
+                correta: "d",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Por que é proibido armazenar produtos químicos próximos aos alimentos?",
+                a: "Para evitar desperdício",
+                b: "Para facilitar acesso",
+                c: "Para reduzir custos",
+                d: "Para evitar contaminação",
+                correta: "d",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a função do controle de qualidade?",
+                a: "Melhorar aparência",
+                b: "Garantir segurança e conformidade",
+                c: "Reduzir custos",
+                d: "Cumprir normas estéticas",
+                correta: "b",
+                nivel: "dificil"
+            },
+            {
+                pergunta: "Qual é a ação correta após derramamento de produto químico?",
+                a: "Limpar imediatamente seguindo POP",
+                b: "Continuar produção",
+                c: "Ignorar se for pouco",
+                d: "Jogar água e seguir",
+                correta: "a",
+                nivel: "dificil"
+            }
         ];
 
         // Variáveis globais
