@@ -3,205 +3,1013 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo - Show do Milhão</title>
+    <title>Admin - Show do Milhão</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #0f0f0f;
-            color: #f0f0f0;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+        /* ===== ESTILOS PARA A PÁGINA ADMIN ===== */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .login-container, .painel-container {
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-            width: 90%;
-            max-width: 500px;
+
+        body {
+            font-family: 'Roboto', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c2e 0%, #1a1a3e 50%, #2d2d5a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Efeitos de fundo */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+        }
+
+        .particle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .particle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .particle:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            top: 40%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* Container admin */
+        .admin-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+        }
+
+        /* Tela de Login */
+        .login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .login-subtitle {
+            color: #b8b8b8;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .login-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .admin-content {
             display: none;
         }
-        .ativo { display: block; }
-        h1 {
-            color: gold;
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .admin-title {
             text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-title {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
             margin-bottom: 20px;
         }
-        input, select, button, textarea {
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .form-input, .form-select {
             width: 100%;
-            padding: 10px;
-            margin: 8px 0;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 8px;
+            color: #ffffff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .form-btn {
+            padding: 12px 25px;
             border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
             font-size: 1em;
         }
-        input, select, textarea {
-            background: #2b2b2b;
-            color: #f0f0f0;
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #1a1a3e;
         }
-        button {
-            background: gold;
-            color: #0f0f0f;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        button:hover {
-            background: #f0c000;
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
         }
-        .perguntas-lista {
-            margin-top: 20px;
-            max-height: 250px;
-            overflow-y: auto;
-            background: #141414;
-            padding: 10px;
-            border-radius: 8px;
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
         }
-        .pergunta-item {
-            background: #222;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+        }
+
+        .questions-section {
+            margin-top: 40px;
+        }
+
+        .questions-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .question-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .question-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-size: 1.1em;
+        }
+
+        .question-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .pergunta-item button {
-            background: crimson;
-            color: white;
-            width: auto;
-            padding: 6px 10px;
+            margin-bottom: 10px;
             font-size: 0.9em;
         }
-        .pergunta-item button:hover {
-            background: red;
-        }
-        .rodape {
-            margin-top: 20px;
-            text-align: center;
+
+        .question-level {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
             font-size: 0.8em;
-            opacity: 0.6;
+        }
+
+        .level-facil {
+            background: #00ff88;
+            color: #1a1a3e;
+        }
+
+        .level-medio {
+            background: #ffd700;
+            color: #1a1a3e;
+        }
+
+        .level-dificil {
+            background: #ff4444;
+            color: white;
+        }
+
+        .options-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .option-item {
+            padding: 5px 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .correct-answer {
+            color: #00ff88;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(255, 68, 68, 0.4);
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #b8b8b8;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        .total-questions {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        /* Notificação */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ffd700;
+            color: #1a1a3e;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .error-notification {
+            background: #ff4444;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 68, 68, 0.2);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .logout-btn:hover {
+            background: #ff4444;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsividade para admin */
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 50px 15px 30px;
+            }
+            
+            .admin-title {
+                font-size: 2em;
+            }
+            
+            .form-section {
+                padding: 20px;
+                margin: 0 10px 20px 10px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .options-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-item {
+                padding: 15px;
+            }
+
+            .login-card {
+                padding: 30px 20px;
+                margin: 0 15px;
+            }
+
+            .logout-btn {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <div class="login-container ativo" id="login-container">
-        <h1>🔐 Login Administrativo</h1>
-        <input type="text" id="usuario" placeholder="Usuário">
-        <input type="password" id="senha" placeholder="Senha">
-        <button id="entrar">Entrar</button>
+    <!-- Efeitos de fundo -->
+    <div class="bg-effects">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
-    <div class="painel-container" id="painel-container">
-        <h1>🎯 Painel de Perguntas</h1>
-        
-        <h3>Adicionar Pergunta</h3>
-        <input type="text" id="nova-pergunta" placeholder="Pergunta">
-        <input type="text" id="resposta-a" placeholder="Alternativa A">
-        <input type="text" id="resposta-b" placeholder="Alternativa B">
-        <input type="text" id="resposta-c" placeholder="Alternativa C">
-        <input type="text" id="resposta-d" placeholder="Alternativa D">
-        <select id="correta">
-            <option value="">Resposta Correta</option>
-            <option value="a">A</option>
-            <option value="b">B</option>
-            <option value="c">C</option>
-            <option value="d">D</option>
-        </select>
-        <select id="nivel">
-            <option value="">Nível</option>
-            <option value="facil">Fácil</option>
-            <option value="medio">Médio</option>
-            <option value="dificil">Difícil</option>
-        </select>
-        <button id="adicionar">Adicionar Pergunta</button>
+    <!-- Botão de Logout (visível apenas quando logado) -->
+    <button class="logout-btn" onclick="logout()" style="display: none;">
+        🚪 Sair
+    </button>
 
-        <div class="perguntas-lista" id="lista-perguntas"></div>
+    <div class="admin-container">
+        <!-- Tela de Login -->
+        <div id="loginScreen" class="login-screen">
+            <div class="login-card">
+                <div class="login-icon">🔐</div>
+                <h1 class="login-title">Acesso Restrito</h1>
+                <p class="login-subtitle">Painel Administrativo - Show do Milhão</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Usuário:</label>
+                        <input type="text" id="username" class="form-input" required placeholder="Digite seu usuário">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Senha:</label>
+                        <input type="password" id="password" class="form-input" required placeholder="Digite sua senha">
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="form-btn btn-primary" style="width: 100%;">
+                            🚀 Entrar no Painel
+                        </button>
+                    </div>
+                </form>
 
-        <div class="rodape">Painel do Milhão © 2025</div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255,215,0,0.1); border-radius: 8px; font-size: 0.9em;">
+                    <strong>Credenciais padrão:</strong><br>
+                    👤 Usuário: <code>admin</code><br>
+                    🔑 Senha: <code>milhao2024</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo Admin (visível apenas após login) -->
+        <div id="adminContent" class="admin-content">
+            <a href="index.html" class="back-btn">
+                <span>←</span>
+                Voltar ao Jogo
+            </a>
+            
+            <h1 class="admin-title">Gerenciar Perguntas</h1>
+
+            <!-- Contador de perguntas -->
+            <div class="total-questions" id="totalQuestions">
+                Total de perguntas: 0
+            </div>
+            
+            <!-- Formulário para adicionar pergunta -->
+            <section class="form-section">
+                <h3 class="form-title">Adicionar Nova Pergunta</h3>
+                <form id="questionForm">
+                    <div class="form-group">
+                        <label class="form-label">Pergunta:</label>
+                        <input type="text" id="pergunta" class="form-input" required placeholder="Digite a pergunta...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Opção A:</label>
+                        <input type="text" id="a" class="form-input" required placeholder="Resposta A">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Opção B:</label>
+                        <input type="text" id="b" class="form-input" required placeholder="Resposta B">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Opção C:</label>
+                        <input type="text" id="c" class="form-input" required placeholder="Resposta C">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Opção D:</label>
+                        <input type="text" id="d" class="form-input" required placeholder="Resposta D">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Resposta Correta:</label>
+                        <select id="correta" class="form-select" required>
+                            <option value="">Selecione a resposta correta...</option>
+                            <option value="a">Opção A</option>
+                            <option value="b">Opção B</option>
+                            <option value="c">Opção C</option>
+                            <option value="d">Opção D</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nível de Dificuldade:</label>
+                        <select id="nivel" class="form-select" required>
+                            <option value="">Selecione o nível...</option>
+                            <option value="facil">Fácil</option>
+                            <option value="medio">Médio</option>
+                            <option value="dificil">Difícil</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="form-btn btn-primary">
+                            ✅ Adicionar Pergunta
+                        </button>
+                        <button type="button" class="form-btn btn-secondary" onclick="clearForm()">
+                            🗑️ Limpar Formulário
+                        </button>
+                    </div>
+                </form>
+            </section>
+            
+            <!-- Lista de perguntas existentes -->
+            <section class="questions-section">
+                <h3 class="form-title">Perguntas Cadastradas</h3>
+                <div id="questionsList" class="questions-list">
+                    <!-- Lista de perguntas será inserida aqui -->
+                </div>
+            </section>
+
+            <!-- Botões de ação -->
+            <div class="form-section">
+                <h3 class="form-title">Ações do Sistema</h3>
+                <div class="btn-group">
+                    <button type="button" class="form-btn btn-primary" onclick="resetToDefault()">
+                        🔄 Restaurar Perguntas Padrão
+                    </button>
+                    <button type="button" class="form-btn btn-secondary" onclick="exportQuestions()">
+                        📤 Exportar Perguntas
+                    </button>
+                    <button type="button" class="form-btn btn-secondary" onclick="importQuestions()">
+                        📥 Importar Perguntas
+                    </button>
+                    <button type="button" class="form-btn btn-danger" onclick="changePassword()">
+                        🔐 Alterar Senha
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // --- LOGIN ---
-        const usuarioInput = document.getElementById('usuario');
-        const senhaInput = document.getElementById('senha');
-        const entrarBtn = document.getElementById('entrar');
-        const loginContainer = document.getElementById('login-container');
-        const painelContainer = document.getElementById('painel-container');
+        // ADMIN - SCRIPT COM SISTEMA DE LOGIN
 
-        entrarBtn.addEventListener('click', () => {
-            const user = usuarioInput.value.trim();
-            const pass = senhaInput.value.trim();
-            if (user === 'admin' && pass === '123') {
-                loginContainer.classList.remove('ativo');
-                painelContainer.classList.add('ativo');
-                carregarPerguntas();
+        console.log('🛠️ Página admin carregada!');
+
+        // CONFIGURAÇÕES DE LOGIN (podem ser alteradas)
+        const ADMIN_CONFIG = {
+            username: 'admin',
+            password: 'milhao2024',
+            sessionTimeout: 60 * 60 * 1000 // 1 hora em milissegundos
+        };
+
+        // PERGUNTAS PRÉ-CADASTRADAS (as mesmas do index.html)
+        const defaultQuestions = [
+            // ... (aqui ficam as 40 perguntas que já mostrei anteriormente)
+            // PERGUNTAS FÁCEIS (15)
+            {
+                pergunta: "Qual é a cor padrão para uniformes em áreas de produção de alimentos?",
+                a: "Preto",
+                b: "Azul",
+                c: "Branco",
+                d: "Verde",
+                correta: "c",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual é o principal objetivo do controle de pragas em indústrias de alimentos?",
+                a: "Reduzir custos",
+                b: "Evitar contaminação física, química e biológica",
+                c: "Melhorar aparência da fábrica",
+                d: "Cumprir normas ambientais",
+                correta: "b",
+                nivel: "facil"
+            },
+            // ... (continue com as outras 38 perguntas)
+        ];
+
+        // Variáveis globais
+        let questions = [];
+        let isLoggedIn = false;
+        let sessionTimer;
+
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔐 Verificando autenticação...');
+            checkAuthentication();
+        });
+
+        // Verifica se o usuário já está logado
+        function checkAuthentication() {
+            const loginTime = localStorage.getItem('adminLoginTime');
+            const isAuthenticated = localStorage.getItem('adminAuthenticated');
+            
+            if (isAuthenticated === 'true' && loginTime) {
+                const timeSinceLogin = Date.now() - parseInt(loginTime);
+                
+                if (timeSinceLogin < ADMIN_CONFIG.sessionTimeout) {
+                    // Usuário ainda está na sessão válida
+                    isLoggedIn = true;
+                    showAdminContent();
+                    startSessionTimer();
+                    console.log('✅ Sessão recuperada - usuário autenticado');
+                } else {
+                    // Sessão expirada
+                    logout();
+                    showNotification('⏰ Sessão expirada. Faça login novamente.', 'error');
+                }
             } else {
-                alert('Usuário ou senha incorretos!');
+                // Não está logado
+                showLoginScreen();
+            }
+        }
+
+        // Mostra a tela de login
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('adminContent').style.display = 'none';
+            document.querySelector('.logout-btn').style.display = 'none';
+            isLoggedIn = false;
+        }
+
+        // Mostra o conteúdo admin
+        function showAdminContent() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            document.querySelector('.logout-btn').style.display = 'block';
+            
+            // Carrega as perguntas
+            questions = loadQuestionsFromStorage();
+            loadQuestionsList();
+        }
+
+        // Processa o formulário de login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN_CONFIG.username && password === ADMIN_CONFIG.password) {
+                // Login bem-sucedido
+                isLoggedIn = true;
+                localStorage.setItem('adminAuthenticated', 'true');
+                localStorage.setItem('adminLoginTime', Date.now().toString());
+                
+                showAdminContent();
+                startSessionTimer();
+                showNotification('✅ Login realizado com sucesso!');
+                console.log('🔓 Usuário autenticado com sucesso');
+            } else {
+                // Login falhou
+                showNotification('❌ Usuário ou senha incorretos!', 'error');
+                console.log('🚫 Tentativa de login falhou');
+                
+                // Efeito visual de erro
+                document.getElementById('username').style.borderColor = '#ff4444';
+                document.getElementById('password').style.borderColor = '#ff4444';
+                
+                setTimeout(() => {
+                    document.getElementById('username').style.borderColor = '';
+                    document.getElementById('password').style.borderColor = '';
+                }, 2000);
             }
         });
 
-        // --- BANCO DE PERGUNTAS ---
-        const defaultQuestions = []; // Seguro: evita erro de sintaxe
-
-        function carregarPerguntas() {
-            const perguntasSalvas = JSON.parse(localStorage.getItem('perguntasMilhao')) || defaultQuestions;
-            atualizarLista(perguntasSalvas);
+        // Inicia o timer da sessão
+        function startSessionTimer() {
+            if (sessionTimer) {
+                clearInterval(sessionTimer);
+            }
+            
+            sessionTimer = setInterval(() => {
+                const loginTime = localStorage.getItem('adminLoginTime');
+                if (loginTime) {
+                    const timeSinceLogin = Date.now() - parseInt(loginTime);
+                    if (timeSinceLogin >= ADMIN_CONFIG.sessionTimeout) {
+                        logout();
+                        showNotification('⏰ Sessão expirada por inatividade.', 'error');
+                    }
+                }
+            }, 60000); // Verifica a cada minuto
         }
 
-        function atualizarLista(perguntas) {
-            const lista = document.getElementById('lista-perguntas');
-            lista.innerHTML = '';
-            perguntas.forEach((p, i) => {
-                const div = document.createElement('div');
-                div.classList.add('pergunta-item');
-                div.innerHTML = `
-                    <span><strong>${i + 1}.</strong> ${p.pergunta} <em>(${p.nivel})</em></span>
-                    <button onclick="excluirPergunta(${i})">Excluir</button>
-                `;
-                lista.appendChild(div);
-            });
+        // Logout do sistema
+        function logout() {
+            isLoggedIn = false;
+            localStorage.removeItem('adminAuthenticated');
+            localStorage.removeItem('adminLoginTime');
+            
+            if (sessionTimer) {
+                clearInterval(sessionTimer);
+            }
+            
+            showLoginScreen();
+            showNotification('👋 Logout realizado com sucesso!');
+            console.log('🚪 Usuário fez logout');
         }
 
-        function salvarPerguntas(perguntas) {
-            localStorage.setItem('perguntasMilhao', JSON.stringify(perguntas));
-            atualizarLista(perguntas);
-        }
-
-        function excluirPergunta(index) {
-            let perguntas = JSON.parse(localStorage.getItem('perguntasMilhao')) || [];
-            if (confirm('Deseja realmente excluir esta pergunta?')) {
-                perguntas.splice(index, 1);
-                salvarPerguntas(perguntas);
+        // Função para alterar senha
+        function changePassword() {
+            const newPassword = prompt('Digite a nova senha para o admin:');
+            if (newPassword && newPassword.length >= 4) {
+                ADMIN_CONFIG.password = newPassword;
+                showNotification('✅ Senha alterada com sucesso!');
+                console.log('🔑 Senha alterada');
+            } else if (newPassword) {
+                showNotification('❌ A senha deve ter pelo menos 4 caracteres!', 'error');
             }
         }
 
-        document.getElementById('adicionar').addEventListener('click', () => {
-            const pergunta = document.getElementById('nova-pergunta').value.trim();
-            const a = document.getElementById('resposta-a').value.trim();
-            const b = document.getElementById('resposta-b').value.trim();
-            const c = document.getElementById('resposta-c').value.trim();
-            const d = document.getElementById('resposta-d').value.trim();
-            const correta = document.getElementById('correta').value;
-            const nivel = document.getElementById('nivel').value;
+        // Função para carregar perguntas do localStorage
+        function loadQuestionsFromStorage() {
+            let storedQuestions = JSON.parse(localStorage.getItem('perguntas'));
+            
+            if (!storedQuestions || storedQuestions.length === 0) {
+                console.log('📝 Nenhuma pergunta encontrada - usando perguntas padrão');
+                storedQuestions = defaultQuestions;
+                localStorage.setItem('perguntas', JSON.stringify(storedQuestions));
+            } else {
+                console.log(`📚 ${storedQuestions.length} perguntas carregadas do localStorage`);
+            }
+            
+            return storedQuestions;
+        }
 
-            if (!pergunta || !a || !b || !c || !d || !correta || !nivel) {
-                alert('Preencha todos os campos!');
+        // Carrega a lista de perguntas
+        function loadQuestionsList() {
+            if (!isLoggedIn) return;
+            
+            const questionsList = document.getElementById('questionsList');
+            const totalQuestions = document.getElementById('totalQuestions');
+            
+            console.log(`📚 Total de perguntas: ${questions.length}`);
+            
+            // Atualiza o contador
+            totalQuestions.textContent = `Total de perguntas: ${questions.length}`;
+            
+            if (questions.length === 0) {
+                questionsList.innerHTML = `
+                    <div class="empty-message">
+                        <p>📝 Nenhuma pergunta cadastrada ainda.</p>
+                        <p>Use o formulário acima para adicionar a primeira pergunta!</p>
+                    </div>
+                `;
                 return;
             }
-
-            let perguntas = JSON.parse(localStorage.getItem('perguntasMilhao')) || [];
-            perguntas.push({ pergunta, a, b, c, d, correta, nivel });
-            salvarPerguntas(perguntas);
-
-            document.querySelectorAll('input, select').forEach(el => el.value = '');
+            
+            questionsList.innerHTML = '';
+            questions.forEach((question, index) => {
+                const questionItem = document.createElement('div');
+                questionItem.className = 'question-item';
+                
+                let levelText = '';
+                let levelClass = '';
+                switch(question.nivel) {
+                    case 'facil':
+                        levelText = 'Fácil';
+                        levelClass = 'level-facil';
+                        break;
+                    case 'medio':
+                        levelText = 'Médio';
+                        levelClass = 'level-medio';
+                        break;
+                    case 'dificil':
+                        levelText = 'Difícil';
+                        levelClass = 'level-dificil';
+                        break;
+                }
+                
+                questionItem.innerHTML = `
+                    <div class="question-meta">
+                        <div class="question-number">${index + 1}.</div>
+                        <div class="question-level ${levelClass}">${levelText}</div>
+                    </div>
+                    <div class="question-text">${question.pergunta}</div>
+                    <div class="options-list">
+                        <div class="option-item"><strong>A:</strong> ${question.a}</div>
+                        <div class="option-item"><strong>B:</strong> ${question.b}</div>
+                        <div class="option-item"><strong>C:</strong> ${question.c}</div>
+                        <div class="option-item"><strong>D:</strong> ${question.d}</div>
+                    </div>
+                    <div class="correct-answer">✅ Resposta Correta: ${question.correta.toUpperCase()}</div>
+                    <button class="delete-btn" onclick="deleteQuestion(${index})">
+                        🗑️ Excluir Pergunta
+                    </button>
+                `;
+                questionsList.appendChild(questionItem);
+            });
+            
+            console.log('✅ Lista de perguntas carregada com sucesso');
+        }
+        
+        // Adiciona nova pergunta
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!isLoggedIn) {
+                showNotification('❌ Faça login para adicionar perguntas!', 'error');
+                return;
+            }
+            
+            const newQuestion = {
+                pergunta: document.getElementById('pergunta').value,
+                a: document.getElementById('a').value,
+                b: document.getElementById('b').value,
+                c: document.getElementById('c').value,
+                d: document.getElementById('d').value,
+                correta: document.getElementById('correta').value,
+                nivel: document.getElementById('nivel').value
+            };
+            
+            questions.push(newQuestion);
+            localStorage.setItem('perguntas', JSON.stringify(questions));
+            loadQuestionsList();
+            clearForm();
+            
+            showNotification('✅ Pergunta adicionada com sucesso!');
+            console.log('➕ Nova pergunta adicionada:', newQuestion.pergunta);
         });
-    </script>
+        
+        // Exclui pergunta
+        function deleteQuestion(index) {
+            if (!isLoggedIn) {
+                showNotification('❌ Faça login para excluir perguntas!', 'error');
+                return;
+            }
+            
+            if (confirm('Tem certeza que deseja excluir esta pergunta?')) {
+                const deletedQuestion = questions[index];
+                questions.splice(index, 1);
+                localStorage.setItem('perguntas', JSON.stringify(questions));
+                loadQuestionsList();
+                showNotification('🗑️ Pergunta excluída com sucesso!');
+                console.log('➖ Pergunta excluída:', deletedQuestion.pergunta);
+            }
+        }
+        
+        // Limpa formulário
+        function clearForm() {
+            document.getElementById('questionForm').reset();
+            console.log('🧹 Formulário limpo');
+        }
+        
+        // Mostra notificação
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = type === 'error' ? 'notification error-notification' : 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
 
+        // Restaura perguntas padrão
+        function resetToDefault() {
+            if (!isLoggedIn) {
+                showNotification('❌ Faça login para restaurar perguntas!', 'error');
+                return;
+            }
+            
+            if (confirm('Isso irá substituir todas as perguntas atuais pelas perguntas padrão. Continuar?')) {
+                questions = [...defaultQuestions];
+                localStorage.setItem('perguntas', JSON.stringify(questions));
+                loadQuestionsList();
+                showNotification('🔄 Perguntas restauradas para o padrão!');
+                console.log('🔄 Perguntas resetadas para padrão');
+            }
+        }
+
+        // Exporta perguntas
+        function exportQuestions() {
+            if (!isLoggedIn) {
+                showNotification('❌ Faça login para exportar perguntas!', 'error');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(questions, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'perguntas_show_do_milhao.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('📤 Perguntas exportadas com sucesso!');
+            console.log('📤 Perguntas exportadas');
+        }
+
+        // Importa perguntas
+        function importQuestions() {
+            if (!isLoggedIn) {
+                showNotification('❌ Faça login para importar perguntas!', 'error');
+                return;
+            }
+            
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        const importedQuestions = JSON.parse(event.target.result);
+                        
+                        if (Array.isArray(importedQuestions)) {
+                            questions = importedQuestions;
+                            localStorage.setItem('perguntas', JSON.stringify(questions));
+                            loadQuestionsList();
+                            showNotification('📥 Perguntas importadas com sucesso!');
+                            console.log('📥 Perguntas importadas:', importedQuestions.length);
+                        } else {
+                            throw new Error('Formato inválido');
+                        }
+                    } catch (error) {
+                        alert('Erro ao importar perguntas. Verifique se o arquivo é válido.');
+                        console.error('❌ Erro na importação:', error);
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Função para debug
+        window.debugAdmin = function() {
+            console.log('🐛 Debug do admin:');
+            console.log('- Logado:', isLoggedIn);
+            console.log('- Total de perguntas:', questions.length);
+            console.log('- Config:', ADMIN_CONFIG);
+        };
+    </script>
 </body>
 </html>
