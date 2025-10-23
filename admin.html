@@ -504,7 +504,9 @@
 
         // PERGUNTAS PRÉ-CADASTRADAS
         const defaultQuestions = [
-            // PERGUNTAS FÁCEIS (15)
+             // PERGUNTAS PRÉ-CADASTRADAS - 60 PERGUNTAS
+        const defaultQuestions = [
+            // ========== NÍVEL FÁCIL (20) ==========
             {
                 pergunta: "Qual é a cor padrão para uniformes em áreas de produção de alimentos?",
                 a: "Preto",
@@ -640,235 +642,360 @@
                 correta: "b",
                 nivel: "facil"
             },
+            {
+                pergunta: "O leite é considerado um alimento potencialmente alergênico?",
+                a: "Não, nunca causa alergias",
+                b: "Sim, para pessoas com intolerância à lactose ou alergia à proteína do leite",
+                c: "Apenas o leite integral",
+                d: "Somente para crianças",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual destes é um exemplo de contaminante físico em laticínios?",
+                a: "Bactéria patogênica",
+                b: "Fragmento de vidro de lâmpada",
+                c: "Resíduo de antibiótico",
+                d: "Proteína alergênica",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "A faixa de temperatura entre 5°C e 60°C é conhecida como Zona de Perigo porque:",
+                a: "Os queijos não maturam bem nessa temperatura",
+                b: "Os microrganismos se multiplicam rapidamente nessa faixa",
+                c: "O leite coagula nessa temperatura",
+                d: "A manteiga derrete",
+                correta: "b",
+                nivel: "facil"
+            },
+            {
+                pergunta: "A presença de fragmentos de ossos no leite moído é um exemplo de contaminante:",
+                a: "Químico",
+                b: "Biológico",
+                c: "Alergênico",
+                d: "Físico",
+                correta: "d",
+                nivel: "facil"
+            },
+            {
+                pergunta: "Qual destes é um alergênico comum presente em laticínios?",
+                a: "Sal",
+                b: "Proteína do leite",
+                c: "Açúcar",
+                d: "Corante natural",
+                correta: "b",
+                nivel: "facil"
+            },
 
-            // PERGUNTAS MÉDIAS (15)
+            // ========== NÍVEL MÉDIO (25) ==========
             {
-                pergunta: "Qual é o tempo mínimo de maturação do queijo Parmesão?",
-                a: "6 meses",
-                b: "12 meses",
-                c: "18 meses",
-                d: "24 meses",
+                pergunta: "Instruções de trabalho em uma queijaria servem para:",
+                a: "Evidenciar que existe um documento para a auditoria",
+                b: "Instruir os funcionários sobre como executar atividades específicas com segurança",
+                c: "Não servem para nada na prática",
+                d: "Mostrar para o auditor o papel",
                 correta: "b",
                 nivel: "medio"
             },
             {
-                pergunta: "Por que o queijo Parmesão precisa ser virado regularmente durante a maturação?",
-                a: "Para desenvolver sabor uniforme",
-                b: "Para evitar deformidades",
-                c: "Para secar por igual todos os lados",
-                d: "Todas as alternativas anteriores",
-                correta: "d",
-                nivel: "medio"
-            },
-            {
-                pergunta: "Qual a temperatura ideal da sala de maturação do Parmesão?",
-                a: "0-5°C",
-                b: "15-20°C",
-                c: "25-30°C",
-                d: "35-40°C",
+                pergunta: "Qual é o principal objetivo da pasteurização do leite em laticínios?",
+                a: "Melhorar sabor do leite",
+                b: "Eliminar microrganismos patogênicos sem alterar significativamente as propriedades",
+                c: "Reduzir gordura do leite",
+                d: "Aumentar viscosidade para iogurte",
                 correta: "b",
                 nivel: "medio"
             },
             {
-                pergunta: "O que acontece se o queijo não for salgado corretamente?",
-                a: "Pode mofar mais facilmente",
-                b: "Não desenvolve o sabor característico",
-                c: "Pode inchar ou deformar",
-                d: "Todas as alternativas",
-                correta: "d",
-                nivel: "medio"
-            },
-            {
-                pergunta: "Qual é a principal função do sal no queijo Parmesão?",
-                a: "Apenas dar sabor",
-                b: "Conservar e controlar umidade",
-                c: "Deixar a cor mais amarela",
-                d: "Aumentar o peso",
+                pergunta: "Qual é a frequência mínima recomendada para higienização das mãos em uma queijaria?",
+                a: "Apenas antes do turno",
+                b: "Antes e depois de manipular queijos, após usar sanitário e ao trocar de atividade",
+                c: "Uma vez por hora",
+                d: "Apenas após usar sanitário",
                 correta: "b",
                 nivel: "medio"
             },
             {
-                pergunta: "Por que é importante controlar a umidade na sala de maturação?",
-                a: "Para o queijo não secar demais ou mofar",
-                b: "Para econom energia",
-                c: "Para os funcionários não sentirem calor",
-                d: "Para as embalagens não estragarem",
+                pergunta: "Qual é a função do POP (Procedimento Operacional Padrão) em laticínios?",
+                a: "Definir metas financeiras",
+                b: "Padronizar atividades críticas como higienização e pasteurização",
+                c: "Controlar estoque de embalagens",
+                d: "Treinar equipe de vendas",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a principal consequência da ausência de barreira física entre área suja e limpa em laticínios?",
+                a: "Aumento de produtividade",
+                b: "Contaminação cruzada de microrganismos",
+                c: "Redução de custos",
+                d: "Melhoria sensorial dos queijos",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que significa contaminação cruzada em uma queijaria?",
+                a: "Transferência de microrganismos entre queijos crus e maturados",
+                b: "Uso de utensílios novos sem lavar",
+                c: "Higienização inadequada das mãos",
+                d: "Mistura de diferentes tipos de sal",
                 correta: "a",
                 nivel: "medio"
             },
             {
-                pergunta: "O que indica a presença de bolhas ou rachaduras no queijo?",
-                a: "Que está no ponto certo",
-                b: "Problemas na fabricação ou contaminação",
-                c: "Que precisa de mais sal",
-                d: "Que está muito seco",
+                pergunta: "Qual é a função das telas nas janelas de uma queijaria?",
+                a: "Melhorar ventilação",
+                b: "Diminuir ruído externo",
+                c: "Reduzir luz solar direta",
+                d: "Evitar entrada de insetos e pragas",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Por que é proibido armazenar produtos de limpeza próximos aos queijos?",
+                a: "Para evitar desperdício de produtos",
+                b: "Para facilitar acesso à limpeza",
+                c: "Para reduzir custos de armazenamento",
+                d: "Para evitar contaminação química dos queijos",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a função do controle de qualidade em laticínios?",
+                a: "Melhorar aparência das embalagens",
+                b: "Garantir segurança e conformidade dos produtos lácteos",
+                c: "Reduzir custos de produção",
+                d: "Cumprir normas estéticas",
                 correta: "b",
                 nivel: "medio"
             },
             {
-                pergunta: "Qual cuidado é essencial na limpeza das formas do queijo?",
-                a: "Usar apenas água quente",
-                b: "Secar ao sol",
-                c: "Limpeza completa sem resíduos de leite",
-                d: "Lavar apenas uma vez por semana",
+                pergunta: "Qual é a ação correta após derramamento de produto químico na área de produção?",
+                a: "Limpar imediatamente seguindo POP específico",
+                b: "Continuar a produção e limpar depois",
+                c: "Ignorar se for pouco volume",
+                d: "Jogar água para diluir e continuar",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que é APPCC no contexto de laticínios?",
+                a: "Análise de Perigos e Pontos Críticos de Controle",
+                b: "Análise de Processos e Produção de Controle",
+                c: "Avaliação de Produtos e Procedimentos de Controle",
+                d: "Análise de Padrões e Procedimentos de Controle",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a diferença entre limpeza e sanitização em equipamentos de laticínios?",
+                a: "Limpeza remove resíduos de leite, sanitização reduz microrganismos a nível seguro",
+                b: "São a mesma coisa",
+                c: "Limpeza é para pisos, sanitização para tanques",
+                d: "Limpeza usa água, sanitização usa vapor",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é o objetivo da rastreabilidade em laticínios?",
+                a: "Aumentar preço do queijo",
+                b: "Permitir recall eficiente de lotes contaminados",
+                c: "Reduzir custos de produção",
+                d: "Mostrar para o auditor que existe",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O que significa FIFO no controle de estoque de queijos?",
+                a: "First In, First Out (Primeiro a entrar, primeiro a sair)",
+                b: "Fast In, Fast Out (Rápido a entrar, rápido a sair)",
+                c: "Fresh In, Fresh Out (Fresco a entrar, fresco a sair)",
+                d: "First In, First Order (Primeiro a entrar, primeiro pedido)",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Qual é a importância da calibração de termômetros em laticínios?",
+                a: "Garantir medições precisas de temperatura na pasteurização e resfriamento",
+                b: "Reduzir consumo de energia",
+                c: "Melhorar aparência dos equipamentos",
+                d: "Aumentar velocidade de produção",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "O biofilme em um equipamento é uma contaminação:",
+                a: "Microbiológica",
+                b: "Química",
+                c: "Física",
+                d: "Alergênica",
+                correta: "a",
+                nivel: "medio"
+            },
+            {
+                pergunta: "A toxina produzida pela bactéria Staphylococcus aureus em leite é um exemplo de perigo:",
+                a: "Físico",
+                b: "Químico",
+                c: "Alergênico",
+                d: "Biológico",
+                correta: "d",
+                nivel: "medio"
+            },
+            {
+                pergunta: "A presença de antibióticos no leite acima do limite permitido é classificada como perigo:",
+                a: "Físico",
+                b: "Químico",
+                c: "Alergênico",
+                d: "Biológico",
+                correta: "b",
+                nivel: "medio"
+            },
+            {
+                pergunta: "Em uma queijaria que produz queijos com e sem lactose, o maior risco de contaminação cruzada é do tipo:",
+                a: "Físico",
+                b: "Químico",
+                c: "Alergênico",
+                d: "Biológico (bacteriano)",
                 correta: "c",
                 nivel: "medio"
             },
             {
-                pergunta: "Por que o leite para Parmesão deve ser de alta qualidade?",
-                a: "Para o queijo ter melhor rendimento",
-                b: "Para evitar defeitos e garantir segurança",
-                c: "Para correr mais rápido o processo",
-                d: "Para usar menos coalho",
+                pergunta: "Qual é o objetivo de estabelecer um 'Limite Crítico' para a pasteurização?",
+                a: "Definir a margem de lucro do leite",
+                b: "Separar aceitação da rejeição garantindo destruição de patógenos",
+                c: "Estipular o tempo máximo de processamento",
+                d: "Controlar o custo da energia",
                 correta: "b",
                 nivel: "medio"
             },
             {
-                pergunta: "O que fazer se notar mofo em um queijo durante a maturação?",
-                a: "Ignorar, é normal",
-                b: "Retirar imediatamente e informar o supervisor",
-                c: "Lavar com água e continuar",
-                d: "Vender mais barato",
+                pergunta: "A água potável para uso em laticínios deve ser:",
+                a: "Incolor, inodora e insípida",
+                b: "Livre de coliformes e atendendo aos padrões microbiológicos legais",
+                c: "Sempre filtrada com osmose reversa",
+                d: "Com pH sempre igual a 7",
                 correta: "b",
                 nivel: "medio"
             },
             {
-                pergunta: "Qual a importância de usar o uniforme completo na produção?",
-                a: "Seguir regras da empresa",
-                b: "Proteger o queijo de contaminação",
-                c: "Ficar mais bonito",
-                d: "Apenas para visitas",
+                pergunta: "A etapa de 'Ação Corretiva' no plano APPCC de laticínios é acionada quando:",
+                a: "Um novo funcionário é contratado",
+                b: "O monitoramento indica desvio no PCC de pasteurização",
+                c: "Há uma mudança na embalagem do queijo",
+                d: "O queijo é liberado para venda",
                 correta: "b",
                 nivel: "medio"
             },
             {
-                pergunta: "Como saber se o queijo está no ponto de virar?",
-                a: "Pela textura da casca",
-                b: "Pelo peso",
-                c: "Pelo cheiro característico",
-                d: "Pela cor amarela",
+                pergunta: "A bactéria Listeria monocytogenes é preocupante em queijos porque:",
+                a: "Pode crescer em temperaturas de refrigeração",
+                b: "Sobrevive apenas em queijos cozidos",
+                c: "É eliminada na pasteurização mas contamina após",
+                d: "Afeta apenas queijos frescos",
                 correta: "a",
                 nivel: "medio"
             },
             {
-                pergunta: "Por que não se pode usar jóias na produção?",
-                a: "Podem cair no queijo",
-                b: "Acumulam sujeira e bactérias",
-                c: "Atrás clientes",
-                d: "As alternativas a e b",
-                correta: "d",
-                nivel: "medio"
-            },
-            {
-                pergunta: "O que significa 'curar' o queijo?",
-                a: "Cozinhar novamente",
-                b: "Processo de maturação e desenvolvimento",
-                c: "Consertar defeitos",
-                d: "Cortar em pedaços",
+                pergunta: "Qual a diferença entre limpeza e desinfecção de tanques de leite?",
+                a: "São sinônimos",
+                b: "Limpeza remove resíduos de leite, desinfecção reduz microrganismos a nível seguro",
+                c: "Limpeza usa água quente, desinfecção usa água fria",
+                d: "Desinfecção remove gordura, limpeza elimina bactérias",
                 correta: "b",
                 nivel: "medio"
             },
-            {
-                pergunta: "Qual o principal indicador de qualidade do Parmesão pronto?",
-                a: "Textura quebradiça e sabor intenso",
-                b: "Casca molenga",
-                c: "Cor branca",
-                d: "Cheio de buracos",
-                correta: "a",
-                nivel: "medio"
-            },
-
             // PERGUNTAS DIFÍCEIS (10)
-            {
-                pergunta: "Instruções de trabalho ou procedimentos servem para:",
-                a: "Evidenciar que existe um documento para aquele processo",
-                b: "Instruir as pessoas a fazer determinada atividade e cabe as pessoas seguir",
-                c: "Não servem para nada",
-                d: "Mostrar para o auditor o papel",
-                correta: "b",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Qual é o principal objetivo da pasteurização do leite?",
-                a: "Melhorar sabor",
-                b: "Eliminar bactérias patogênicas",
-                c: "Reduzir gordura",
-                d: "Aumentar viscosidade",
-                correta: "b",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Qual é a frequência mínima recomendada para higienização das mãos em uma indústria de laticínios?",
-                a: "Apenas antes do turno",
-                b: "Antes e depois de manipular alimentos",
-                c: "Uma vez por hora",
-                d: "Apenas após usar sanitário",
-                correta: "b",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Qual é a função do POP (Procedimento Operacional Padrão)?",
-                a: "Definir metas financeiras",
-                b: "Padronizar atividades críticas",
-                c: "Controlar estoque",
-                d: "Treinar equipe de vendas",
-                correta: "b",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Qual é a principal consequência da ausência de barreira física entre áreas sujas e limpas?",
-                a: "Aumento de produtividade",
-                b: "Contaminação cruzada",
-                c: "Redução de custos",
-                d: "Melhoria sensorial",
-                correta: "b",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "O que significa contaminação cruzada?",
-                a: "Mistura de alimentos crus e cozidos",
-                b: "Uso de utensílios novos",
-                c: "Higienização inadequada das mãos",
-                d: "Mistura de temperos",
-                correta: "a",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Qual é a função das telas nas janelas?",
-                a: "Melhorar ventilação",
-                b: "Diminuir ruído",
-                c: "Reduzir luz solar",
-                d: "Evitar entrada de pragas",
-                correta: "d",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Por que é proibido armazenar produtos químicos próximos aos alimentos?",
-                a: "Para evitar desperdício",
-                b: "Para facilitar acesso",
-                c: "Para reduzir custos",
-                d: "Para evitar contaminação",
-                correta: "d",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Qual é a função do controle de qualidade?",
-                a: "Melhorar aparência",
-                b: "Garantir segurança e conformidade",
-                c: "Reduzir custos",
-                d: "Cumprir normas estéticas",
-                correta: "b",
-                nivel: "dificil"
-            },
-            {
-                pergunta: "Qual é a ação correta após derramamento de produto químico?",
-                a: "Limpar imediatamente seguindo POP",
-                b: "Continuar produção",
-                c: "Ignorar se for pouco",
-                d: "Jogar água e seguir",
-                correta: "a",
-                nivel: "dificil"
-            }
+{
+    pergunta: "Quais são os PCC's da unidade?",
+    a: "Filtro, pasteurizador, detector de metais",
+    b: "Bactofuga, detector de metais, desnatadeira",
+    c: "Detector de metais, pasteurizador e Antibiótico",
+    d: "Antibiótico, bactofuga e desnatadeira",
+    correta: "c",
+    nivel: "dificil"
+},
+{
+    pergunta: "O filtro PPRO avalia qual risco?",
+    a: "Físico",
+    b: "Biológico",
+    c: "Químico",
+    d: "Alergênico",
+    correta: "a",
+    nivel: "dificil"
+},
+{
+    pergunta: "A análise de antibiótico é um PCC de risco?",
+    a: "Físico",
+    b: "Biológico",
+    c: "Químico",
+    d: "Alergênico",
+    correta: "c",
+    nivel: "dificil"
+},
+{
+    pergunta: "O detector de metal é um PCC de risco?",
+    a: "Físico",
+    b: "Biológico",
+    c: "Químico",
+    d: "Alergênico",
+    correta: "a",
+    nivel: "dificil"
+},
+{
+    pergunta: "O Pasteurizador é um PCC de risco?",
+    a: "Físico",
+    b: "Biológico",
+    c: "Químico",
+    d: "Alergênico",
+    correta: "b",
+    nivel: "dificil"
+},
+{
+    pergunta: "Qual é a principal função do CIP (Cleaning in Place)?",
+    a: "Limpeza manual de tanques",
+    b: "Limpeza automatizada sem desmontagem",
+    c: "Controle microbiológico",
+    d: "Higienização de uniformes",
+    correta: "b",
+    nivel: "dificil"
+},
+{
+    pergunta: "O que é um limite crítico no APPCC?",
+    a: "Um valor que separa a aceitabilidade da inaceitabilidade",
+    b: "O horário de trabalho dos funcionários",
+    c: "O custo máximo de produção",
+    d: "A temperatura ambiente da fábrica",
+    correta: "a",
+    nivel: "dificil"
+},
+{
+    pergunta: "Qual é a diferença entre perigo e risco na segurança de alimentos?",
+    a: "Perigo é fonte potencial de dano, risco é probabilidade de ocorrência",
+    b: "São sinônimos",
+    c: "Perigo é químico, risco é biológico",
+    d: "Perigo é físico, risco é microbiológico",
+    correta: "a",
+    nivel: "dificil"
+},
+{
+    pergunta: "O que significa a sigla PPHO?",
+    a: "Procedimento Padrão de Higiene Operacional",
+    b: "Plano de Produção e Higiene Organizacional",
+    c: "Programa de Prevenção de Higiene Ocupacional",
+    d: "Procedimento de Proteção e Higiene Operacional",
+    correta: "a",
+    nivel: "dificil"
+},
+{
+    pergunta: "Qual é a temperatura e tempo mínimos para pasteurização HTST do leite?",
+    a: "72°C por 15 segundos",
+    b: "85°C por 5 minutos",
+    c: "63°C por 30 minutos",
+    d: "95°C por 1 minuto",
+    correta: "a",
+    nivel: "dificil"
+}
         ];
 
         // Variáveis globais
